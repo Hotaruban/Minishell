@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 23:21:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 22:58:04 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	parce_list_var(t_env *env, char *var)
 	while (tmp_env)
 	{
 		if (ft_strncmp(tmp_env->name, var, ft_strlen(var)) == 0
-				&& ft_strncmp(tmp_env->name + ft_strlen(var), "=", 1) == 0)
+			&& ft_strncmp(tmp_env->name + ft_strlen(var), "=", 1) == 0)
 		{
 			if (prev_env)
 				prev_env->next = tmp_env->next;

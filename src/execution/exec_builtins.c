@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/12 14:31:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:32:36 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ int	execute_builtins(t_data *data, char **env, int index)
 	return (CMD_NOT_FOUND);
 }
 
+static bool	is_parent_builtin(t_data *data, int index)
+{
+	if (ft_strncmp(data->cmd[index].cmd[0], "exit", 5) == 0
+		|| (ft_strncmp(data->cmd[index].cmd[0], "export", 7) == 0
+			&& data->cmd[index].cmd[1] != NULL)
+		|| ft_strncmp(data->cmd[index].cmd[0], "unset", 6) == 0)
+		return (true);
+	return (false);
+}
+
 bool	builtin_in_parent(t_data *data, char **env, int index)
 {
 	int	status;
@@ -59,20 +69,18 @@ bool	builtin_in_parent(t_data *data, char **env, int index)
 	status = CMD_OK;
 	if (data->cmd[index].pipe_in == false && data->cmd[index].pipe_out == false)
 	{
-		if (data->cmd[index].file_out == true || data->cmd[index].file_in == true)
-			return (data->status = check_access_files(data, index), true);
+		if (data->cmd[index].file_out == true
+			|| data->cmd[index].file_in == true)
+			return (data->status = check_access_files(data, index, 0), true);
 		if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)
 			return (data->status = execute_builtins(data, env, index), true);
 	}
 	if (data->cmd[index].pipe_in == false && \
 		data->cmd[index].pipe_out == false)
 	{
-		if (ft_strncmp(data->cmd[index].cmd[0], "exit", 5) == 0
-			|| (ft_strncmp(data->cmd[index].cmd[0], "export", 7) == 0
-				&& data->cmd[index].cmd[1] != NULL)
-			|| ft_strncmp(data->cmd[index].cmd[0], "unset", 6) == 0)
+		if (is_parent_builtin (data, index) == true)
 		{
-			if (check_access_files(data, index) != CMD_OK)
+			if (check_access_files(data, index, 0) != CMD_OK)
 				status = CMD_ERROR;
 			data->status = execute_builtins(data, env, index) + status;
 			return (true);

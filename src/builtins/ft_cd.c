@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 23:21:01 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:01:08 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	set_oldpwd(t_env *env, char *oldpwd)
 		else if (tmp_env->next == NULL)
 		{
 			add_variable(tmp_env, oldpwd);
-			break ;	
+			break ;
 		}
 		tmp_env = tmp_env->next;
 	}
@@ -58,7 +58,7 @@ static void	set_variable_pwd(t_env *env)
 		tmp_env = tmp_env->next;
 	}
 	set_oldpwd(env, tmp_pwd);
-}	
+}
 
 static int	change_directory(char *path, t_env *env)
 {
@@ -85,12 +85,14 @@ int	ft_cd(t_data *data, int index)
 		return (!change_directory(path, data->env));
 	}
 	if (data->cmd[index].cmd[2])
-		return (error_cmd(data->cmd[index].cmd[0], "too many arguments"), CMD_EXIT);
+		return (error_cmd(data->cmd[index].cmd[0],
+				"too many arguments"), CMD_EXIT);
 	if (ft_strncmp(data->cmd[index].cmd[1], "-", 2) == 0)
 	{
 		path = get_env_value("OLDPWD", &data->env, 6, 0);
 		if (!path)
-			return (error_cmd(data->cmd[index].cmd[0], "OLDPWD not set"), CMD_EXIT);
+			return (error_cmd(data->cmd[index].cmd[0],
+					"OLDPWD not set"), CMD_EXIT);
 		return (!change_directory(path, data->env));
 	}
 	path = data->cmd[index].cmd[1];
