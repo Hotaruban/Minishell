@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/14 21:22:46 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/14 21:38:34 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ SRC_FILES = main.c \
 			redirection/open_infiles.c \
 			redirection/open_outfiles.c \
 			redirection/redirection.c \
-			environment/set_env_jimmy.c \
+			environment/set_env.c \
 			environment/free_env.c \
 			free_functions.c \
 			signal.c
