@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:29:45 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:31:12 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int		redir_infiles(t_data *data, int index);
 int		redir_outfiles(t_data *data, int index);
 int		redirection_pipes(t_data *data, int index);
 int		redirection_files(t_data *data, int index);
-int		check_access_files(t_data *data, int index);
+int		check_access_files(t_data *data, int index, int i);
 void	open_heredoc(t_data *data);
 
 /*Builtins*/

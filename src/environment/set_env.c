@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_env_jimmy.c                                    :+:      :+:    :+:   */
+/*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/11/16 17:18:53 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:58:51 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ char	**env_array(t_env *env)
 	tmp = env;
 	ev = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (ev == NULL)
-	{
-		error_system("malloc failed\n");
-		return (NULL);
-	}
+		return (error_system("malloc failed\n"), NULL);
 	ev[len_env] = NULL;
 	while (len_env--)
 	{

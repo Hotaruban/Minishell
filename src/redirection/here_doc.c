@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/14 15:16:28 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:53:49 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	creat_here_doc(t_data *data, int index, int i_file)
 		write(STDOUT_FILENO, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
 		if (ft_strncmp(line, data->cmd[index].limiters[i_file],
-			ft_strlen(data->cmd[index].limiters[i_file])) == 0
+				ft_strlen(data->cmd[index].limiters[i_file])) == 0
 			&& ((ft_strlen(line) - 1)
-			== ft_strlen(data->cmd[index].limiters[i_file])))
+				== ft_strlen(data->cmd[index].limiters[i_file])))
 			break ;
 		write(data->pipefd[1], line, ft_strlen(line));
 		free(line);
@@ -49,7 +49,8 @@ void	open_heredoc(t_data *data)
 		{
 			fd = creat_here_doc(data, i, j);
 			j++;
-			if (data->cmd[i].here_doc_in == true && data->cmd[i].nb_heredocs == j)
+			if (data->cmd[i].here_doc_in == true
+				&& data->cmd[i].nb_heredocs == j)
 				data->cmd[i].here_doc_fd = dup(fd);
 			close(fd);
 		}
