@@ -6,45 +6,46 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:48:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 00:01:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool type_count_malloc(t_tokens *tokens)
+bool	type_count_malloc(t_tokens *tokens)
 {
-	int size;
+	int	size;
 
 	size = tokens->pipe_count + 1;
-	tokens->arg_count = (int *)ft_calloc(sizeof(int) , (size + 1));
+	tokens->arg_count = (int *)ft_calloc(sizeof(int), (size + 1));
 	if (tokens->arg_count == NULL)
 		return (false);
-	tokens->heredoc_count = (int *)ft_calloc(sizeof(int) , (size + 1));
+	tokens->heredoc_count = (int *)ft_calloc(sizeof(int), (size + 1));
 	if (tokens->heredoc_count == NULL)
 		return (false);
-	tokens->infile_count = (int *)ft_calloc(sizeof(int) , (size + 1));
+	tokens->infile_count = (int *)ft_calloc(sizeof(int), (size + 1));
 	if (tokens->infile_count == NULL)
 		return (false);
 	tokens->outfile_count = (int *)ft_calloc(sizeof(int), (size + 1));
 	if (tokens->outfile_count == NULL)
 		return (false);
-	tokens->append_count = (int *)ft_calloc(sizeof(int) , (size + 1));	
+	tokens->append_count = (int *)ft_calloc(sizeof(int), (size + 1));
 	if (tokens->append_count == NULL)
 		return (false);
 	return (true);
-}	
+}
 
 void	token_type_counter(t_tokens *tokens)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
-	while(i < (tokens->pipe_count + 1) && j < tokens->token_count)
+	while (i < (tokens->pipe_count + 1) && j < tokens->token_count)
 	{
-		while (j < tokens->token_count && tokens->token_type[j] != e_pipe && tokens->token_type[j] != e_void)
+		while (j < tokens->token_count && tokens->token_type[j] != e_pipe
+			&& tokens->token_type[j] != e_void)
 		{
 			if (!(ft_strncmp(tokens->tokens[j], "<<", 2)))
 				tokens->heredoc_count[i] += 1;
@@ -63,11 +64,11 @@ void	token_type_counter(t_tokens *tokens)
 	}
 }
 
-t_tk_type token_class(char *token, t_tk_type pre)
+t_tk_type	token_class(char *token, t_tk_type pre)
 {
-	if (!(ft_strncmp(token, "<>", 2)) || !(ft_strncmp(token, "><", 2)) 
+	if (!(ft_strncmp(token, "<>", 2)) || !(ft_strncmp(token, "><", 2))
 		|| (lenoptr(token) > 2))
-		return(e_void);
+		return (e_void);
 	if (*token == '<' || *token == '>')
 		return (e_rdrt);
 	else if (*token == '|')

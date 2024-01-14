@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:48:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:54:17 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,22 @@ bool	ft_iscmd(int c)
 bool	is_special(int c)
 {
 	if (c == '$' || c == '#' || c == '@' || c == '-'
-			|| c == '!' || c == '*')
+		|| c == '!' || c == '*')
 		return (true);
 	return (false);
 }
 
 int	lenoptr(char *line)
 {
-	if (*line + 1 && (line[1] == '&' || line[1] == '|' || line[1] == '<' || line[1] == '>'))
+	if (*line + 1 && (line[1] == '&' || line[1] == '|'
+			|| line[1] == '<' || line[1] == '>'))
 		return (2);
 	return (1);
 }
 
 int	lencmd(char *line)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (line[i] && ft_iscmd(line[i]))
@@ -47,20 +48,20 @@ int	lencmd(char *line)
 /*Check for unclosed quotes & Variables e.g. $$ -$ */
 bool	checker(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!(*line))
 		return (false);
-	while(*line)
+	while (*line)
 	{
 		while (*line && ft_isspace(*line))
 			line++;
 		if (!(*line))
 			break ;
-		else if(ft_isquote(*line))
+		else if (ft_isquote(*line))
 			i = lenquote(line);
-		else if(ft_isoptr(*line))
+		else if (ft_isoptr(*line))
 			i = lenoptr(line);
 		else if ((*line) == '$')
 			i = lenvar(line);

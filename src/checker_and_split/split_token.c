@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:49:14 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 23:56:06 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,22 @@ int	token_count(char *line)
 	i = 0;
 	if (!line)
 		return (tc);
-	
 	while (line[i])
 	{
 		while (ft_isspace(line[i]))
 			i++;
 		if (!(line[i]))
 			return (tc);
-		if(ft_istoken(line[i]))
+		if (ft_istoken(line[i]))
 			i += len_token(&line[i]);
-		else if(ft_isoptr(line[i]))
+		else if (ft_isoptr(line[i]))
 			i += lenoptr(&line[i]);
 		tc++;
 	}
 	return (tc);
 }
 
-char **token_split(char *line, int tc)
+char	**token_split(char *line, int tc)
 {
 	int		i;
 	int		j;
@@ -83,11 +82,11 @@ char **token_split(char *line, int tc)
 	return (tokens);
 }
 
-int split_token(char *line, t_tokens *stuff)
+int	split_token(char *line, t_tokens *stuff)
 {
-	int tc;
-	char **tokens;
-	
+	int		tc;
+	char	**tokens;
+
 	tc = token_count(line);
 	tokens = NULL;
 	if (tc == 0)

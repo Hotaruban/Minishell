@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:30 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:50:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 00:10:39 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ bool	ft_isoptr(int c)
 
 int	lenquote(char *line)
 {
-	int i;
-	char c;
+	int		i;
+	char	c;																/*WHAT MEAN THIS VARIABLE ?*/
 
 	c = line[0];
 	i = 1;
@@ -42,7 +42,7 @@ int	lenquote(char *line)
 	if (c == '\"')
 		printf("TOO REMOVE -- lenquote -- \n");								/* TOO REMOVE */
 																			// quote_error(2);
-	if (c == '\'')	
+	if (c == '\'')
 		printf("TOO REMOVE -- lenquote -- \n");								/* TOO REMOVE */
 																			// quote_error(1);
 	return (0);
@@ -50,7 +50,7 @@ int	lenquote(char *line)
 
 int	lenvar(char *line)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (!ft_isalpha(line[i]) && !(line[i] == '_') && !(line[i] == '?'))
