@@ -44,7 +44,7 @@
 // 	int	token_count;
 // 	int cmd_count;
 // }	t_tokens;
-#include "../../includes/minishell.h"
+#include "../includes/minishell.h"
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 {

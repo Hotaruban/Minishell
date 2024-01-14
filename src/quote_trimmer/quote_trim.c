@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   quote_trim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/20 22:59:49 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:23:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int	count_quote(char *token)
 {

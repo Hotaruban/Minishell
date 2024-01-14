@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2023/12/12 18:49:48 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/14 21:22:46 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,16 @@ AR = ar rc
 NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
-SRC_FILES = WOLF_PART/main.c \
-			WOLF_PART/checker_and_split/lexer.c \
-			WOLF_PART/checker_and_split/split_token.c \
-			WOLF_PART/identify_and_syntax/token_identify.c\
-			WOLF_PART/identify_and_syntax/token_syntax.c\
-			WOLF_PART/var_expander/expand_var.c \
-			WOLF_PART/var_expander/expander.c \
-			WOLF_PART/quote_trimmer/quote_trim.c \
-			WOLF_PART/struct_filler/struct_fill.c \
-			WOLF_PART/utils/utils_1.c \
+SRC_FILES = main.c \
+			checker_and_split/lexer.c \
+			checker_and_split/split_token.c \
+			identify_and_syntax/token_identify.c\
+			identify_and_syntax/token_syntax.c\
+			var_expander/expand_var.c \
+			var_expander/expander.c \
+			quote_trimmer/quote_trim.c \
+			struct_filler/struct_fill.c \
+			utils/utils_1.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \
@@ -57,7 +57,6 @@ SRC_FILES = WOLF_PART/main.c \
 			environment/free_env.c \
 			free_functions.c \
 			signal.c
-			# WOLF_PART/environment/set_env.c 
 
 OBJ_DIR = obj
 INC_DIR = includes

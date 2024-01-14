@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/10 14:55:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:23:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,8 @@
 // 	char			**limiters;
 // 	bool			file_in;
 // 	char			**infiles;
-// 	bool			file_out;
-// 	char			**outfiles;
-// 	bool			*append;
-// }			t_cmd;
-
-// typedef	struct s_tokens
-// {
-// 	char **tokens;
-// 	t_tk_type *token_type;
-// 	int	pipe_count;
-// 	int	token_count;
-// 	int cmd_count;
-// }	t_tokens;
-#include "../../../includes/minishell.h"
+// 	
+#include "../../includes/minishell.h"
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 {

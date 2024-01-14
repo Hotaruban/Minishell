@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:05:12 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/01 20:14:11 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:24:01 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 /*Make a error function*/
 
