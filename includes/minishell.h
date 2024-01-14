@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 23:31:12 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 00:22:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@
 #include <term.h>
 #include <errno.h>
 #include <termios.h>
-
 
 # define RESET "\033[0m"
 # define YELLOW "\033[1;33m"
@@ -122,7 +121,7 @@ void	add_variable(t_env *tmp_env, char *var);
 char 	*get_env_value(char *var, t_env **env, int var_len, int status);
 
 
-/*checker*/
+/*Checker*/
 int		lenoptr(char *line);
 int		lenquote(char *line);
 int		lenvar(char *line);
@@ -130,10 +129,10 @@ bool	ft_istoken(int c);
 bool	ft_isoptr(int c);
 bool	checker(char *line);
 
-/*split_token*/
+/*Split_token*/
 int 	split_token(char *line, t_tokens *stuff);
 
-/*token_identify & syntax*/
+/*Token_identify & syntax*/
 bool	token_identify(t_tokens *tokens);
 bool 	token_syntax(t_tokens *tokens);
 
@@ -148,7 +147,6 @@ bool quote_trim(t_tokens *tokens);
 bool	struct_fill(t_tokens *tokens, t_data *data);
 
 /*Executation*/
-
 bool	builtin_in_parent(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
@@ -157,7 +155,6 @@ pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 
 /*Redirection*/
-
 int		dup_files(int fd_target, int fd_origin);
 int		redirection_heredoc(t_data *data, int index);
 int		redir_infiles(t_data *data, int index);
@@ -168,7 +165,6 @@ int		check_access_files(t_data *data, int index, int i);
 void	open_heredoc(t_data *data);
 
 /*Builtins*/
-
 int		ft_echo(t_data *data, int index);
 int		ft_cd(t_data *data, int index);
 int		ft_pwd(t_data *data, int index);
@@ -181,11 +177,10 @@ bool	check_variable(char *var);
 void	print_env(char **env);
 
 /*Messages*/
-
 void	error_system(char *msg);
 void	error_cmd(char *cmd, char *msg);
 
-/*free_functions*/
+/*Free_functions*/
 void	free_2d_array(char **array);
 void	free_cmd_struct(t_cmd *cmd);
 void	free_tokens(t_tokens *tokens);
