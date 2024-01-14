@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_identify.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2023/12/01 12:08:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:48:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 bool type_count_malloc(t_tokens *tokens)
 {
@@ -98,22 +98,14 @@ bool	token_identify(t_tokens *tokens)
 			tokens->pipe_count += 1;
 		if (type[i] == e_void)
 		{
-			free_tokens(tokens);/*error message*/
-			return (false); /*syntax error near unexpected token `newline' */
+			free_tokens(tokens);										/*error message*/
+			return (false); 											/*syntax error near unexpected token `newline' */
 		}
 		i++;
 	}
 	tokens->token_type = type;
 	if (!(type_count_malloc(tokens)))
-		return (false, printf("type_count_malloc_failure")); /* Attend to when cleaning up*/
+		return (false, printf("type_count_malloc_failure"));			 /* Attend to when cleaning up*/
 	token_type_counter(tokens);
 	return (true);
 }
-
-/*Nice test*/
-// void print_tokens(t_tokens *tokens) {
-//     for (int i = 0; i < tokens->token_count; i++) {
-//         printf("Token Type: %d\n", tokens->token_type[i]);
-//         printf("Token: %s\n", tokens->tokens[i]);
-//     }
-// }

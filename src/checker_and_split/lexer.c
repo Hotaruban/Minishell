@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2023/11/15 20:50:24 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:48:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 bool	ft_iscmd(int c)
 {
@@ -26,27 +26,6 @@ bool	is_special(int c)
 		return (true);
 	return (false);
 }
-
-
-
-// int	lendollar(char *line)
-// {
-// 	int i;
-
-// 	i = 1;
-// 	if (!(line[i]))
-// 		return (1);
-// 	else if (line[i] == '?')
-// 		i++;
-// 	else if (ft_isdigit(line[i]))
-// 		i++;
-// 	else if (isspecial(line[i]))
-// 	 	i++;
-// 	else if (ft_isalpha(line[i] || line[i] == '_'))
-// 		i += lenvar(&line[i]);
-// 	return (i);
-// }
-
 
 int	lenoptr(char *line)
 {

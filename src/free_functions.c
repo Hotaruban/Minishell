@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/01 12:11:32 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:41:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	free_cmd_struct(t_cmd *cmd)
 		free_2d_array(cmd->outfiles);
 	if (cmd)
 		free(cmd);
-	// free(cmd);
 }
 
 void	free_tokens(t_tokens *tokens)
