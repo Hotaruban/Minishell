@@ -1,7 +1,7 @@
 # <p align = "center">Minishell</p>
 
 <p align = "center">
-<a href = https://github.com/Hotaruban><img minishell = "minishell" src = "minishelln.png"></a></p>
+<a href = https://github.com/Hotaruban><img minishell = "minishell" src = "./doc/minishelln.png"></a></p>
 
 ### The "Minishell" project at 42 school challenges participants to develop a minimalistic Unix shell. This project provides an opportunity to delve into the fundamentals of shell programming, emphasizing process creation, signal handling, and command execution.
 
