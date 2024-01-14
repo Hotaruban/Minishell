@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:22:57 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:44:36 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,16 @@ void print_test_struct(t_data *data, t_tokens *tokens)
 	}
 }
 
-char **create_fake_environment() {
-    char **env = (char **)malloc(sizeof(char *) * 5);
-
-    // Create fake environment variables
-    env[0] = ft_strdup("PATH=/bin:/usr/bin");
-    env[1] = ft_strdup("HOME=/home/user");
-    env[2] = ft_strdup("USER=testuser");
-    env[3] = ft_strdup("INSHALLAH=bushdid911");
-    env[4] = NULL;  // The last element should be NULL to indicate the end of the environment.
-
-    return env;
-}
-
 void init_data(t_data *data, t_env *env)
 {
 	data->cmd = NULL;
 	
 	data->env = env;
-	data->status = 0;	/*Uncertain can come back to this later*/
+	data->status = 0;										/*Uncertain can come back to this later*/
 	data->pipe_len = 0;
-	data->pipefd[1] = -1; /*Uncertain as well*/
+	data->pipefd[1] = -1; 									/*Uncertain as well*/
 	if (!(set_termios(&data->term)))
-		printf("WTF");
+		printf("FAIL INIT DATA"); 							/*TOO REMOVE*/
 	set_signal();
 }
 
@@ -86,43 +73,29 @@ void init_tokens(t_tokens *tokens)
 	tokens->append_count = NULL;
 }
 
-
-
 bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
 	add_history(line);
 	if (!(checker(line)))
 		return (false);
-	// printf("checker \n");
 	if(!(split_token(line, tokens)))
 		return (false);
-	// printf("split_token\n");
-	if (!(token_identify(tokens))) /*Needs adapting for s_cmd struct*/
+	if (!(token_identify(tokens)))
 		return (false);
-	// printf("token_identify\n");
-	if (!(token_syntax(tokens)))	/*Needs fixing(incomplete)*/
+	if (!(token_syntax(tokens)))
 		return(false);
 	if (!(expandinator(tokens, data)))
 		return(false);
-	// printf("Expandinator \n");
-	// print_test(tokens->tokens, tokens->token_count);
 	if (!(quote_trim(tokens)))
 		return (false);
-	// printf("Quote trimmer \n");
-	// print_test(tokens->tokens, tokens->token_count);
 	if (!(struct_fill(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
 	print_test_struct(data, tokens);
-	// printf("Struct Filler\n");
 	if (tokens != NULL)
 		free_tokens(tokens);
-	// print_test_struct(data, tokens);
 	if ((separator_op(data) != CMD_OK))
 		return (false);
-	// printf("ITS JEREMY'S FAULT correct \n");
-	// print_test_struct(data, tokens);
-	// printf("data->status in main = %d \n", data->status);
 	if (data->cmd)
 		free_cmd_struct(data->cmd);
 	return (true);
@@ -134,42 +107,27 @@ int main(int ac, char** argv, char **ev)
 	char		*line;
 	t_tokens	tokens;
 	t_env		*env;
-	// char **fake_env = create_fake_environment(); 
-	// int i = 0;
 	
 	(void)argv;
 	if (ac != 1)
 		exit(1);
 	env = set_env(ev);
-	// env	= create_fake_environment();
-	// while(env[i])
-	// 	printf("%s \n", env[i++]);
-	// printf("before init_data\n");
-	// print_env(argv);
-	// print_env(env);
-	init_data(&data, env); /*This should initialize struct, and get the environment into its char array*/
+	init_data(&data, env);
 	init_tokens(&tokens);
-	printf("after init_data\n");
 	// signal(SIGINT, &sigint_handler);
 	// signal(SIGQUIT, &sigint_handler);
 	while (1)
 	{
-		// printf ("HERE MAIN \n");
 		line = readline("minishell : ");
 		if (line == NULL)
 			break;
-		// line = strdup(" \'$U\"S\"ER\' >> fe faggot > fa > fo < fum < fur << fuyo| car | wigger \'$USERBushabitch$HOME\'");
-		// line = strdup("echo \"dog\"\'frog\'");
-		if (*line && !(processor(line, &data, &tokens)))
+		if (*line && !(processor(line, &data, &tokens)))	/* TO FIX OR REMOVE */
 		{
-			// printf("You have failed you sonofabitch\n");
 			// break;
 			// free_data_struct(&data);
 		}
-		// printf ("HERE MAIN 01 \n");
 		free(line);
 	}
-	printf("ayoo\n");
 	rl_clear_history();
 	restore_termios(&data.term);
 	return (0);

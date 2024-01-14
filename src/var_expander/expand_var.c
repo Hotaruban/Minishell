@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:18:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:23:12 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:45:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,7 @@ char *get_env_value(char *var, t_env **env, int var_len, int status)
 	{
 		if (ft_strncmp(var, "?", 1) == 0)
 		{	
-			printf("status in getenvvalue = %d \n", status);
 			name_value = ft_strdup(ft_itoa(status));
-			printf("name value = %s \n", name_value);
-			// return (name_value);
 			return (name_value);
 		}
 		else if (ft_strncmp(var, env_list->name, var_len) == 0 
@@ -52,15 +49,11 @@ bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 	
 	var_len = lenvar(pos) - 1;
 	var = (char *)ft_calloc(var_len + 1, sizeof(char));
-	printf("status check (expand_var 2) \n");
-	// if (!(var_check(var)))
-	// 	return (0);
-	/*There's probably a more efficient way using realloc*/
-	/*Make on for expanding var + one for expanding brackets or $?*/
-	printf("var len = %d  && pos + 1 = %c\n", var_len, pos[1]);
+																				// if (!(var_check(var)))
+																				// 	return (0);
+																				/*There's probably a more efficient way using realloc*/
+																				/*Make on for expanding var + one for expanding brackets or $?*/
 	ft_memcpy(var, pos + 1, var_len);
-	printf("status check (expand_var 1) \n");
-	printf("status = %d \n", data->status);
 	env_value = get_env_value(var, &data->env, var_len, data->status);
 	new_len = ft_strlen(*token) - (var_len - ft_strlen(env_value));
 	new_token = (char *)ft_calloc(sizeof(char), (new_len + 1));
@@ -70,8 +63,8 @@ bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 	*next_pos = new_token + ft_strlen(env_value);
 	free(var);
 	free(env_value);
-	// free(*token);
+																				// free(*token);
 	*token = new_token;
-	// free(new_token);
+																				// free(new_token);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:23:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:47:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool quote_trim(t_tokens *tokens)
 		{
 			tmp_token = qt_fixed_string(tokens->tokens[i], &quote_count, &j);
 			if (!(tokens->tokens[i]))
-				/*error and free function*/
+																		/*error and free function*/
 			free(tokens->tokens[i]);
 			tokens->tokens[i] = tmp_token;
 		}

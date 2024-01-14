@@ -6,12 +6,11 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:23:08 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:46:06 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 
 /*See where you can simplify*/
 static char	*var_position(char *token, int *s_open, int *d_open)
@@ -74,8 +73,7 @@ bool	expandinator(t_tokens *tokens, t_data *data)
 	int double_qt;
 	char *pos;
 	char *next_pos;
-	printf("status check (expandinator) \n");
-	printf("status = %d \n", data->status);
+	
 	i = 0;
 	single_qt = 0;
 	double_qt = 0;
@@ -84,14 +82,9 @@ bool	expandinator(t_tokens *tokens, t_data *data)
 
 		if (is_expandable_variable(tokens->tokens[i], single_qt, double_qt))
 		{
-			printf("status check (expandinator 2) \n");
-			printf("status = %d \n", data->status);
 			pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
-			printf("status check (expandinator 3) \n");
-			printf("status = %d \n", data->status);
 			while (pos != NULL)
 			{
-				printf("status check (expand_vigor) \n");
 				if(!(expand_var(data, &(tokens->tokens[i]), pos, &next_pos)))
 					return (false);
 				pos = var_position(next_pos, &single_qt, &double_qt);

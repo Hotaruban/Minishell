@@ -6,29 +6,10 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 19:46:32 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:23:27 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:47:31 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// {
-// 	t_cmd	*cmd;
-// 	t_env	*env;
-// 	int		status;
-// 	int		pipe_len;
-// 	int		pipefd[2];
-// }		t_data;
-
-// typedef struct s_cmd
-// {
-// 	char			**cmd;
-// 	bool			pipe_in;
-// 	bool			pipe_out;
-// 	bool			here_doc_in;
-// 	int				nb_heredocs;
-// 	char			**limiters;
-// 	bool			file_in;
-// 	char			**infiles;
-// 	
 #include "../../includes/minishell.h"
 
 void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
@@ -42,7 +23,6 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 		cmd->pipe_in = TRUE;
 	else
 		cmd->pipe_in = FALSE;
-	// printf("heredoc count == %d \n", tokens->heredoc_count);
 	if (tokens->heredoc_count[j] != 0 && tokens->heredoc_count[j] > 0 && tokens->infile_count[j] == 0)
 		cmd->here_doc_in = TRUE;
 	else 
@@ -51,7 +31,7 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 		cmd->file_in = TRUE;
 	else
 		cmd->file_in = FALSE;
-	if (tokens->append_count[j] != 0 && tokens->append_count[j] > 0) /*Check if its only if it appears last*/
+	if (tokens->append_count[j] != 0 && tokens->append_count[j] > 0) 					/*Check if its only if it appears last*/
 		cmd->append = TRUE;
 	else
 		cmd->append = FALSE;
@@ -68,21 +48,12 @@ void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
 
 void	mallocer(t_cmd *cmd, t_tokens *tokens, int j)
 {
-	// printf("arg_count = %d \n", tokens->arg_count[j]);
-	// if (tokens->arg_count[j])
 	if (cmd->cmd == NULL)
-		cmd->cmd = (char **)calloc(sizeof(char *), ((tokens->arg_count[j]) + 1));
-	// printf("heredoc_count = %d \n", tokens->heredoc_count[j]);
-	// if (tokens->heredoc_count[j])
-	// {
-	cmd->limiters = (char **)calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
+		cmd->cmd = (char **)ft_calloc(sizeof(char *), ((tokens->arg_count[j]) + 1));
+	cmd->limiters = (char **)ft_calloc(sizeof(char *), (tokens->heredoc_count[j] + 1));
 	cmd->nb_heredocs = tokens->heredoc_count[j];
-	// }	
-	// printf("infile_count = %d \n", tokens->infile_count[j]);
-	// if (tokens->infile_count[j])
-	cmd->infiles = (char **)calloc(sizeof(char *), (tokens->infile_count[j] + 1));
-	// printf("outfile_count = %d \n", tokens->outfile_count[j]);
-	cmd->outfiles = (char **)calloc(sizeof(char *), 
+	cmd->infiles = (char **)ft_calloc(sizeof(char *), (tokens->infile_count[j] + 1));
+	cmd->outfiles = (char **)ft_calloc(sizeof(char *), 
 		(tokens->outfile_count[j] + tokens->append_count[j] + 1));
 }
 
@@ -143,7 +114,7 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 		{	
 			sort_rdrt(cmd, tokens->tokens[*i], tokens->tokens[*i + 1]); 
 			*i += 2;
-			/*Only works bc token_syntax makes sure no pipe or rdrt comes after*/
+																/*Only works bc token_syntax makes sure no pipe or rdrt comes after*/
 		}
 		else if (tokens->token_type[*i] == e_argument)
 		{
@@ -151,7 +122,6 @@ void	identify_2(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 			*i += 1;
 			x++;
 		}
-		// *i += 1;
 	}
 	find_last_rdrt(cmd, tokens, *i - 1);
 }
@@ -168,7 +138,7 @@ bool	struct_fill(t_tokens *tokens, t_data *data)
 	while (j < tokens->pipe_count + 1)
 	{
 		identify_2(&cmd_struct[j], tokens, j, &i);
-		i += 1; /*So its not stuck on pipe*/
+		i += 1; 														/*So its not stuck on pipe*/
 		j++;
 	}
 	data->cmd = cmd_struct;

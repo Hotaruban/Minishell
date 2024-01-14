@@ -6,37 +6,12 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:24:15 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:49:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*&& included for bonus
-int	len_token(char *line)
-{
-	int		i;
-
-	i = 0;
-	if (ft_istoken(line[i]) || (line[i] == '&' && line[i + 1] != '&'))
-	{
-		if (line[i] == '&' && line[i + 1] != '&')
-				i++;
-		while ((ft_istoken(line[i]) || (line[i] == '&' && line[i + 1] != '&')) && line[i])
-		{
-			if (line[i] == '&' && line[i + 1] != '&')
-				i++;
-			if (ft_isquote(line[i]))
-				i += lenquote(&line[i]);
-			else
-				i++;
-		}
-	}
-	else if (ft_isoptr(line[i]))
-		i += lenoptr(&line[i]);
-	return (i);
-}
-*/
 int	len_token(char *line)
 {
 	int		i;
@@ -82,7 +57,6 @@ int	token_count(char *line)
 	return (tc);
 }
 
-
 char **token_split(char *line, int tc)
 {
 	int		i;
@@ -113,10 +87,8 @@ int split_token(char *line, t_tokens *stuff)
 {
 	int tc;
 	char **tokens;
-	// char **line_s;
+	
 	tc = token_count(line);
-	// line_s = split_line(line, tc);
-	// tokens = (char **)malloc(sizeof(char *) * (tc + 1));
 	tokens = NULL;
 	if (tc == 0)
 		return (false);
@@ -125,11 +97,3 @@ int split_token(char *line, t_tokens *stuff)
 	stuff->tokens = tokens;
 	return (true);
 }
-
-/*Test works great*/
-	// int i = 0;
-	// while(i < tc)
-	// {
-	// 		printf("tokens[%d] = %s \n", i, tokens[i]);
-	// 		i++;
-	// }

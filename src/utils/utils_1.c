@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:30 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/14 21:23:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/14 21:50:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ int	lenquote(char *line)
 		i++;
 	}
 	if (c == '\"')
-		printf("quote error\n");
-		// quote_error(2);
-	if (c == '\'')
-		printf("quote error\n");
-		// quote_error(1);
+		printf("TOO REMOVE -- lenquote -- \n");								/* TOO REMOVE */
+																			// quote_error(2);
+	if (c == '\'')	
+		printf("TOO REMOVE -- lenquote -- \n");								/* TOO REMOVE */
+																			// quote_error(1);
 	return (0);
 }
 
