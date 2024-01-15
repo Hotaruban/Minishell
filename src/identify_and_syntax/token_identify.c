@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 00:01:14 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 09:10:37 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	token_type_counter(t_tokens *tokens)
 t_tk_type	token_class(char *token, t_tk_type pre)
 {
 	if (!(ft_strncmp(token, "<>", 2)) || !(ft_strncmp(token, "><", 2))
-		|| (lenoptr(token) > 2))
+		|| (len_operator(token) > 2))
 		return (e_void);
 	if (*token == '<' || *token == '>')
 		return (e_rdrt);

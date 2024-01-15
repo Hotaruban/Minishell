@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 12:06:30 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 00:10:39 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 09:13:55 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 bool	ft_istoken(int c)
 {
-	if (!(ft_isoptr(c)) && !(ft_isspace(c)))
-		return (true);
-	return (false);
-}
-
-bool	ft_isoptr(int c)
-{
-	if (c == '<' || c == '>' || c == '|')
+	if (!(is_operator(c)) && !(ft_isspace(c)))
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 00:22:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 09:12:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define GREEN "\033[1;32m"
 
 # ifndef PATH_MAX
-#  define PATH_MAX 4096
+# define PATH_MAX 4096
 # endif
 
 # define true 1
@@ -83,11 +83,11 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	t_cmd	*cmd;
-	t_env	*env;
-	int		status;
-	size_t	pipe_len;
-	int		pipefd[2];
+	t_cmd			*cmd;
+	t_env			*env;
+	int				status;
+	size_t			pipe_len;
+	int				pipefd[2];
 	struct termios	term;
 }		t_data;
 
@@ -102,16 +102,16 @@ typedef enum e_type_token
 
 typedef	struct s_tokens
 {
-	char **tokens;
-	t_tk_type *token_type;
-	int	pipe_count;
-	int	token_count;
-	int cmd_count;
-	int *arg_count;
-	int *heredoc_count;
-	int *infile_count;
-	int *outfile_count;
-	int *append_count;
+	char		**tokens;
+	t_tk_type	*token_type;
+	int			pipe_count;
+	int			token_count;
+	int			cmd_count;
+	int			*arg_count;
+	int			*heredoc_count;
+	int			*infile_count;
+	int			*outfile_count;
+	int			*append_count;
 }	t_tokens;
 
 /*Environment*/
@@ -120,14 +120,13 @@ char	**env_array(t_env *env);
 void	add_variable(t_env *tmp_env, char *var);
 char 	*get_env_value(char *var, t_env **env, int var_len, int status);
 
-
 /*Checker*/
-int		lenoptr(char *line);
+int		len_operator(char *line);
 int		lenquote(char *line);
 int		lenvar(char *line);
 bool	ft_istoken(int c);
-bool	ft_isoptr(int c);
-bool	checker(char *line);
+bool	is_operator(int c);
+bool	check_line(char *line);
 
 /*Split_token*/
 int 	split_token(char *line, t_tokens *stuff);
@@ -141,7 +140,7 @@ bool	expandinator(t_tokens *tokens, t_data *data);
 bool	expand_var(t_data *data, char **token, char *pos, char **next_pos);
 
 /*Quote_trim*/
-bool quote_trim(t_tokens *tokens);
+bool	quote_trim(t_tokens *tokens);
 
 /*Struct_fill*/
 bool	struct_fill(t_tokens *tokens, t_data *data);
