@@ -6,11 +6,37 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 22:58:51 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 15:57:38 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*get_env_value(char *var, t_env **env, int var_len, int status)
+{
+	t_env	*env_list;
+	char	*name_value;
+
+	name_value = NULL;
+	env_list = *env;
+	while (env_list != NULL)
+	{
+		if (ft_strncmp(var, "?", 1) == 0)
+		{
+			name_value = ft_strdup(ft_itoa(status));
+			return (name_value);
+		}
+		else if (ft_strncmp(var, env_list->name, var_len) == 0
+			&& ft_strncmp("=", env_list->name + var_len, 1) == 0)
+		{
+			name_value = ft_strdup(env_list->name + var_len + 1);
+			return (name_value);
+		}
+		env_list = env_list->next;
+	}
+	name_value = ft_strdup("");
+	return (name_value);
+}
 
 char	**env_array(t_env *env)
 {
@@ -30,7 +56,7 @@ char	**env_array(t_env *env)
 	tmp = env;
 	ev = (char **)malloc(sizeof(char *) * (len_env + 1));
 	if (ev == NULL)
-		return (error_system("malloc failed\n"), NULL);
+		return (error_system(MALLOC_ERROR), NULL);
 	ev[len_env] = NULL;
 	while (len_env--)
 	{
@@ -70,7 +96,7 @@ static t_env	*creat_new_env(char **env)
 	{
 		tmp = (t_env *)malloc(sizeof(t_env));
 		if (tmp == NULL)
-			error_system("malloc failed\n");
+			error_system(MALLOC_ERROR);
 		init_variable(tmp, env[i]);
 		tmp->next = tmp_return;
 		tmp_return = tmp;

@@ -1,18 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   variable_parser.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 15:07:52 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 00:13:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 15:48:43 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*See where you can simplify*/
+static bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
+{
+	char	*env_value;
+	char	*new_token;
+	char	*var;
+	int		var_len;
+	int		new_len;
+
+	var_len = len_var(pos) - 1;
+	var = ft_substr(pos, 1, var_len);
+	if (var == NULL)
+		return (error_system(MALLOC_ERROR), false);
+	env_value = get_env_value(var, &data->env, var_len, data->status);
+	new_len = ft_strlen(*token) - (var_len - ft_strlen(env_value));
+	new_token = (char *)ft_calloc(sizeof(char), (new_len + 1));
+	ft_memcpy(new_token, *token, ft_strlen(*token) - ft_strlen(pos));
+	ft_strlcat(new_token, env_value, strlen(new_token) + strlen(env_value) + 1);
+	ft_memcpy(new_token + ft_strlen(new_token), pos
+		+ var_len + 1, ft_strlen(pos + var_len));
+	*next_pos = new_token + ft_strlen(env_value);
+	free(var);
+	free(env_value);
+	*token = new_token;
+	return (true);
+}
+
 static char	*var_position(char *token, int *s_open, int *d_open)
 {
 	int	open_single_qt;
@@ -42,7 +67,7 @@ static char	*var_position(char *token, int *s_open, int *d_open)
 	return (NULL);
 }
 
-bool	is_expandable_variable(char *token, int single_qt, int double_qt)
+static bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 {
 	int	i;
 	int	open_single_qt;
@@ -52,7 +77,7 @@ bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 	open_single_qt = 0;
 	open_double_qt = 0;
 	if (single_qt == 1 || double_qt == 1)
-		return (0);
+		return (false);
 	while (token[i] != '\0')
 	{
 		if (token[i] == '\'' && !open_double_qt)
@@ -61,23 +86,23 @@ bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 			open_double_qt = !open_double_qt;
 		if (token[i] == '$' && (token[i + 1] == '?'
 				|| ft_isalpha(token[i + 1])) && !open_single_qt)
-			return (1);
+			return (true);
 		i++;
 	}
-	return (0);
+	return (false);
 }
 
-bool	expandinator(t_tokens *tokens, t_data *data)
+bool	variable_parser(t_tokens *tokens, t_data *data)
 {
-	int		i;
+	char	*next_pos;
+	char	*pos;
 	int		single_qt;
 	int		double_qt;
-	char	*pos;
-	char	*next_pos;
+	int		i;
 
-	i = 0;
 	single_qt = 0;
 	double_qt = 0;
+	i = 0;
 	while (i < tokens->token_count)
 	{
 		if (is_expandable_variable(tokens->tokens[i], single_qt, double_qt))

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 23:21:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 15:36:35 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	add_variable(t_env *tmp_env, char *var)
 
 	new = (t_env *)malloc(sizeof(t_env));
 	if (new == NULL)
-		error_system("malloc failed\n");
+		error_system(MALLOC_ERROR);
 	new->name = ft_strdup(var);
 	new->next = NULL;
 	tmp_env->next = new;

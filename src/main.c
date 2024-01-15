@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 13:31:32 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 16:43:12 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,26 @@
 
 int	g_status;
 
-static void init_data(t_data *data, t_env *env)
+static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 {
-	data->cmd = NULL;
-	data->env = env;
-	data->status = 0;
-	data->pipe_len = 0;
-	data->pipefd[1] = -1;
-	if (!(set_termios(&data->term)))
-		printf("Signal fail --- FAIL INIT DATA ---"); 		/*TOO REMOVE*/
-	set_signal();                                           /*What is it? What that's doing in Initialization?*/
-}
+	t_cmd	*cmd_struct;
+	int		i;
+	int		j;
 
-static void init_tokens(t_tokens *tokens)
-{
-	tokens->tokens = NULL;
-	tokens->token_type = NULL;
-	tokens->pipe_count = 0;
-	tokens->token_count = 0;
-	tokens->cmd_count = 0;
-	tokens->arg_count = NULL;
-	tokens->heredoc_count = NULL;
-	tokens->infile_count = NULL;
-	tokens->outfile_count = NULL;
-	tokens->append_count = NULL;
+	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2));
+	if (cmd_struct == NULL)
+		return (error_system(MALLOC_ERROR), false);
+	i = 0;
+	j = 0;
+	while (j < tokens->pipe_count + 1)
+	{
+		init_data_cmd(&cmd_struct[j]);
+		identify_cmd(&cmd_struct[j], tokens, j, &i);
+		i += 1;
+		j++;
+	}
+	data->cmd = cmd_struct;
+	return (true);
 }
 
 static bool	processor(char *line, t_data *data, t_tokens *tokens)
@@ -50,11 +46,11 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		return (false);
 	if (!(token_syntax(tokens)))
 		return(free_tokens(tokens), false);
-	if (!(expandinator(tokens, data)))
+	if (!(variable_parser(tokens, data)))
 		return(false);
 	if (!(quote_trim(tokens)))
 		return (false);
-	if (!(struct_fill(tokens, data)))
+	if (!(assign_data_cmd(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
 	if (tokens != NULL)

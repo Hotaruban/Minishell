@@ -6,13 +6,13 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 09:39:46 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 15:42:35 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	count_quote(char *token)
+static int	count_quote(char *token)
 {
 	int	i;
 	int	qc;
@@ -32,7 +32,7 @@ int	count_quote(char *token)
 	return (qc);
 }
 
-char	*qt_fixed_string(char *token, int *cq, int *j)
+static char	*remove_close_quote(char *token, int *cq, int *j)
 {
 	char	*new_str;
 	int		i;
@@ -69,10 +69,9 @@ bool	quote_trim(t_tokens *tokens)
 		j = 0;
 		while (quote_count != 0)
 		{
-			tmp_token = qt_fixed_string(tokens->tokens[i], &quote_count, &j);
+			tmp_token = remove_close_quote(tokens->tokens[i], &quote_count, &j);
 			if (!(tokens->tokens[i]))
-																		/*error and free function*/
-				free(tokens->tokens[i]);
+				return(error_system(MALLOC_ERROR), false);
 			tokens->tokens[i] = tmp_token;
 		}
 		i++;

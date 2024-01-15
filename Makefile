@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/15 10:23:36 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/15 16:46:49 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,10 +30,10 @@ SRC_FILES = main.c \
 			checker_and_split/split_tokens.c \
 			identify_and_syntax/token_identify.c\
 			identify_and_syntax/token_syntax.c\
-			var_expander/expand_var.c \
-			var_expander/expander.c \
+			var_expander/variable_parser.c \
 			quote_trimmer/quote_trim.c \
-			struct_filler/struct_fill.c \
+			struct_filler/identify_cmd.c \
+			utils/initialization.c \
 			utils/utils_token_is.c \
 			utils/utils_token_len.c \
 			builtins/ft_cd.c \
