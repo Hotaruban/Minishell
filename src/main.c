@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 16:43:12 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 21:49:23 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	g_status;
 
 static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 {
@@ -75,13 +73,14 @@ int main(int ac, char** av, char **ev)
 	env = set_env(ev);
 	init_data(&data, env);
 	init_tokens(&tokens);
-	// signal(SIGINT, &sigint_handler);
-	// signal(SIGQUIT, &sigint_handler);
 	while (1)
 	{
 		line = readline(PROMPT);
 		if (!line)
+		{
+			printf("\x1b[A\x1b[K%sexit\n", PROMPT);
 			break ;
+		}
 		if (*line)
 			add_history(line);
 		if (!(processor(line, &data, &tokens)))	/* TO FIX OR REMOVE */
@@ -90,7 +89,7 @@ int main(int ac, char** av, char **ev)
 		}
 		free(line);
 	}
+	set_echo_ctl(1);
 	rl_clear_history();
-	restore_termios(&data.term);
 	return (0);
 }

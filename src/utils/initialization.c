@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 16:44:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 19:34:46 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void init_data(t_data *data, t_env *env)
 	data->status = 0;
 	data->pipe_len = 0;
 	data->pipefd[1] = -1;
-	if (!(set_termios(&data->term)))
-		printf("Signal fail --- FAIL INIT DATA ---"); 		/*TOO REMOVE*/
-	set_signal();                                           /*What is it? What that's doing in Initialization?*/
+	init_signal(data);
+	set_echo_ctl(0);
 }
 
 void init_tokens(t_tokens *tokens)
