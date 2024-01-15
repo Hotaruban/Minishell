@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 18:18:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 00:16:02 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 09:43:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 	char	*var;
 	char	*new_token;
 
-	var_len = lenvar(pos) - 1;
+	var_len = len_var(pos) - 1;
 	var = (char *)ft_calloc(var_len + 1, sizeof(char));
 																				// if (!(var_check(var)))
 																				// 	return (0);

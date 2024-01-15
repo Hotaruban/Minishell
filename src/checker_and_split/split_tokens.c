@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_token.c                                      :+:      :+:    :+:   */
+/*   split_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 09:13:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 12:11:52 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+static bool	is_token(int c)
+{
+	if (!(is_operator(c)) && !(ft_isspace(c)))
+		return (true);
+	return (false);
+}
 
 static int	len_token(char *line)
 {
 	int		i;
 
 	i = 0;
-	if (ft_istoken(line[i]))
+	if (is_token(line[i]))
 	{
-		while ((ft_istoken(line[i]) && line[i]))
+		while ((is_token(line[i]) && line[i]))
 		{
 			if (ft_isquote(line[i]))
-				i += lenquote(&line[i]);
+				i += len_quote(&line[i]);
 			else
 				i++;
 		}
@@ -34,65 +41,63 @@ static int	len_token(char *line)
 
 static int	token_count(char *line)
 {
-	int	tc;
+	int	nb_tokens_cmd;
 	int	i;
 
-	tc = 0;
+	nb_tokens_cmd = 0;
 	i = 0;
-	if (!line)
-		return (tc);
 	while (line[i])
 	{
 		while (ft_isspace(line[i]))
 			i++;
 		if (!(line[i]))
-			return (tc);
-		if (ft_istoken(line[i]))
+			return (nb_tokens_cmd);
+		if (is_token(line[i]))
 			i += len_token(&line[i]);
 		else if (is_operator(line[i]))
 			i += len_operator(&line[i]);
-		tc++;
+		nb_tokens_cmd++;
 	}
-	return (tc);
+	return (nb_tokens_cmd);
 }
 
-static char	**token_split(char *line, int tc)
+static char	**token_split(char *line, int nb_tokens_cmd)
 {
+	char	**tokens;
+	int		len;
 	int		i;
 	int		j;
-	int		k;
-	char	**tokens;
 
+	len = 0;
 	i = 0;
 	j = 0;
-	k = 0;
-	tokens = (char **)malloc(sizeof(char *) * (tc + 1));
-	while (j < tc)
+	tokens = (char **)malloc(sizeof(char *) * (nb_tokens_cmd + 1));
+	while (j < nb_tokens_cmd)
 	{
 		while (ft_isspace(line[i]))
 			i++;
-		k = len_token(&line[i]);
-		tokens[j] = (char *)malloc(sizeof(char) * (k + 1));
-		ft_memcpy(tokens[j], &line[i], k);
-		tokens[j][k] = '\0';
-		i += k;
+		len = len_token(&line[i]);
+		tokens[j] = (char *)malloc(sizeof(char) * (len + 1));
+		ft_memcpy(tokens[j], &line[i], len);
+		tokens[j][len] = '\0';
+		i += len;
 		j++;
 	}
-	tokens[tc] = NULL;
+	tokens[nb_tokens_cmd] = NULL;
 	return (tokens);
 }
 
-int	split_token(char *line, t_tokens *stuff)
+int	split_tokens(char *line, t_tokens *token_cmd)
 {
-	int		tc;
 	char	**tokens;
+	int		nb_tokens_cmd;
 
-	tc = token_count(line);
 	tokens = NULL;
-	if (tc == 0)
+	nb_tokens_cmd = token_count(line);
+	if (nb_tokens_cmd == 0)
 		return (false);
-	tokens = token_split(line, tc);
-	stuff->token_count = tc;
-	stuff->tokens = tokens;
+	tokens = token_split(line, nb_tokens_cmd);
+	token_cmd->token_count = nb_tokens_cmd;
+	token_cmd->tokens = tokens;
 	return (true);
 }

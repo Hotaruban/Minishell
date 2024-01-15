@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 08:54:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 12:00:49 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ static void init_tokens(t_tokens *tokens)
 	tokens->append_count = NULL;
 }
 
-bool	processor(char *line, t_data *data, t_tokens *tokens)
+static bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
 	if (!(check_line(line)))
 		return (false);
-	if(!(split_token(line, tokens)))
+	if(!(split_tokens(line, tokens)))
 		return (false);
 	if (!(token_identify(tokens)))
 		return (false);
@@ -83,7 +83,7 @@ int main(int ac, char** av, char **ev)
 	// signal(SIGQUIT, &sigint_handler);
 	while (1)
 	{
-		line = readline("minishell-hh$ ");
+		line = readline(PROMPT);
 		if (!line)
 			break ;
 		if (*line)

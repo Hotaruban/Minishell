@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 09:12:58 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 10:28:32 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@
 # define BLUE "\033[1;34m"
 # define RED "\033[1;32m"
 # define GREEN "\033[1;32m"
+
+# define PROMPT	"minishell-hh$ "
 
 # ifndef PATH_MAX
 # define PATH_MAX 4096
@@ -121,15 +123,14 @@ void	add_variable(t_env *tmp_env, char *var);
 char 	*get_env_value(char *var, t_env **env, int var_len, int status);
 
 /*Checker*/
-int		len_operator(char *line);
-int		lenquote(char *line);
-int		lenvar(char *line);
-bool	ft_istoken(int c);
-bool	is_operator(int c);
 bool	check_line(char *line);
+int		len_operator(char *line);
+int		len_quote(char *line);
+int		len_var(char *line);
+bool	is_operator(int c);
 
 /*Split_token*/
-int 	split_token(char *line, t_tokens *stuff);
+int 	split_tokens(char *line, t_tokens *stuff);
 
 /*Token_identify & syntax*/
 bool	token_identify(t_tokens *tokens);
