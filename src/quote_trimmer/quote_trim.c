@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 00:03:28 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 09:39:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	count_quote(char *token)
 	{
 		if (ft_isquote(token[i]))
 		{
-			i += lenquote(&(token[i]));
+			i += len_quote(&(token[i]));
 			qc += 2;
 		}
 		else
@@ -42,7 +42,7 @@ char	*qt_fixed_string(char *token, int *cq, int *j)
 	i = *j;
 	while (!(ft_isquote(token[i])) && token[i])
 		i++;
-	quotelen = lenquote(&(token[i]));
+	quotelen = len_quote(&(token[i]));
 	if (ft_isquote(token[i]))
 	{
 		ft_memcpy(new_str, token, i);

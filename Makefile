@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/15 09:04:07 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/15 10:10:06 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
 SRC_FILES = main.c \
-			checker_and_split/lexer.c \
+			checker_and_split/check_line.c \
 			checker_and_split/split_token.c \
 			identify_and_syntax/token_identify.c\
 			identify_and_syntax/token_syntax.c\
@@ -34,8 +34,8 @@ SRC_FILES = main.c \
 			var_expander/expander.c \
 			quote_trimmer/quote_trim.c \
 			struct_filler/struct_fill.c \
-			utils/utils_1.c \
-			utils/utils_token_01.c \
+			utils/utils_token_is.c \
+			utils/utils_token_len.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 09:13:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 10:08:26 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static int	len_token(char *line)
 	int		i;
 
 	i = 0;
-	if (ft_istoken(line[i]))
+	if (is_token(line[i]))
 	{
-		while ((ft_istoken(line[i]) && line[i]))
+		while ((is_token(line[i]) && line[i]))
 		{
 			if (ft_isquote(line[i]))
-				i += lenquote(&line[i]);
+				i += len_quote(&line[i]);
 			else
 				i++;
 		}
@@ -34,29 +34,29 @@ static int	len_token(char *line)
 
 static int	token_count(char *line)
 {
-	int	tc;
+	int	nb_tokens;
 	int	i;
 
-	tc = 0;
+	nb_tokens = 0;
 	i = 0;
 	if (!line)
-		return (tc);
+		return (nb_tokens);
 	while (line[i])
 	{
 		while (ft_isspace(line[i]))
 			i++;
 		if (!(line[i]))
-			return (tc);
-		if (ft_istoken(line[i]))
+			return (nb_tokens);
+		if (is_token(line[i]))
 			i += len_token(&line[i]);
 		else if (is_operator(line[i]))
 			i += len_operator(&line[i]);
-		tc++;
+		nb_tokens++;
 	}
-	return (tc);
+	return (nb_tokens);
 }
 
-static char	**token_split(char *line, int tc)
+static char	**token_split(char *line, int nb_tokens)
 {
 	int		i;
 	int		j;
@@ -66,8 +66,8 @@ static char	**token_split(char *line, int tc)
 	i = 0;
 	j = 0;
 	k = 0;
-	tokens = (char **)malloc(sizeof(char *) * (tc + 1));
-	while (j < tc)
+	tokens = (char **)malloc(sizeof(char *) * (nb_tokens + 1));
+	while (j < nb_tokens)
 	{
 		while (ft_isspace(line[i]))
 			i++;
@@ -78,21 +78,21 @@ static char	**token_split(char *line, int tc)
 		i += k;
 		j++;
 	}
-	tokens[tc] = NULL;
+	tokens[nb_tokens] = NULL;
 	return (tokens);
 }
 
 int	split_token(char *line, t_tokens *stuff)
 {
-	int		tc;
 	char	**tokens;
+	int		nb_tokens;
 
-	tc = token_count(line);
+	nb_tokens = token_count(line);
 	tokens = NULL;
-	if (tc == 0)
+	if (nb_tokens == 0)
 		return (false);
-	tokens = token_split(line, tc);
-	stuff->token_count = tc;
+	tokens = token_split(line, nb_tokens);
+	stuff->token_count = nb_tokens;
 	stuff->tokens = tokens;
 	return (true);
 }
