@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 16:45:57 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 19:35:33 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@
 # define CMD_NOT_EXEC 126
 # define CMD_NOT_FOUND 127
 
-extern int	g_status;
+# define HANDLE_SIGINT_PARENT 1
+# define IGNORE_SIGINT_PARENT 2
+# define IGNORE_SIGQUIT 3
 
 typedef struct s_env
 {
@@ -92,7 +94,8 @@ typedef struct s_data
 	int				status;
 	size_t			pipe_len;
 	int				pipefd[2];
-	struct termios	term;
+	struct sigaction	sa_i;
+	struct sigaction	sa_q;
 }		t_data;
 
 typedef enum e_type_token
@@ -195,10 +198,12 @@ void	free_tokens(t_tokens *tokens);
 void	free_data_struct(t_data *data);
 
 /*Signal functions*/
-void	sigint_handler(int signum);
-void	sigint_wait_handler(int signum);
-void	set_signal(void);
-bool	set_termios(struct termios *term);
-bool	restore_termios(struct termios *term);
+void	init_signal(t_data *data);
+void	set_echo_ctl(int enable);
+void	sigint_child_handler(int signum);
+void	sigint_parent_handler(int signum);
+void	set_signal(t_data *data, int type);
+// bool	set_termios(struct termios *term);
+// bool	restore_termios(struct termios *term);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 22:54:26 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 22:01:29 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,10 @@ static int	waiting_pid(t_data *data, size_t len, pid_t *pid)
 	while (i < len)
 	{
 		waitpid(pid[i++], &status, 0);
-		status = WEXITSTATUS(status);
+		if (WIFSIGNALED(status))
+			status = WTERMSIG(status) + 128;
+		else 
+			status = WEXITSTATUS(status);
 	}
 	free(pid);
 	exit (status);
@@ -84,8 +87,10 @@ int	separator_op(t_data *data)
 	ev = env_array(data->env);
 	if (ev == NULL)
 		return (CMD_ERROR);
+	set_signal(data, IGNORE_SIGINT_PARENT);
 	if (pipe_op(data, ev, 0) != CMD_OK)
 		return (CMD_ERROR);
 	free_array(ev);
+	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (data->status);
 }

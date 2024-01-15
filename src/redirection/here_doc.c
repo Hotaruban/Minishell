@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 22:53:49 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 19:35:59 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	open_heredoc(t_data *data)
 	int		fd;
 
 	i = 0;
-	while (data->pipe_len > i && g_status == 0)
+	while (data->pipe_len > i)
 	{
 		j = 0;
 		while (data->cmd[i].nb_heredocs > j)
