@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/15 10:10:06 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/15 10:23:36 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ LIBFT = ./libft/libft.a
 SRC_DIR = src
 SRC_FILES = main.c \
 			checker_and_split/check_line.c \
-			checker_and_split/split_token.c \
+			checker_and_split/split_tokens.c \
 			identify_and_syntax/token_identify.c\
 			identify_and_syntax/token_syntax.c\
 			var_expander/expand_var.c \

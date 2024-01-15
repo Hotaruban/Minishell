@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 09:46:46 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 09:52:59 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 10:18:51 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	len_operator(char *line)
 	return (1);
 }
 
-int	len_quote(char *line)
+int	len_quote(char *line)                                                       // THIS FUNCTION HAVE TO CHECK IF WE HAVE ONLY 1 QUOTE WHAT TO DO
 {
 	char	quote;																/*WHAT MEAN THIS VARIABLE ?*/
 	int		i;
