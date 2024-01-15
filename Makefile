@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/14 23:26:18 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/15 09:04:07 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_FILES = main.c \
 			quote_trimmer/quote_trim.c \
 			struct_filler/struct_fill.c \
 			utils/utils_1.c \
+			utils/utils_token_01.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 21:41:27 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 00:18:36 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_2d_array(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (array[i])
@@ -24,15 +24,15 @@ void	free_2d_array(char **array)
 
 void	free_cmd_struct(t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd->cmd != NULL)
 		free_2d_array(cmd->cmd);
 	if (cmd->limiters != NULL)
-	free_2d_array(cmd->limiters);
+		free_2d_array(cmd->limiters);
 	if (cmd->infiles != NULL)
-	free_2d_array(cmd->infiles);
+		free_2d_array(cmd->infiles);
 	if (cmd->outfiles != NULL)
 		free_2d_array(cmd->outfiles);
 	if (cmd)
@@ -58,13 +58,13 @@ void	free_tokens(t_tokens *tokens)
 		free(tokens->outfile_count);
 	if (tokens->append_count != NULL)
 		free(tokens->append_count);
-	// if (tokens != NULL)
-	// 	free(tokens);
+																// if (tokens != NULL)
+																// 	free(tokens);
 }
 
 void	free_data_struct(t_data *data)
 {
 	free_cmd_struct(data->cmd);
-	// free_env(data->env);
+																// free_env(data->env);
 	free(data);
 }
