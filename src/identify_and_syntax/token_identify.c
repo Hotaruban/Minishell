@@ -6,36 +6,36 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 09:10:37 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 13:41:43 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	type_count_malloc(t_tokens *tokens)
+static bool	type_count_malloc(t_tokens *tokens)
 {
 	int	size;
 
-	size = tokens->pipe_count + 1;
-	tokens->arg_count = (int *)ft_calloc(sizeof(int), (size + 1));
+	size = tokens->pipe_count + 2;
+	tokens->arg_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->arg_count == NULL)
 		return (false);
-	tokens->heredoc_count = (int *)ft_calloc(sizeof(int), (size + 1));
+	tokens->heredoc_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->heredoc_count == NULL)
 		return (false);
-	tokens->infile_count = (int *)ft_calloc(sizeof(int), (size + 1));
+	tokens->infile_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->infile_count == NULL)
 		return (false);
-	tokens->outfile_count = (int *)ft_calloc(sizeof(int), (size + 1));
+	tokens->outfile_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->outfile_count == NULL)
 		return (false);
-	tokens->append_count = (int *)ft_calloc(sizeof(int), (size + 1));
+	tokens->append_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->append_count == NULL)
 		return (false);
 	return (true);
 }
 
-void	token_type_counter(t_tokens *tokens)
+static void	token_type_counter(t_tokens *tokens)
 {
 	int	i;
 	int	j;
@@ -64,7 +64,7 @@ void	token_type_counter(t_tokens *tokens)
 	}
 }
 
-t_tk_type	token_class(char *token, t_tk_type pre)
+static t_tk_type	token_class(char *token, t_tk_type pre)
 {
 	if (!(ft_strncmp(token, "<>", 2)) || !(ft_strncmp(token, "><", 2))
 		|| (len_operator(token) > 2))
@@ -85,10 +85,9 @@ bool	token_identify(t_tokens *tokens)
 	int			i;
 
 	i = 0;
-	type = NULL;
 	type = (t_tk_type *)malloc(sizeof(t_tk_type) * (tokens->token_count + 1));
 	if (!type)
-		return (false);
+		return (error_system("malloc failed"), false);
 	while (i < tokens->token_count)
 	{
 		if (i == 0)
@@ -98,15 +97,12 @@ bool	token_identify(t_tokens *tokens)
 		if (type[i] == e_pipe)
 			tokens->pipe_count += 1;
 		if (type[i] == e_void)
-		{
-			free_tokens(tokens);										/*error message*/
-			return (false); 											/*syntax error near unexpected token `newline' */
-		}
+			return (error_input(SYNTAX_ERROR, "newline"), false);
 		i++;
 	}
 	tokens->token_type = type;
 	if (!(type_count_malloc(tokens)))
-		return (false, printf("type_count_malloc_failure"));			 /* Attend to when cleaning up*/
+		return (error_system("malloc failed"), false);
 	token_type_counter(tokens);
 	return (true);
 }

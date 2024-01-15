@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 12:00:49 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 13:31:32 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(token_identify(tokens)))
 		return (false);
 	if (!(token_syntax(tokens)))
-		return(false);
+		return(free_tokens(tokens), false);
 	if (!(expandinator(tokens, data)))
 		return(false);
 	if (!(quote_trim(tokens)))
@@ -90,7 +90,6 @@ int main(int ac, char** av, char **ev)
 			add_history(line);
 		if (!(processor(line, &data, &tokens)))	/* TO FIX OR REMOVE */
 		{
-			// break ;
 			// free_data_struct(&data);
 		}
 		free(line);
