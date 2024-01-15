@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 13:24:15 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 16:45:57 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 
 # define PROMPT	"minishell-hh$ "
 # define SYNTAX_ERROR "syntax error near unexpected token "
+# define MALLOC_ERROR "Error\nMalloc failed"
 
 # ifndef PATH_MAX
 # define PATH_MAX 4096
@@ -138,14 +139,19 @@ bool	token_identify(t_tokens *tokens);
 bool 	token_syntax(t_tokens *tokens);
 
 /*Expand_var*/
-bool	expandinator(t_tokens *tokens, t_data *data);
-bool	expand_var(t_data *data, char **token, char *pos, char **next_pos);
+bool	variable_parser(t_tokens *tokens, t_data *data);
 
 /*Quote_trim*/
 bool	quote_trim(t_tokens *tokens);
 
 /*Struct_fill*/
-bool	struct_fill(t_tokens *tokens, t_data *data);
+// bool	assign_data_cmd(t_tokens *tokens, t_data *data);
+void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
+
+//init_data
+void	init_data_cmd(t_cmd *cmd);
+void	init_data(t_data *data, t_env *env);
+void	init_tokens(t_tokens *tokens);
 
 /*Executation*/
 bool	builtin_in_parent(t_data *data, char **env, int index);

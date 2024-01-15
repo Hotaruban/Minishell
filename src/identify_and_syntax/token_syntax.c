@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:05:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 13:53:00 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 15:20:05 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static bool	order_error_check(t_tk_type type, t_tk_type prev)
 {
 	if ((prev == e_pipe && type == e_pipe) || (prev == e_rdrt
-		&& type == e_rdrt) || (prev == e_rdrt && type == e_pipe))
+			&& type == e_rdrt) || (prev == e_rdrt && type == e_pipe))
 		return (false);
 	return (true);
 }
@@ -30,8 +30,8 @@ static bool	check_type_token(t_tokens *tokens, int nb_token)
 		error_input(SYNTAX_ERROR, tokens->tokens[0]);
 		return (false);
 	}
-	else if ((tokens->token_type[nb_token] == e_pipe) 
-			|| (tokens->token_type[nb_token] == e_rdrt))
+	else if ((tokens->token_type[nb_token] == e_pipe)
+		|| (tokens->token_type[nb_token] == e_rdrt))
 	{
 		last_char = ft_strlen(tokens->tokens[nb_token]) - 1;
 		error_input(SYNTAX_ERROR, &tokens->tokens[nb_token][last_char]);
@@ -59,7 +59,7 @@ bool	token_syntax(t_tokens *tokens)
 		else
 		{
 			if (!(order_error_check(tokens->token_type[i]
-					, tokens->token_type[i - 1])))
+						, tokens->token_type[i - 1])))
 				return (false);
 		}
 		i++;
