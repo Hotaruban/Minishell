@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 22:30:34 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:40:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,11 @@ void	execute_cmd(char **cmd, char **env)
 {
 	char	*path;
 
-	if (cmd == NULL || cmd[0] == NULL)
+	if (cmd == NULL || cmd[0][0] == '\0')
+	{
+		error_cmd(cmd[0], "command not found");
 		exit(CMD_NOT_FOUND);
+	}
 	if (check_cmd_accessible(cmd) == true)
 		path = cmd[0];
 	else

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 09:46:46 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 10:18:51 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/15 12:58:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	len_operator(char *line)
 	return (1);
 }
 
-int	len_quote(char *line)                                                       // THIS FUNCTION HAVE TO CHECK IF WE HAVE ONLY 1 QUOTE WHAT TO DO
+int	len_quote(char *line)
 {
-	char	quote;																/*WHAT MEAN THIS VARIABLE ?*/
+	char	quote;
 	int		i;
 
 	quote = line[0];
@@ -48,10 +48,8 @@ int	len_quote(char *line)                                                       
 		i++;
 	}
 	if (quote == '\"')
-		printf("TOO REMOVE -- lenquote -- \n");								/* TOO REMOVE */
-																			// quote_error(2);
+		error_system("Error: Unclosed quote: \"");
 	if (quote == '\'')
-		printf("TOO REMOVE -- lenquote -- \n");								/* TOO REMOVE */
-																			// quote_error(1);
+		error_system("Error: Unclosed quote: \'");
 	return (0);
 }
