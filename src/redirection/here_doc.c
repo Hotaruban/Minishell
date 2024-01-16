@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 19:35:59 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:31:26 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	creat_here_doc(t_data *data, int index, int i_file)
 	return (data->pipefd[0]);
 }
 
-void	open_heredoc(t_data *data)
+static void	execute_heredoc(t_data *data)
 {
 	size_t	i;
 	int		j;
@@ -56,4 +56,22 @@ void	open_heredoc(t_data *data)
 		}
 		i++;
 	}
+}
+
+void	open_heredoc(t_data *data)
+{
+	int		status;
+	pid_t	pid;
+	
+	status = CMD_OK;
+	pid = fork();
+	if (pid == -1)
+		error_system("fork failed");
+	else if (pid == 0)
+	{
+		data->sa_i.sa_handler = sigint_child_handler;
+		sigaction(SIGINT, &data->sa_i, NULL);
+		execute_heredoc(data);
+	}
+	waitpid(pid, &status, 0);
 }
