@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 15:55:09 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 17:40:45 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 static int	pipe_op(t_data *data, char **env, int index)
 {
 	open_heredoc(data);
+	if (data->cmd->cmd[0] == NULL)
+		return (CMD_ERROR);
 	if (data->cmd[0].cmd[0] == NULL && data->pipe_len < 1)
 		return (CMD_OK);
 	if (builtin_in_parent(data, env, index) == true)
