@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 14:54:47 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 00:13:31 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 /*
 The function unset_builtins is used to remove environment variables.
 */
+
+static int	check_input_unset(t_data *data, int index)
+{
+	if (data->cmd[index].cmd[1] == NULL)
+		return (CMD_OK);
+	if (data->cmd[index].cmd[1][0] == '-')
+	{
+		error_cmd(data->cmd[index].cmd[0], NO_OPTION);
+		return (CMD_EXIT);
+	}
+	return (CMD_OK);
+}
 
 static void	parce_list_var(t_env *env, char *var)
 {
@@ -61,14 +73,7 @@ int	ft_unset(t_data *data, int index)
 	int	status;
 	int	i;
 
-	status = CMD_OK;
-	if (data->cmd[index].cmd[1] == NULL)
-		return (status);
-	if (data->cmd[index].cmd[1][0] == '-')
-	{
-		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
-		return (CMD_EXIT);
-	}
+	status = check_input_unset(data, index);
 	i = 1;
 	while (data->cmd[index].cmd[i])
 	{

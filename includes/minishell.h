@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 18:59:03 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 00:01:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define SYNTAX_ERROR "syntax error near unexpected token "
 # define MALLOC_ERROR "Error\nMalloc failed"
 # define F_DENIED "Permission denied"
+# define NO_OPTION "no option accepted"
+# define NO_VALID_ID "not a valid identifier"
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
