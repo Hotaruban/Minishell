@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 22:57:30 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:21:59 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,8 @@ int	ft_exit(t_data *data, int index)
 		|| data->cmd[index].pipe_in == true)
 		return (status);
 	ft_putendl_fd("exit", STDOUT_FILENO);
+	rl_clear_history();
+	free_env(data->env);
+	free_data_struct(data);
 	exit (status);
 }

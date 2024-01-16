@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 09:24:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:50:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ typedef struct s_tokens
 /*Environment*/
 t_env	*set_env(char **env);
 char	**env_array(t_env *env);
+void	free_env(t_env *my_env);
 void	add_variable(t_env *tmp_env, char *var);
 char	*get_env_value(char *var, t_env **env, int var_len, int status);
 
@@ -193,7 +194,8 @@ void	error_cmd(char *cmd, char *msg);
 
 /*Free_functions*/
 void	free_2d_array(char **array);
-void	free_cmd_struct(t_cmd *cmd);
+// void	free_cmd_struct(t_cmd *cmd);
+void	free_cmd_struct(t_cmd *cmd, int nb_cmd);
 void	free_tokens(t_tokens *tokens);
 void	free_data_struct(t_data *data);
 

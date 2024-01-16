@@ -6,11 +6,23 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 09:25:30 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:07:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	exit_ctrl_d(t_data *data)
+{
+	int	status;
+
+	status = data->status;
+	printf("\x1b[A\x1b[K%sexit\n", PROMPT);
+	set_echo_ctl(1);
+	rl_clear_history();
+	free_env(data->env);
+	exit(status);
+}
 
 static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 {
@@ -18,7 +30,7 @@ static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 	int		i;
 	int		j;
 
-	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 2));
+	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 1));
 	if (cmd_struct == NULL)
 		return (error_system(MALLOC_ERROR), false);
 	i = 0;
@@ -57,8 +69,6 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		free_tokens(tokens);
 	if ((separator_op(data) != CMD_OK))
 		return (false);
-	if (data->cmd)
-		free_cmd_struct(data->cmd);
 	return (true);
 }
 
@@ -77,15 +87,11 @@ int	main(int ac, char **av, char **ev)
 	{
 		line = readline(PROMPT);
 		if (!line)
-		{
-			printf("\x1b[A\x1b[K%sexit\n", PROMPT);
-			break ;
-		}
-		if (!(processor(line, &data, &tokens)))
-			free_data_struct(&data); // TOO Verify 
+			exit_ctrl_d(&data);
+		processor(line, &data, &tokens);
+		if (data.cmd)
+			free_cmd_struct(data.cmd, data.pipe_len);
 		free(line);
 	}
-	set_echo_ctl(1);
-	rl_clear_history();
 	return (0);
 }

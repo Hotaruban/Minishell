@@ -34,6 +34,7 @@ static bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 	*next_pos = new_token + ft_strlen(env_value);
 	free(var);
 	free(env_value);
+	free(*token);
 	*token = new_token;
 	return (true);
 }
