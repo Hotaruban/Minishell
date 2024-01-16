@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 17:40:45 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 18:00:00 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,14 @@ static int	pipe_op(t_data *data, char **env, int index)
 	if (data->cmd[0].cmd[0] == NULL && data->pipe_len < 1)
 		return (CMD_OK);
 	if (builtin_in_parent(data, env, index) == true)
+	{
+		
 		return (CMD_OK);
+	}
 	else
+	{
 		capsule_pipe(data, env, index);
+	}
 	return (CMD_OK);
 }
 

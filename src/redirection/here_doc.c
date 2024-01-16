@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 17:31:26 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 18:02:33 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,26 @@ void	open_heredoc(t_data *data)
 {
 	int		status;
 	pid_t	pid;
+	size_t	i;
 	
-	status = CMD_OK;
-	pid = fork();
-	if (pid == -1)
-		error_system("fork failed");
-	else if (pid == 0)
+	i = 0;
+	status = CMD_ERROR;
+	while (data->pipe_len > i)
 	{
-		data->sa_i.sa_handler = sigint_child_handler;
-		sigaction(SIGINT, &data->sa_i, NULL);
-		execute_heredoc(data);
+		if (data->cmd[i++].here_doc_in == true)
+			status = CMD_OK;
 	}
-	waitpid(pid, &status, 0);
+	if (status == CMD_OK)
+	{
+		pid = fork();
+		if (pid == -1)
+			error_system("fork failed");
+		else if (pid == 0)
+		{
+			data->sa_i.sa_handler = sigint_child_handler;
+			sigaction(SIGINT, &data->sa_i, NULL);
+			execute_heredoc(data);
+		}
+		waitpid(pid, &status, 0);
+	}
 }
