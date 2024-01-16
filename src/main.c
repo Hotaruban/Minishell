@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 21:49:23 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:25:30 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,18 @@ static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 
 static bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
+	if (*line)
+		add_history(line);
 	if (!(check_line(line)))
 		return (false);
-	if(!(split_tokens(line, tokens)))
+	if (!(split_tokens(line, tokens)))
 		return (false);
 	if (!(token_identify(tokens)))
 		return (false);
 	if (!(token_syntax(tokens)))
-		return(free_tokens(tokens), false);
+		return (free_tokens(tokens), false);
 	if (!(variable_parser(tokens, data)))
-		return(false);
+		return (false);
 	if (!(quote_trim(tokens)))
 		return (false);
 	if (!(assign_data_cmd(tokens, data)))
@@ -60,18 +62,16 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	return (true);
 }
 
-int main(int ac, char** av, char **ev)
+int	main(int ac, char **av, char **ev)
 {
 	t_data		data;
 	t_tokens	tokens;
-	t_env		*env;
 	char		*line;
-	
+
 	(void)av;
 	if (ac != 1)
 		exit(1);
-	env = set_env(ev);
-	init_data(&data, env);
+	init_data(&data, ev);
 	init_tokens(&tokens);
 	while (1)
 	{
@@ -81,12 +81,8 @@ int main(int ac, char** av, char **ev)
 			printf("\x1b[A\x1b[K%sexit\n", PROMPT);
 			break ;
 		}
-		if (*line)
-			add_history(line);
-		if (!(processor(line, &data, &tokens)))	/* TO FIX OR REMOVE */
-		{
-			// free_data_struct(&data);
-		}
+		if (!(processor(line, &data, &tokens)))
+			free_data_struct(&data); // TOO Verify 
 		free(line);
 	}
 	set_echo_ctl(1);

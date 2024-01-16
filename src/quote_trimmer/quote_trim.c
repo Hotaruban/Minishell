@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 15:42:35 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:11:07 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ bool	quote_trim(t_tokens *tokens)
 		{
 			tmp_token = remove_close_quote(tokens->tokens[i], &quote_count, &j);
 			if (!(tokens->tokens[i]))
-				return(error_system(MALLOC_ERROR), false);
+				return (error_system(MALLOC_ERROR), false);
 			tokens->tokens[i] = tmp_token;
 		}
 		i++;

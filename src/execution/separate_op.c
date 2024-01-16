@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 22:01:29 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:10:56 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	waiting_pid(t_data *data, size_t len, pid_t *pid)
 		waitpid(pid[i++], &status, 0);
 		if (WIFSIGNALED(status))
 			status = WTERMSIG(status) + 128;
-		else 
+		else
 			status = WEXITSTATUS(status);
 	}
 	free(pid);

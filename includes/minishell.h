@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 19:35:33 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:24:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include "../libft/includes/libft.h"
-#include <stdbool.h>
-#include <string.h>
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <sys/stat.h>
-#include <dirent.h>
-#include <sys/ioctl.h>
-#include <curses.h>
-#include <term.h>
-#include <errno.h>
-#include <termios.h>
+# include "../libft/includes/libft.h"
+# include <stdbool.h>
+# include <string.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <sys/stat.h>
+# include <dirent.h>
+# include <sys/ioctl.h>
+# include <curses.h>
+# include <term.h>
+# include <errno.h>
+# include <termios.h>
 
 # define RESET "\033[0m"
 # define YELLOW "\033[1;33m"
@@ -45,7 +45,7 @@
 # define MALLOC_ERROR "Error\nMalloc failed"
 
 # ifndef PATH_MAX
-# define PATH_MAX 4096
+#  define PATH_MAX 4096
 # endif
 
 # define true 1
@@ -67,7 +67,7 @@
 
 typedef struct s_env
 {
-	char	*name;
+	char			*name;
 	struct s_env	*next;
 }		t_env;
 
@@ -89,11 +89,11 @@ typedef struct s_cmd
 
 typedef struct s_data
 {
-	t_cmd			*cmd;
-	t_env			*env;
-	int				status;
-	size_t			pipe_len;
-	int				pipefd[2];
+	t_cmd				*cmd;
+	t_env				*env;
+	int					status;
+	size_t				pipe_len;
+	int					pipefd[2];
 	struct sigaction	sa_i;
 	struct sigaction	sa_q;
 }		t_data;
@@ -107,7 +107,7 @@ typedef enum e_type_token
 	e_argument,
 }	t_tk_type;
 
-typedef	struct s_tokens
+typedef struct s_tokens
 {
 	char		**tokens;
 	t_tk_type	*token_type;
@@ -125,7 +125,7 @@ typedef	struct s_tokens
 t_env	*set_env(char **env);
 char	**env_array(t_env *env);
 void	add_variable(t_env *tmp_env, char *var);
-char 	*get_env_value(char *var, t_env **env, int var_len, int status);
+char	*get_env_value(char *var, t_env **env, int var_len, int status);
 
 /*Checker*/
 bool	check_line(char *line);
@@ -135,11 +135,11 @@ int		len_var(char *line);
 bool	is_operator(int c);
 
 /*Split_token*/
-int 	split_tokens(char *line, t_tokens *stuff);
+int		split_tokens(char *line, t_tokens *stuff);
 
 /*Token_identify & syntax*/
 bool	token_identify(t_tokens *tokens);
-bool 	token_syntax(t_tokens *tokens);
+bool	token_syntax(t_tokens *tokens);
 
 /*Expand_var*/
 bool	variable_parser(t_tokens *tokens, t_data *data);
@@ -153,7 +153,7 @@ void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
 
 //init_data
 void	init_data_cmd(t_cmd *cmd);
-void	init_data(t_data *data, t_env *env);
+void	init_data(t_data *data, char **ev);
 void	init_tokens(t_tokens *tokens);
 
 /*Executation*/

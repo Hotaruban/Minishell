@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 00:18:36 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:09:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,10 @@ void	free_tokens(t_tokens *tokens)
 		free(tokens->outfile_count);
 	if (tokens->append_count != NULL)
 		free(tokens->append_count);
-																// if (tokens != NULL)
-																// 	free(tokens);
 }
 
 void	free_data_struct(t_data *data)
 {
 	free_cmd_struct(data->cmd);
-																// free_env(data->env);
 	free(data);
 }
