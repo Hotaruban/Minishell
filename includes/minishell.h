@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 00:01:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 02:10:55 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@
 # define F_DENIED "Permission denied"
 # define NO_OPTION "no option accepted"
 # define NO_VALID_ID "not a valid identifier"
+# define TOO_MANY_ARG "too many arguments"
+# define NUM_ARG "numeric argument required"
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
@@ -188,7 +190,8 @@ int		ft_env(t_data *data, char **env, int index);
 int		ft_exit(t_data *data, int index);
 int		len_variable(char *var);
 bool	check_variable(char *var);
-void	print_env(char **env);
+void	print_env(char **env, int flag);
+bool	check_long_long(char *str);
 
 /*Messages*/
 void	error_system(char *msg);

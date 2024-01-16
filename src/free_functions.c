@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 13:07:33 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 01:34:54 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	free_cmd_struct(t_cmd *cmd, int nb_cmd)
 	int	i;
 
 	i = 0;
+	(void)cmd;
 	while (i < nb_cmd)
 	{
 		if (cmd[i].cmd != NULL)

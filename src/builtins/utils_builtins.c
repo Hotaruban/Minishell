@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 15:00:33 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 02:16:49 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ bool	check_variable(char *var)
 	return (true);
 }
 
-void	print_env(char **env)
+void	print_env(char **env, int flag)
 {
 	int	i;
 
 	i = 0;
 	while (env[i])
 	{
+		if (flag == 1)
+			ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}
@@ -63,4 +65,19 @@ void	add_variable(t_env *tmp_env, char *var)
 	new->name = ft_strdup(var);
 	new->next = NULL;
 	tmp_env->next = new;
+}
+
+bool	check_long_long(char *str)
+{
+	char	*tmp;
+
+	if (ft_strlen(str) > 19)
+		return (false);
+	if (ft_strlen(str) == 19 && str[0] == 57)
+	{
+		tmp = ft_substr(str, 1, 18);
+		if (ft_atoll(tmp) > 223372036854775807)
+			return (false);
+	}
+	return (true);
 }
