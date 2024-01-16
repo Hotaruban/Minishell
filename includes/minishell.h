@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 14:51:42 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:28:37 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define PROMPT	"minishell-hh$ "
 # define SYNTAX_ERROR "syntax error near unexpected token "
 # define MALLOC_ERROR "Error\nMalloc failed"
+# define F_DENIED "Permission denied"
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096

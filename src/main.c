@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 14:27:06 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:12:17 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,11 @@ int	main(int ac, char **av, char **ev)
 	{
 		line = readline(PROMPT);
 		if (!line)
+		{
 			exit_ctrl_d(&data);
+		}
 		processor(line, &data, &tokens);
-		if (data.cmd)
+		if (data.cmd && ft_strlen(line) > 0)
 			free_cmd_struct(data.cmd, data.pipe_len);
 		free(line);
 	}
