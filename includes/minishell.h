@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 12:50:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:51:42 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ bool	is_operator(int c);
 int		split_tokens(char *line, t_tokens *stuff);
 
 /*Token_identify & syntax*/
-bool	token_identify(t_tokens *tokens);
+bool	token_identify(t_tokens *tokens, int i);
 bool	token_syntax(t_tokens *tokens);
 
 /*Expand_var*/
@@ -191,6 +191,7 @@ void	print_env(char **env);
 void	error_system(char *msg);
 void	error_input(char *msg, char *msg_type);
 void	error_cmd(char *cmd, char *msg);
+void	error_cmd_var(char *cmd, char *msg, char *str);
 
 /*Free_functions*/
 void	free_2d_array(char **array);

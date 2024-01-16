@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 09:10:56 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 15:32:09 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 static int	pipe_op(t_data *data, char **env, int index)
 {
 	open_heredoc(data);
-	if (data->cmd[0].cmd[0] == NULL && data->pipe_len <= 1)
+	if (data->cmd[0].cmd[0] == NULL && data->pipe_len < 1)
 		return (CMD_OK);
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 15:36:35 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 15:00:33 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ bool	check_variable(char *var)
 
 	i = 0;
 	if (ft_isdigit(var[i]) || var[i] == '_')
+		return (false);
+	if (!ft_isalpha(var[i]))
 		return (false);
 	i++;
 	while (var[i] != '=' && var[i] != '\0')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 22:58:04 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:54:47 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,20 @@ int	ft_unset(t_data *data, int index)
 	int	i;
 
 	status = CMD_OK;
+	if (data->cmd[index].cmd[1] == NULL)
+		return (status);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
 		return (CMD_EXIT);
 	}
-	if (data->cmd[index].cmd[1] == NULL)
-		return (status);
 	i = 1;
 	while (data->cmd[index].cmd[i])
 	{
 		if (check_variable(data->cmd[index].cmd[i]) == false)
 		{
-			error_cmd(data->cmd[index].cmd[0], "invalid variable.");
+			error_cmd_var("unset", "not a valid identifier",
+				data->cmd[index].cmd[i]);
 			status = CMD_EXIT;
 		}
 		i++;

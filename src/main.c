@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 13:07:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:27:06 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		return (false);
 	if (!(split_tokens(line, tokens)))
 		return (false);
-	if (!(token_identify(tokens)))
+	if (!(token_identify(tokens, 0)))
 		return (false);
 	if (!(token_syntax(tokens)))
 		return (free_tokens(tokens), false);
