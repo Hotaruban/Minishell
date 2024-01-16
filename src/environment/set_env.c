@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 15:57:38 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 11:06:22 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_env_value(char *var, t_env **env, int var_len, int status)
 	{
 		if (ft_strncmp(var, "?", 1) == 0)
 		{
-			name_value = ft_strdup(ft_itoa(status));
+			name_value = ft_itoa(status);
 			return (name_value);
 		}
 		else if (ft_strncmp(var, env_list->name, var_len) == 0

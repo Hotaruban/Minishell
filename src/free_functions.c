@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 09:09:27 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 13:07:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,23 @@ void	free_2d_array(char **array)
 	free(array);
 }
 
-void	free_cmd_struct(t_cmd *cmd)
+void	free_cmd_struct(t_cmd *cmd, int nb_cmd)
 {
 	int	i;
 
 	i = 0;
-	if (cmd->cmd != NULL)
-		free_2d_array(cmd->cmd);
-	if (cmd->limiters != NULL)
-		free_2d_array(cmd->limiters);
-	if (cmd->infiles != NULL)
-		free_2d_array(cmd->infiles);
-	if (cmd->outfiles != NULL)
-		free_2d_array(cmd->outfiles);
+	while (i < nb_cmd)
+	{
+		if (cmd[i].cmd != NULL)
+			free_2d_array(cmd[i].cmd);
+		if (cmd[i].limiters != NULL)
+			free_2d_array(cmd[i].limiters);
+		if (cmd[i].infiles != NULL)
+			free_2d_array(cmd[i].infiles);
+		if (cmd[i].outfiles != NULL)
+			free_2d_array(cmd[i].outfiles);
+		i++;
+	}
 	if (cmd)
 		free(cmd);
 }
@@ -62,6 +66,6 @@ void	free_tokens(t_tokens *tokens)
 
 void	free_data_struct(t_data *data)
 {
-	free_cmd_struct(data->cmd);
-	free(data);
+	if (data->cmd)
+		free_cmd_struct(data->cmd, data->pipe_len);
 }

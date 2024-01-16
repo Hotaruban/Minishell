@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 12:11:52 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 12:06:08 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,7 @@ static char	**token_split(char *line, int nb_tokens_cmd)
 		while (ft_isspace(line[i]))
 			i++;
 		len = len_token(&line[i]);
-		tokens[j] = (char *)malloc(sizeof(char) * (len + 1));
-		ft_memcpy(tokens[j], &line[i], len);
-		tokens[j][len] = '\0';
+		tokens[j] = ft_substr(line, i, len);
 		i += len;
 		j++;
 	}
