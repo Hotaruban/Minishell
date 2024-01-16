@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 23:32:36 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 15:38:32 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool	builtin_in_parent(t_data *data, char **env, int index)
 				status = CMD_ERROR;
 			data->status = execute_builtins(data, env, index) + status;
 			return (true);
-		}
+		}	
 	}
 	return (false);
 }

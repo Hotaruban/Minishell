@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_identify.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 13:41:43 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:28:11 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ static void	token_type_counter(t_tokens *tokens)
 
 static t_tk_type	token_class(char *token, t_tk_type pre)
 {
+	if (pre == e_void && *token == '|')
+		return (e_void);
 	if (!(ft_strncmp(token, "<>", 2)) || !(ft_strncmp(token, "><", 2))
 		|| (len_operator(token) > 2))
 		return (e_void);
@@ -79,12 +81,10 @@ static t_tk_type	token_class(char *token, t_tk_type pre)
 		return (e_argument);
 }
 
-bool	token_identify(t_tokens *tokens)
+bool	token_identify(t_tokens *tokens, int i)
 {
 	t_tk_type	*type;
-	int			i;
 
-	i = 0;
 	type = (t_tk_type *)malloc(sizeof(t_tk_type) * (tokens->token_count + 1));
 	if (!type)
 		return (error_system("malloc failed"), false);
@@ -96,7 +96,9 @@ bool	token_identify(t_tokens *tokens)
 			type[i] = token_class(tokens->tokens[i], type[i - 1]);
 		if (type[i] == e_pipe)
 			tokens->pipe_count += 1;
-		if (type[i] == e_void)
+		if (type[i] == e_void && !(ft_strncmp(tokens->tokens[i], "|", 1)))
+			return (error_input(SYNTAX_ERROR, "|"), false);
+		else if (type[i] == e_void)
 			return (error_input(SYNTAX_ERROR, "newline"), false);
 		i++;
 	}
