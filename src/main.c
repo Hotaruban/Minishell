@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 09:20:35 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 09:25:30 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	main(int ac, char **av, char **ev)
 			break ;
 		}
 		if (!(processor(line, &data, &tokens)))
-			free_data_struct(&data);
+			free_data_struct(&data); // TOO Verify 
 		free(line);
 	}
 	set_echo_ctl(1);
