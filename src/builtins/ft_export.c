@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 00:13:51 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 00:18:00 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	ft_export(t_data *data, char **env, int index)
 
 	status = CMD_OK;
 	if (data->cmd[index].cmd[1] == NULL)
-		return (print_env(env), status);
+		return (print_env(env, 1), status);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		error_cmd(data->cmd[index].cmd[0], NO_OPTION);

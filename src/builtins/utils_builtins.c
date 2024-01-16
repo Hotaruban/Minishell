@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 15:00:33 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 00:18:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ bool	check_variable(char *var)
 	return (true);
 }
 
-void	print_env(char **env)
+void	print_env(char **env, int flag)
 {
 	int	i;
 
 	i = 0;
 	while (env[i])
 	{
+		if (flag == 1)
+			ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		ft_putendl_fd(env[i], STDOUT_FILENO);
 		i++;
 	}

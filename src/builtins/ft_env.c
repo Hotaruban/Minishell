@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:51 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/10 23:26:10 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 00:19:08 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ int	ft_env(t_data *data, char **env, int index)
 		error_cmd(data->cmd[index].cmd[0], "no option or argument accepted.");
 		return (CMD_EXIT);
 	}
-	print_env(env);
+	print_env(env, 0);
 	return (CMD_OK);
 }
