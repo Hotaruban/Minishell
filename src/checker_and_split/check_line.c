@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 11:54:30 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 21:21:37 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ bool	check_line(char *line)
 {
 	int	len_line;
 
-	len_line = 0;
-	while (*line)
+	while (line != NULL && *line != '\0')
 	{
+		len_line = 0;
 		while (*line && ft_isspace(*line))
 			line++;
 		if (!(*line))
