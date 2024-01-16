@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 19:34:46 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 09:16:21 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void init_data(t_data *data, t_env *env)
+void	init_data(t_data *data, char **ev)
 {
 	data->cmd = NULL;
-	data->env = env;
+	data->env = set_env(ev);
 	data->status = 0;
 	data->pipe_len = 0;
 	data->pipefd[1] = -1;
@@ -23,7 +23,7 @@ void init_data(t_data *data, t_env *env)
 	set_echo_ctl(0);
 }
 
-void init_tokens(t_tokens *tokens)
+void	init_tokens(t_tokens *tokens)
 {
 	tokens->tokens = NULL;
 	tokens->token_type = NULL;
@@ -37,7 +37,7 @@ void init_tokens(t_tokens *tokens)
 	tokens->append_count = NULL;
 }
 
-void    init_data_cmd(t_cmd *cmd)
+void	init_data_cmd(t_cmd *cmd)
 {
 	cmd->pipe_out = FALSE;
 	cmd->pipe_in = FALSE;
