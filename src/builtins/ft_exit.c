@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 17:48:55 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 02:24:42 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,30 @@
 The function ft_exit is used to exit the minishell.
 It returns the exit status.
 */
+
+static int	quit_and_clean(t_data *data, int status)
+{
+	rl_clear_history();
+	free_env(data->env);
+	free_data_struct(data);
+	exit (status);
+}
+
+static int	check_input_exit(t_data *data, int index)
+{
+	if (data->cmd[index].file_in == true)
+		return (CMD_ERROR);
+	if (data->cmd[index].cmd[1] != NULL)
+	{
+		if (data->cmd[index].cmd[2] != NULL
+			&& check_long_long(data->cmd[index].cmd[1]) == true)
+		{
+			printf("exit\n%sexit: %s\n", PROMPT, TOO_MANY_ARG);
+			return (CMD_ERROR);
+		}
+	}
+	return (CMD_OK);
+}
 
 static bool	ft_isnumber(char *arg)
 {
@@ -35,19 +59,19 @@ static bool	ft_isnumber(char *arg)
 
 static int	get_exit_status(t_data *data, char *arg)
 {
-	int	status;
+	int			status;
 
 	(void) data;
 	status = 0;
 	if (arg)
 	{
-		if (ft_isnumber(arg))
-			status = (ft_atol(arg) % 256);
-		else
+		if (check_long_long(arg) == false || !ft_isnumber(arg))
 		{
-			error_cmd("exit", "numeric argument required");
-			status = 255;
+			printf("exit\n%sexit: %s: %s\n", PROMPT, arg, NUM_ARG);
+			quit_and_clean(data, 255);
 		}
+		else
+			status = (ft_atoll(arg) % 256);
 	}
 	else
 		status = CMD_OK;
@@ -58,13 +82,16 @@ int	ft_exit(t_data *data, int index)
 {
 	int	status;
 
+	status = check_input_exit(data, index);
+	if (status != CMD_OK)
+		return (status);
 	status = get_exit_status(data, data->cmd[0].cmd[1]);
 	if (data->cmd[index].pipe_out == true
 		|| data->cmd[index].pipe_in == true)
-		return (status);
-	ft_putendl_fd("exit", STDOUT_FILENO);
-	rl_clear_history();
-	free_env(data->env);
-	free_data_struct(data);
-	exit (status);
+		return (CMD_ERROR);
+	printf("exit\n");
+	quit_and_clean(data, status);
+	return (status);
 }
+
+//9223372036854775807

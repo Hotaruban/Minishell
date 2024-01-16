@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 00:08:41 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 01:35:00 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,12 @@ int	main(int ac, char **av, char **ev)
 	{
 		line = readline(PROMPT);
 		if (!line)
-		{
 			exit_ctrl_d(&data);
-		}
 		if (line[0])
 			processor(line, &data, &tokens);
-		if (data.cmd)
-			free_cmd_struct(data.cmd, data.pipe_len);
-		if (line)
+		// if (data.cmd)
+		// 	free_cmd_struct(data.cmd, data.pipe_len);
+		if (ft_strlen(line) > 0)
 			free(line);
 	}
 	return (0);

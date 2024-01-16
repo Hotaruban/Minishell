@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 00:18:58 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 02:16:49 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,19 @@ void	add_variable(t_env *tmp_env, char *var)
 	new->name = ft_strdup(var);
 	new->next = NULL;
 	tmp_env->next = new;
+}
+
+bool	check_long_long(char *str)
+{
+	char	*tmp;
+
+	if (ft_strlen(str) > 19)
+		return (false);
+	if (ft_strlen(str) == 19 && str[0] == 57)
+	{
+		tmp = ft_substr(str, 1, 18);
+		if (ft_atoll(tmp) > 223372036854775807)
+			return (false);
+	}
+	return (true);
 }

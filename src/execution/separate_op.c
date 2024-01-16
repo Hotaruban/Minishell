@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 23:27:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 01:33:21 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@
 The function separator_op is used to execute a list of pipe command.
 It returns the status of the last command executed.
 */
-
-static void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
-}
 
 static int	waiting_pid(t_data *data, size_t len, pid_t *pid)
 {
@@ -92,7 +82,7 @@ int	separator_op(t_data *data)
 	set_signal(data, IGNORE_SIGINT_PARENT);
 	if (pipe_op(data, ev, 0) != CMD_OK)
 		return (CMD_ERROR);
-	free_array(ev);
+	free_2d_array(ev);
 	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (data->status);
 }
