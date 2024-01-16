@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 21:27:18 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 00:08:41 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,25 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
 	if (*line)
 		add_history(line);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(check_line(line)))
 		return (printf("In checkline false\n"), false);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(split_tokens(line, tokens)))
 		return (false);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(token_identify(tokens, 0)))
 		return (false);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(token_syntax(tokens)))
 		return (free_tokens(tokens), false);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(variable_parser(tokens, data)))
 		return (false);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(quote_trim(tokens)))
 		return (false);
-		printf("HERE--\n");
+	// printf("HERE--\n");
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/12/11 23:21:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 00:13:51 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	find_variable(t_env *env, char **var)
 				free (var_tmp);
 				break ;
 			}
-			else if (tmp_env->next == NULL)
+			else if (tmp_env->next == NULL
+				&& len_variable(var[i]) < (int)ft_strlen(var[i]))
 				add_variable(tmp_env, var[i]);
 			tmp_env = tmp_env->next;
 		}
@@ -58,7 +59,7 @@ int	ft_export(t_data *data, char **env, int index)
 		return (print_env(env), status);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
-		error_cmd(data->cmd[index].cmd[0], "no option accepted.");
+		error_cmd(data->cmd[index].cmd[0], NO_OPTION);
 		return (CMD_EXIT);
 	}
 	i = 1;
@@ -66,7 +67,8 @@ int	ft_export(t_data *data, char **env, int index)
 	{
 		if (check_variable(data->cmd[index].cmd[i]) == false)
 		{
-			error_cmd(data->cmd[index].cmd[0], "invalid variable.");
+			printf("%s%s: `%s\': %s\n", PROMPT, data->cmd[index].cmd[0],
+				data->cmd[index].cmd[i], NO_VALID_ID);
 			status = CMD_ERROR;
 		}
 		i++;
