@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 20:16:54 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 23:33:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:31:36 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,33 @@ static int	creat_outfile(char *outfile, int append)
 	return (CMD_OK);
 }
 
+static bool	access_outfile(t_data *data, int index, int i)
+{
+	while (data->cmd[index].outfiles[i] != NULL)
+	{
+		if (data->cmd[index].outfiles[i + 1] != NULL)
+		{
+			if (creat_outfile(data->cmd[index].outfiles[i],
+					data->cmd[index].append) != CMD_OK)
+				return (error_cmd(data->cmd[index].outfiles[i], F_DENIED),
+					CMD_ERROR);
+		}
+		else if (access(data->cmd[index].outfiles[i], F_OK) == -1
+			&& data->cmd[index].outfiles[i + 1] == NULL)
+		{
+			if (creat_outfile(data->cmd[index].outfiles[i],
+					data->cmd[index].append) != CMD_OK)
+				return (error_cmd(data->cmd[index].outfiles[i], F_DENIED),
+					CMD_ERROR);
+		}
+		if (access(data->cmd[index].outfiles[i], W_OK) == -1)
+			return (error_cmd(data->cmd[index].outfiles[i], F_DENIED),
+				CMD_EXIT);
+		i++;
+	}
+	return (CMD_OK);
+}
+
 int	check_access_files(t_data *data, int index, int i)
 {
 	while (data->cmd[index].infiles[i] != NULL)
@@ -37,21 +64,10 @@ int	check_access_files(t_data *data, int index, int i)
 			return (error_system("file not found"), CMD_EXIT);
 		else if (access(data->cmd[index].infiles[i], R_OK) == -1
 			&& data->cmd[index].infiles[i] != NULL)
-			return (error_system("permission denied"), CMD_EXIT);
+			return (error_cmd(data->cmd[index].infiles[i], F_DENIED),
+				CMD_EXIT);
 		i++;
 	}
-	i = 0;
-	while (data->cmd[index].outfiles[i] != NULL)
-	{
-		if (access(data->cmd[index].outfiles[i], F_OK) == -1)
-		{
-			if (creat_outfile(data->cmd[index].outfiles[i],
-					data->cmd[index].append) != CMD_OK)
-				return (CMD_ERROR);
-		}
-		if (access(data->cmd[index].outfiles[i], W_OK) == -1)
-			return (error_system("permission denied"), CMD_EXIT);
-		i++;
-	}
+	access_outfile(data, index, 0);
 	return (CMD_OK);
 }

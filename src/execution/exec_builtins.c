@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 15:56:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:36:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,20 @@ static bool	is_parent_builtin(t_data *data, int index)
 	return (false);
 }
 
+static bool	builtin_no_pipe(t_data *data, char **env, int index)
+{
+	if (data->cmd[index].pipe_in == false
+		&& data->cmd[index].pipe_out == false)
+	{
+		if (data->cmd[index].file_out == true
+			|| data->cmd[index].file_in == true)
+			return (data->status = check_access_files(data, index, 0), true);
+		if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)
+			return (data->status = execute_builtins(data, env, index), true);
+	}
+	return (false);
+}
+
 bool	builtin_in_parent(t_data *data, char **env, int index)
 {
 	int	status;
@@ -79,16 +93,10 @@ bool	builtin_in_parent(t_data *data, char **env, int index)
 					status = CMD_ERROR;
 				data->status = execute_builtins(data, env, index) + status;
 				return (true);
-			}	
+			}
 		}
-		if (data->cmd[index].pipe_in == false && data->cmd[index].pipe_out == false)
-		{
-			if (data->cmd[index].file_out == true
-				|| data->cmd[index].file_in == true)
-				return (data->status = check_access_files(data, index, 0), true);
-			if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)
-				return (data->status = execute_builtins(data, env, index), true);
-		}
+		if (builtin_no_pipe(data, env, index) == true)
+			return (true);
 	}
 	return (false);
 }

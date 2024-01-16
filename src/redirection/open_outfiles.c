@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_outfiles.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 15:32:27 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:26:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ static int	open_outfile(char *outfile, bool append)
 	status = CMD_OK;
 	fd_out = open(outfile, O_WRONLY | O_CREAT | w_mode, 0644);
 	if (fd_out == -1)
-	{
-		error_system("open failed");
 		status = CMD_ERROR;
-	}
 	else
 	{
 		status = dup_files(fd_out, STDOUT_FILENO);
