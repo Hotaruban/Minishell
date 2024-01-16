@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/15 12:40:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/16 23:30:20 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,19 @@ static char	*get_path(char **cmd, char **env)
 void	execute_cmd(char **cmd, char **env)
 {
 	char	*path;
+	DIR		*dir;
 
 	if (cmd == NULL || cmd[0][0] == '\0')
 	{
 		error_cmd(cmd[0], "command not found");
 		exit(CMD_NOT_FOUND);
+	}
+	dir = opendir(cmd[0]);
+	if (dir != NULL)
+	{
+		error_cmd(cmd[0], "is a directory");
+		closedir(dir);
+		exit (CMD_NOT_EXEC);
 	}
 	if (check_cmd_accessible(cmd) == true)
 		path = cmd[0];
