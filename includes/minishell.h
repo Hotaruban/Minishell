@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 22:01:38 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 23:00:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define DUP_ERROR		"dup2 failed"
 
 # define IS_DIR			"is a directory"
-# define NO_FILE		"no such file or directory"
+# define NO_FILE		"No such file or directory"
 # define NO_OPTION		"no option accepted"
 # define NO_OPT_ARG		"no option or argument accepted"
 # define NO_VALID_ID	"not a valid identifier"

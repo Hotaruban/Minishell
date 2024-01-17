@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 21:56:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 23:00:21 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ static int	change_directory(t_data *data, char *path, t_env *env)
 	(void)data;
 	if (chdir(path) == -1)
 	{
-		error_system("chdir failed");
+		error_cmd_msg("cd ", path, NO_FILE);
 		return (CMD_ERROR);
 	}
 	set_variable_pwd(env);
+	if (path != NULL)
+		free(path);
 	return (CMD_OK);
 }
 
@@ -86,8 +88,8 @@ int	ft_cd(t_data *data, int index)
 		|| data->cmd[index].cmd[1][0] == '\0'
 		|| ft_strncmp(data->cmd[index].cmd[1], "--", 3) == 0)
 	{
-		path = get_env_value("HOME", &data->env, 4, 0);
-		return (!change_directory(data, path, data->env));
+		path = get_env_value("HOME", &data->env, 4, g_exit_status);
+		return (change_directory(data, path, data->env));
 	}
 	if (data->cmd[index].cmd[2])
 		return (error_cmd(data->cmd[index].cmd[0],
@@ -98,8 +100,8 @@ int	ft_cd(t_data *data, int index)
 		if (!path)
 			return (error_cmd(data->cmd[index].cmd[0],
 					"OLDPWD not set"), CMD_EXIT);
-		return (!change_directory(data, path, data->env));
+		return (change_directory(data, path, data->env));
 	}
-	path = data->cmd[index].cmd[1];
-	return (!change_directory(data, path, data->env));
+	path = ft_strdup(data->cmd[index].cmd[1]);
+	return (change_directory(data, path, data->env));
 }

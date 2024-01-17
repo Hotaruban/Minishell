@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_system_2.c                                   :+:      :+:    :+:   */
+/*   error_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 15:11:39 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 15:14:32 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 23:01:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void	error_cmd_msg(char *cmd1, char *cmd2, char *msg)
 	ft_putstr_fd(PROMPT, STDERR_FILENO);
 	ft_putstr_fd(cmd1, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd("`", STDERR_FILENO);
 	ft_putstr_fd(cmd2, STDERR_FILENO);
-	ft_putstr_fd("\': ", STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
 }

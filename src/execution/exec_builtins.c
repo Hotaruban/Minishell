@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 21:59:39 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 22:41:51 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ static bool	builtin_no_pipe(t_data *data, char **env, int index)
 			|| data->cmd[index].file_in == true)
 			return (true);
 		if (ft_strncmp(data->cmd[index].cmd[0], "cd", 3) == 0)
-			return (g_exit_status = execute_builtins(data, env, index), true);
+		{
+			g_exit_status = execute_builtins(data, env, index);
+			return (true);
+		}
 	}
 	return (false);
 }
