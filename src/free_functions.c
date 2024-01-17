@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 19:21:46 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:00:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ void	free_tokens(t_tokens *tokens)
 
 void	free_data_struct(t_data *data)
 {
-	data->status = 0;
 	if (data->cmd)
 		free_cmd_struct(data->cmd, data->pipe_len);
-	
 }

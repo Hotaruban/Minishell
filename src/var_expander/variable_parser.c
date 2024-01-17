@@ -14,17 +14,17 @@
 
 static bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 {
-	char	*env_value;
-	char	*new_token;
-	char	*var;
-	int		var_len;
-	int		new_len;
+	char		*env_value;
+	char		*new_token;
+	char		*var;
+	int			var_len;
+	int			new_len;
 
 	var_len = len_var(pos) - 1;
 	var = ft_substr(pos, 1, var_len);
 	if (var == NULL)
 		return (error_system(MALLOC_ERROR), false);
-	env_value = get_env_value(var, &data->env, var_len, data->status);
+	env_value = get_env_value(var, &data->env, var_len, g_exit_status);
 	new_len = ft_strlen(*token) - (var_len - ft_strlen(env_value));
 	new_token = (char *)ft_calloc(sizeof(char), (new_len + 1));
 	ft_memcpy(new_token, *token, ft_strlen(*token) - ft_strlen(pos));

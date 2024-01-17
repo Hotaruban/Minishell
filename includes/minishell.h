@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 18:07:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:00:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define DUP_ERROR		"dup2 failed"
 
 # define IS_DIR			"is a directory"
-# define NO_FILE		"no such file or directory"
+# define NO_FILE		"No such file or directory"
 # define NO_OPTION		"no option accepted"
 # define NO_OPT_ARG		"no option or argument accepted"
 # define NO_VALID_ID	"not a valid identifier"
@@ -79,6 +79,8 @@
 # define IGNORE_SIGINT_PARENT 2
 # define IGNORE_SIGQUIT 3
 
+int	g_exit_status;
+
 typedef struct s_env
 {
 	char			*name;
@@ -105,7 +107,6 @@ typedef struct s_data
 {
 	t_cmd				*cmd;
 	t_env				*env;
-	int					status;
 	size_t				pipe_len;
 	int					pipefd[2];
 	struct sigaction	sa_i;
@@ -174,7 +175,7 @@ void	init_tokens(t_tokens *tokens);
 bool	builtin_in_parent(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
-void	execute_cmd(t_data *data, char **cmd, char **env);
+void	execute_cmd(const t_data *data, const char **cmd, const char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 
