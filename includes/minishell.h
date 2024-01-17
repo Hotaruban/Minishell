@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 11:00:31 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:43:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,6 @@ bool	variable_parser(t_tokens *tokens, t_data *data);
 bool	quote_trim(t_tokens *tokens);
 
 /*Struct_fill*/
-// bool	assign_data_cmd(t_tokens *tokens, t_data *data);
 void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
 
 //init_data
@@ -175,11 +174,9 @@ int		separator_op(t_data *data);
 int		check_acces_file(t_data *data, int index);
 int		dup_files(int fd_target, int fd_origin);
 int		redirection_heredoc(t_data *data, int index);
-int		redir_infiles(t_data *data, int index);
-int		redir_outfiles(t_data *data, int index);
+void	redir_infiles(t_data *data, int index);
+void	redir_outfiles(t_data *data, int index);
 int		redirection_pipes(t_data *data, int index);
-int		redirection_files(t_data *data, int index);
-int		check_access_files(t_data *data, int index, int i);
 void	open_heredoc(t_data *data);
 
 /*Builtins*/
@@ -206,7 +203,6 @@ void	error_exit_msg(char *arg, char *str);
 
 /*Free_functions*/
 void	free_2d_array(char **array);
-// void	free_cmd_struct(t_cmd *cmd);
 void	free_cmd_struct(t_cmd *cmd, int nb_cmd);
 void	free_tokens(t_tokens *tokens);
 void	free_data_struct(t_data *data);
@@ -217,7 +213,5 @@ void	set_echo_ctl(int enable);
 void	sigint_child_handler(int signum);
 void	sigint_parent_handler(int signum);
 void	set_signal(t_data *data, int type);
-// bool	set_termios(struct termios *term);
-// bool	restore_termios(struct termios *term);
 
 #endif

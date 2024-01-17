@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:57:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:01:49 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:16:03 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	error_system(char *msg)
 {
+	ft_putstr_fd(PROMPT, STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
 }
 

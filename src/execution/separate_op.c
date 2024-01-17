@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 09:03:50 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:36:25 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,21 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 
 static int	pipe_op(t_data *data, char **env, int index)
 {
-	int	status;
+	int				status;
+	unsigned int	i;
 
 	status = CMD_OK;
+	i = 0;
 	open_heredoc(data);
 	status = check_acces_file(data, index);
-	// if (data->cmd->pipe_out == false)
-	// 	return (CMD_ERROR);
-	if (data->cmd[0].cmd[0] == NULL && data->pipe_len < 1)
-		return (CMD_OK);
+	while (i < data->pipe_len)
+	{
+		if (data->cmd[index].cmd[0] != NULL)
+			break ;
+		i++;
+		if (i == data->pipe_len)
+			return (CMD_OK);
+	}
 	if (builtin_in_parent(data, env, index) == true)
 		return (CMD_OK);
 	else

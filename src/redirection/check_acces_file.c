@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:00:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 10:48:50 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:36:07 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,11 @@ int	check_acces_file(t_data *data, int index)
 
 	i = 0;
 	status = 0;
-	while ((data->cmd[index].file_in == true
-			&& (data->cmd[index].here_doc_in == false))
-		|| data->cmd[index].file_out == true)
+	while ((int)data->pipe_len > i)
 	{
 		status = access_infile_outfile(data, index);
 		index++;
+		i++;
 	}
 	return (status);
 }

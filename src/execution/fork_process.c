@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 10:41:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:40:26 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,22 @@ static void	child_process(t_data *data, char **env, int index)
 		if (redirection_heredoc(data, index) != CMD_OK)
 			exit(CMD_ERROR);
 	}
-	// redirection infile
-	// redirection outfile
-																						if (check_access_files(data, index, 0) != CMD_OK)
-																							exit(CMD_ERROR);
-																						if ((data->cmd[index].file_in == true
-																								&& data->cmd[index].here_doc_in == false)
-																							|| data->cmd[index].file_out == true)
-																						{
-																							if (redirection_files(data, index) != CMD_OK)
-																								exit(CMD_ERROR);
-																						}
-	if (redirection_pipes(data, index) != CMD_OK)
-		exit(CMD_ERROR);
-	if (is_builtins(data, index) == true)
-		exit(execute_builtins(data, env, index));
-	else
+	if (data->cmd[index].cmd != NULL)
 	{
-		execute_cmd(data->cmd[index].cmd, env);
+		if (data->cmd[index].file_in == true && data->cmd[index].here_doc_in == false)
+			redir_infiles(data, index);
+		if (data->cmd[index].file_out == true)
+			redir_outfiles(data, index);
+		if (redirection_pipes(data, index) != CMD_OK)
+			exit(CMD_ERROR);
+		if (is_builtins(data, index) == true)
+			exit(execute_builtins(data, env, index));
+		else
+		{
+			execute_cmd(data->cmd[index].cmd, env);
+		}
 	}
+	exit (data->status);
 }
 
 static void	parent_process(t_data *data, int index)
