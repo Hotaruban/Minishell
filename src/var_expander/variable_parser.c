@@ -28,10 +28,12 @@ static bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 	new_len = ft_strlen(*token) - (var_len - ft_strlen(env_value));
 	new_token = (char *)ft_calloc(sizeof(char), (new_len + 1));
 	ft_memcpy(new_token, *token, ft_strlen(*token) - ft_strlen(pos));
-	ft_strlcat(new_token, env_value, strlen(new_token) + strlen(env_value) + 1);
+	ft_strlcat(new_token, env_value, ft_strlen(new_token)
+		+ ft_strlen(env_value) + 1);
 	ft_memcpy(new_token + ft_strlen(new_token), pos
 		+ var_len + 1, ft_strlen(pos + var_len));
-	*next_pos = new_token + ft_strlen(env_value);
+	*next_pos = new_token + (ft_strlen(*token) - ft_strlen(pos)
+			+ ft_strlen(env_value));
 	free(var);
 	free(env_value);
 	free(*token);
@@ -77,7 +79,8 @@ static bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 	i = 0;
 	open_single_qt = 0;
 	open_double_qt = 0;
-	if (single_qt == 1 || double_qt == 1)
+	double_qt = 0;
+	if (single_qt == 1)
 		return (false);
 	while (token[i] != '\0')
 	{
@@ -93,29 +96,40 @@ static bool	is_expandable_variable(char *token, int single_qt, int double_qt)
 	return (false);
 }
 
-bool	variable_parser(t_tokens *tokens, t_data *data)
+static bool	expandinator(t_data *data, t_tokens *tokens, int i)
 {
 	char	*next_pos;
 	char	*pos;
 	int		single_qt;
 	int		double_qt;
-	int		i;
 
 	single_qt = 0;
 	double_qt = 0;
-	i = 0;
-	while (i < tokens->token_count)
+	if (is_expandable_variable(tokens->tokens[i], single_qt, double_qt))
 	{
-		if (is_expandable_variable(tokens->tokens[i], single_qt, double_qt))
+		pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
+		while (pos != NULL)
 		{
-			pos = var_position(tokens->tokens[i], &single_qt, &double_qt);
-			while (pos != NULL)
+			if (is_expandable_variable(pos, single_qt, double_qt))
 			{
 				if (!(expand_var(data, &(tokens->tokens[i]), pos, &next_pos)))
 					return (false);
-				pos = var_position(next_pos, &single_qt, &double_qt);
 			}
+			pos = var_position(next_pos, &single_qt, &double_qt);
 		}
+	}
+	return (true);
+}
+
+bool	variable_parser(t_tokens *tokens, t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (i < tokens->token_count)
+	{
+		if (!(expandinator(data, tokens, i)))
+			return (false);
 		i++;
 	}
 	return (true);
