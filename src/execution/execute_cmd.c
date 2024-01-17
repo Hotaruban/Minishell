@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:55:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 20:18:10 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	check_cmd_accessible(char **cmd)
+static bool	check_cmd_accessible(char **cmd, char **env)
 {
 	if (ft_strncmp(cmd[0], "../", 3) == 0 || ft_strncmp(cmd[0], "./", 2) == 0)
 	{
 		if (access(cmd[0], F_OK) == -1)
 		{
 			error_cmd(cmd[0], NO_FILE);
+			free_2d_array(env);
 			exit(CMD_NOT_FOUND);
 		}
 		if (access(cmd[0], X_OK) == -1)
 		{
 			error_cmd(cmd[0], F_DENIED);
+			free_2d_array(env);
 			exit(CMD_NOT_EXEC);
 		}
 		return (true);
@@ -49,13 +51,14 @@ static char	**get_env(char **env)
 		if (array == NULL)
 		{
 			error_system(MALLOC_ERROR);
+			free_2d_array(env);
 			exit(CMD_NOT_EXEC);
 		}
 	}
 	return (array);
 }
 
-static char	*check_path(char *av, char **env)
+static char	*check_path(t_data *data, char *av, char **env)
 {
 	char	**path_array;
 	char	*tmp_path;
@@ -64,6 +67,7 @@ static char	*check_path(char *av, char **env)
 
 	path_array = get_env(env);
 	i = -1;
+	(void)data;
 	while (path_array[++i] != NULL)
 	{
 		tmp_path = ft_strjoin(path_array[i], "/");
@@ -76,43 +80,38 @@ static char	*check_path(char *av, char **env)
 			free(path);
 		path = NULL;
 	}
-	i = -1;
-	while (path_array[++i] != NULL)
-		free(path_array[i]);
-	free(path_array);
+	free_2d_array(path_array);
 	return (path);
 }
 
-static char	*get_path(char **cmd, char **env)
+static char	*get_path(t_data *data, char **cmd, char **env)
 {
 	char	*path;
 
 	path = NULL;
 	if (cmd[0][0] == '/')
-	{
 		path = ft_strdup(cmd[0]);
-	}
 	else
-		path = check_path(cmd[0], env);
+		path = check_path(data, cmd[0], env);
 	if (path == NULL)
 	{
 		error_cmd(cmd[0], NO_CMD);
-		while (*cmd != NULL)
-			free(*cmd++);
+		free_data_struct(data);
+		free_2d_array(env);
 		exit(CMD_NOT_FOUND);
 	}
 	if (access(path, F_OK) == -1)
 	{
-		while (*cmd != NULL)
-			free(*cmd++);
-		free(cmd);
+		free_data_struct(data);
 		error_cmd(path, NO_FILE);
+		free(path);
+		free_2d_array(env);
 		exit(CMD_NOT_FOUND);
 	}
 	return (path);
 }
 
-void	execute_cmd(char **cmd, char **env)
+void	execute_cmd(t_data *data, char **cmd, char **env)
 {
 	char	*path;
 	DIR		*dir;
@@ -127,12 +126,20 @@ void	execute_cmd(char **cmd, char **env)
 	{
 		error_cmd(cmd[0], IS_DIR);
 		closedir(dir);
-		exit (CMD_NOT_EXEC);
+		free_data_struct(data);
+		free_2d_array(env);
+		exit (126);
 	}
-	if (check_cmd_accessible(cmd) == true)
+	// free_data_struct(data);
+	// 		exit (0);
+	if (check_cmd_accessible(cmd, env) == true)
+	{
 		path = cmd[0];
+	}
 	else
-		path = get_path(cmd, env);
+	{
+		path = get_path(data, cmd, env);
+	}
 	if (execve(path, cmd, env) == -1)
 	{
 		error_system("execve failed");

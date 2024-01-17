@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:58:13 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 20:16:45 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ The function separator_op is used to execute a list of pipe command.
 It returns the status of the last command executed.
 */
 
-static int	waiting_pid(t_data *data, size_t len, pid_t *pid)
+static int	waiting_pid(t_data *data, size_t len, pid_t *pid, int *datastatus)
 {
-	int		status;
+	int		status; //IT HAS BEEN CHANGED TO DATA->STATUS
 	size_t	i;
 
-	(void) data;
+	data->status *= 1;
 	i = 0;
 	while (i < len)
 	{
-		waitpid(pid[i++], &status, 0);
+		waitpid(pid[i++], &status, WUNTRACED);
 		if (WIFSIGNALED(status))
 			status = WTERMSIG(status) + 128;
 		else
 			status = WEXITSTATUS(status);
 	}
 	free(pid);
-	exit (status);
+	printf("datastatus = %d | status = %d\n", *datastatus, status);
+	*datastatus = status;
+	exit (0); //THIS HAS BEEN CHANGED TO 0
 }
 
 static void	capsule_pipe(t_data *data, char **env, int index)
@@ -51,10 +53,16 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 		pid_array = fork_process(data, env, index);
 		if (pid_array == NULL)
 			exit(CMD_EXIT);
-		status = waiting_pid(data, data->pipe_len, pid_array);
+		status = waiting_pid(data, data->pipe_len, pid_array, &data->status);
+		// waiting_pid(data, data->pipe_len, pid_array); //THIS IS WHERE WE GET THE STATUS INTO DATA->STATUS
+		printf("data->status2 = %d \n", data->status);
 	}
+	printf("data->status2 = %d | status = %d\n", data->status, status);
 	waitpid(pid, &status, 0);
-	data->status = WEXITSTATUS(status);
+	pid = 0;
+	printf("data->status4 = %d | status = %d\n", data->status, status);
+	// status = WEXITSTATUS(status); //?? // IS THIS REALLY NECESSARY SINCE IT HAS NOT USE FOR DATA STATUS
+	printf("data->status 3= %d | status = %d\n", data->status, status);
 }
 
 static int	pipe_op(t_data *data, char **env, int index)
