@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 21:17:56 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 21:30:15 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	}
 	waitpid(pid, &status, 0);
 	pid = 0;
-	exit_status = WEXITSTATUS(status);
+	g_exit_status = WEXITSTATUS(status);
 }
 
 static int	pipe_op(t_data *data, char **env, int index)

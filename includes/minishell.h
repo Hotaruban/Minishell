@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 21:23:54 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 21:30:07 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@
 # define IGNORE_SIGINT_PARENT 2
 # define IGNORE_SIGQUIT 3
 
-int	exit_status;
+int	g_exit_status;
 
 typedef struct s_env
 {

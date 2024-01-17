@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 21:24:05 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 21:29:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,9 @@ void	execute_cmd(const t_data *data, const char **cmd, const char **env)
 		exit (CMD_NOT_EXEC);
 	}
 	if (check_cmd_accessible(cmd) == true)
-	{
 		path = (char *)cmd[0];
-	}
 	else
-	{
 		path = get_path(data, cmd, env);
-	}
 	if (execve(path, (char **)cmd, (char **)env) == -1)
 	{
 		error_system("execve failed");
