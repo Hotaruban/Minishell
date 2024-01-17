@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:02:50 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 17:24:34 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_input_exit(t_data *data, int index)
 		if (data->cmd[index].cmd[2] != NULL
 			&& check_long_long(data->cmd[index].cmd[1]) == true)
 		{
-			error_exit_msg(NULL, TOO_MANY_ARG);
+			error_exit_msg(NULL, TOO_MANY_ARG, 1);
 			return (CMD_ERROR);
 		}
 	}
@@ -57,7 +57,7 @@ static bool	ft_isnumber(char *arg)
 	return (true);
 }
 
-static int	get_exit_status(t_data *data, char *arg)
+static int	get_exit_status(t_data *data, char *arg, int flag)
 {
 	int			status;
 
@@ -66,7 +66,7 @@ static int	get_exit_status(t_data *data, char *arg)
 	{
 		if (check_long_long(arg) == false || !ft_isnumber(arg))
 		{
-			error_exit_msg(arg, NUM_ARG);
+			error_exit_msg(arg, NUM_ARG, flag);
 			quit_and_clean(data, 255);
 		}
 		else
@@ -80,15 +80,19 @@ static int	get_exit_status(t_data *data, char *arg)
 int	ft_exit(t_data *data, int index)
 {
 	int	status;
+	int	flag;
 
+	flag = 0;
+	if (data->pipe_len > 1)
+		flag = 1;
 	status = check_input_exit(data, index);
 	if (status != CMD_OK)
 		return (status);
-	status = get_exit_status(data, data->cmd[0].cmd[1]);
+	status = get_exit_status(data, data->cmd[0].cmd[1], flag);
 	if (data->cmd[index].pipe_out == true
 		|| data->cmd[index].pipe_in == true)
 		return (CMD_ERROR);
-	error_exit_msg(NULL, NULL);
+	error_exit_msg(NULL, NULL, flag);
 	quit_and_clean(data, status);
 	return (status);
 }
