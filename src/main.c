@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 01:35:00 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:21:01 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,18 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
 	if (*line)
 		add_history(line);
-	// printf("HERE--\n");
 	if (!(check_line(line)))
-		return (printf("In checkline false\n"), false);
-	// printf("HERE--\n");
+		return (false);
 	if (!(split_tokens(line, tokens)))
 		return (false);
-	// printf("HERE--\n");
 	if (!(token_identify(tokens, 0)))
 		return (false);
-	// printf("HERE--\n");
 	if (!(token_syntax(tokens)))
 		return (free_tokens(tokens), false);
-	// printf("HERE--\n");
 	if (!(variable_parser(tokens, data)))
 		return (false);
-	// printf("HERE--\n");
 	if (!(quote_trim(tokens)))
 		return (false);
-	// printf("HERE--\n");
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
@@ -96,10 +89,11 @@ int	main(int ac, char **av, char **ev)
 		if (!line)
 			exit_ctrl_d(&data);
 		if (line[0])
-			processor(line, &data, &tokens);
-		// if (data.cmd)
-		// 	free_cmd_struct(data.cmd, data.pipe_len);
-		if (ft_strlen(line) > 0)
+		{
+			if (processor(line, &data, &tokens) && data.cmd)
+				free_cmd_struct(data.cmd, data.pipe_len);
+		}
+		if (line)
 			free(line);
 	}
 	return (0);
