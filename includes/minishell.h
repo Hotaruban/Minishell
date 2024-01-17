@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 18:07:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 21:23:54 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@
 # define HANDLE_SIGINT_PARENT 1
 # define IGNORE_SIGINT_PARENT 2
 # define IGNORE_SIGQUIT 3
+
+int	exit_status;
 
 typedef struct s_env
 {
@@ -174,7 +176,7 @@ void	init_tokens(t_tokens *tokens);
 bool	builtin_in_parent(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
-void	execute_cmd(t_data *data, char **cmd, char **env);
+void	execute_cmd(const t_data *data, const char **cmd, const char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 
