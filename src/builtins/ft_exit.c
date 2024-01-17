@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 08:32:35 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:02:50 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	check_input_exit(t_data *data, int index)
 		if (data->cmd[index].cmd[2] != NULL
 			&& check_long_long(data->cmd[index].cmd[1]) == true)
 		{
-			printf("exit\n%sexit: %s\n", PROMPT, TOO_MANY_ARG);
+			error_exit_msg(NULL, TOO_MANY_ARG);
 			return (CMD_ERROR);
 		}
 	}
@@ -66,7 +66,7 @@ static int	get_exit_status(t_data *data, char *arg)
 	{
 		if (check_long_long(arg) == false || !ft_isnumber(arg))
 		{
-			printf("exit\n%sexit: %s: %s\n", PROMPT, arg, NUM_ARG);
+			error_exit_msg(arg, NUM_ARG);
 			quit_and_clean(data, 255);
 		}
 		else
@@ -88,9 +88,7 @@ int	ft_exit(t_data *data, int index)
 	if (data->cmd[index].pipe_out == true
 		|| data->cmd[index].pipe_in == true)
 		return (CMD_ERROR);
-	printf("exit\n");
+	error_exit_msg(NULL, NULL);
 	quit_and_clean(data, status);
 	return (status);
 }
-
-//9223372036854775807

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 00:18:00 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 10:51:52 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ int	ft_export(t_data *data, char **env, int index)
 	{
 		if (check_variable(data->cmd[index].cmd[i]) == false)
 		{
-			printf("%s%s: `%s\': %s\n", PROMPT, data->cmd[index].cmd[0],
-				data->cmd[index].cmd[i], NO_VALID_ID);
+			error_cmd_msg(data->cmd[index].cmd[0], data->cmd[index].cmd[i],
+				NO_VALID_ID);
 			status = CMD_ERROR;
 		}
 		i++;

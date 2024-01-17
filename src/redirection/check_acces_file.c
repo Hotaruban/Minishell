@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:00:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 10:12:44 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 10:48:50 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ static int	open_infile(char *infile)
 	fd = access(infile, F_OK);
 	if (fd == -1)
 	{
-		printf("%s%s: %s\n", PROMPT, infile, NO_FILE);
+		error_file_msg(infile, NO_FILE);
 		return (CMD_ERROR);
 	}
 	fd = access(infile, R_OK);
 	if (fd == -1)
 	{
-		printf("%s%s: %s\n", PROMPT, infile, F_DENIED);
+		error_file_msg(infile, F_DENIED);
 		status = CMD_ERROR;
 	}
 	return (status);
@@ -49,7 +49,7 @@ static int	open_outfile(char *outfile, bool flag)
 		fd = open(outfile, O_WRONLY | O_CREAT | w_mode, 0644);
 		if (fd == -1)
 		{
-			printf("%s%s: %s\n", PROMPT, outfile, F_DENIED);
+			error_file_msg(outfile, F_DENIED);
 			return (CMD_ERROR);
 		}
 	}
