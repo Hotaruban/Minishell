@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 02:24:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 08:32:35 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	get_exit_status(t_data *data, char *arg)
 {
 	int			status;
 
-	(void) data;
 	status = 0;
 	if (arg)
 	{
