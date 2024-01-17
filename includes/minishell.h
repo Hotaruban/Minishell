@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 02:10:55 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 09:50:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define SYNTAX_ERROR "syntax error near unexpected token "
 # define MALLOC_ERROR "Error\nMalloc failed"
 # define F_DENIED "Permission denied"
+# define NO_FILE "No such file or directory"
 # define NO_OPTION "no option accepted"
 # define NO_VALID_ID "not a valid identifier"
 # define TOO_MANY_ARG "too many arguments"
@@ -171,6 +172,7 @@ pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 
 /*Redirection*/
+int		check_acces_file(t_data *data, int index);
 int		dup_files(int fd_target, int fd_origin);
 int		redirection_heredoc(t_data *data, int index);
 int		redir_infiles(t_data *data, int index);

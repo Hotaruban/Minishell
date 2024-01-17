@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 15:22:11 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 10:16:05 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,24 @@
 
 static void	child_process(t_data *data, char **env, int index)
 {
-	if (data->cmd[index].here_doc_in == true)
-	{
-		if (redirection_heredoc(data, index) != CMD_OK)
-			exit(CMD_ERROR);
-	}
-	if (check_access_files(data, index, 0) != CMD_OK)
-		exit(CMD_ERROR);
-	if ((data->cmd[index].file_in == true
-			&& data->cmd[index].here_doc_in == false)
-		|| data->cmd[index].file_out == true)
-	{
-		if (redirection_files(data, index) != CMD_OK)
-			exit(CMD_ERROR);
-	}
-	if (redirection_pipes(data, index) != CMD_OK)
-		exit(CMD_ERROR);
+
+	
+																						if (data->cmd[index].here_doc_in == true)
+																						{
+																							if (redirection_heredoc(data, index) != CMD_OK)
+																								exit(CMD_ERROR);
+																						}
+																						if (check_access_files(data, index, 0) != CMD_OK)
+																							exit(CMD_ERROR);
+																						if ((data->cmd[index].file_in == true
+																								&& data->cmd[index].here_doc_in == false)
+																							|| data->cmd[index].file_out == true)
+																						{
+																							if (redirection_files(data, index) != CMD_OK)
+																								exit(CMD_ERROR);
+																						}
+																						if (redirection_pipes(data, index) != CMD_OK)
+																							exit(CMD_ERROR);
 	if (is_builtins(data, index) == true)
 		exit(execute_builtins(data, env, index));
 	else
