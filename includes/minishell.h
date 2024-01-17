@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 17:21:46 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 18:07:41 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ void	init_tokens(t_tokens *tokens);
 bool	builtin_in_parent(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
-void	execute_cmd(char **cmd, char **env);
+void	execute_cmd(t_data *data, char **cmd, char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 

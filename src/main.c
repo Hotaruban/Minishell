@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 14:21:01 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 18:33:38 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 	int		i;
 	int		j;
 
+	printf("pipecount = %d \n", tokens->pipe_count);
 	cmd_struct = (t_cmd *)malloc(sizeof(t_cmd) * (tokens->pipe_count + 1));
 	if (cmd_struct == NULL)
 		return (error_system(MALLOC_ERROR), false);
@@ -50,25 +51,34 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 {
 	if (*line)
 		add_history(line);
+		printf("HERE---\n");
 	if (!(check_line(line)))
 		return (false);
+		printf("HERE---\n");
 	if (!(split_tokens(line, tokens)))
 		return (false);
+		printf("HERE---\n");
 	if (!(token_identify(tokens, 0)))
 		return (false);
+		printf("HERE---\n");
 	if (!(token_syntax(tokens)))
 		return (free_tokens(tokens), false);
+		printf("HERE---\n");
 	if (!(variable_parser(tokens, data)))
 		return (false);
+		printf("HERE---\n");
 	if (!(quote_trim(tokens)))
 		return (false);
+		printf("HERE---\n");
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
+		printf("HERE---\n");
 	data->pipe_len = tokens->pipe_count + 1;
 	if (tokens != NULL)
 		free_tokens(tokens);
 	if ((separator_op(data) != CMD_OK))
 		return (false);
+		printf("HERE---\n");
 	return (true);
 }
 
