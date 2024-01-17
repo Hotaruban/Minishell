@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/17 12:29:16 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/17 15:14:56 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRC_FILES = main.c \
 			execution/fork_process.c \
 			execution/separate_op.c \
 			message/error_system.c \
+			message/error_cmd.c \
 			redirection/dup_files.c \
 			redirection/check_acces_file.c \
 			redirection/here_doc.c \

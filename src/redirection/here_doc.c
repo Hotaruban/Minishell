@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 23:26:47 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:39 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	open_heredoc(t_data *data)
 	{
 		pid = fork();
 		if (pid == -1)
-			error_system("fork failed");
+			error_system(FORK_ERROR);
 		else if (pid == 0)
 		{
 			data->sa_i.sa_handler = sigint_child_handler;

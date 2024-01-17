@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 01:55:49 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 01:56:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:15:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ The function returns the converted value, if any.
 
 long long	ft_atoll(const char *s)
 {
-	int	    	i;
+	int			i;
 	long long	sign;
 	long long	num;
 
