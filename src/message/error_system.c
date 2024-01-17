@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:57:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 15:14:37 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 17:21:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	error_system(char *msg)
 	ft_putendl_fd(msg, STDERR_FILENO);
 }
 
-void	error_exit_msg(char *arg, char *str)
+void	error_exit_msg(char *arg, char *str, int flag)
 {
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (flag == 0)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	if (str != NULL)
 	{
 		ft_putstr_fd(PROMPT, STDERR_FILENO);

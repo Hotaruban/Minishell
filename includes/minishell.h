@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 15:02:11 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 17:21:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void	error_cmd(char *cmd, char *msg);
 void	error_cmd_var(char *cmd, char *msg, char *str);
 void	error_file_msg(char *file, char *msg);
 void	error_cmd_msg(char *cmd1, char *cmd2, char *msg);
-void	error_exit_msg(char *arg, char *str);
+void	error_exit_msg(char *arg, char *str, int flag);
 
 /*Free_functions*/
 void	free_2d_array(char **array);
