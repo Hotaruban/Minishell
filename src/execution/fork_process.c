@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:57:46 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:10:10 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static void	child_process(t_data *data, char **env, int index)
 	}
 	if (data->cmd[index].cmd != NULL)
 	{
-		if (data->cmd[index].file_in == true && data->cmd[index].here_doc_in == false)
+		if (data->cmd[index].file_in == true
+			&& data->cmd[index].here_doc_in == false)
 			redir_infiles(data, index);
 		if (data->cmd[index].file_out == true)
 			redir_outfiles(data, index);
