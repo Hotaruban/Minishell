@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 21:30:15 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 22:00:42 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	separator_op(t_data *data)
 {
 	char	**ev;
 
-	data->status = CMD_OK;
+	g_exit_status = CMD_OK;
 	ev = env_array(data->env);
 	if (ev == NULL)
 		return (CMD_ERROR);
@@ -95,5 +95,5 @@ int	separator_op(t_data *data)
 		return (CMD_ERROR);
 	free_2d_array(ev);
 	set_signal(data, HANDLE_SIGINT_PARENT);
-	return (data->status);
+	return (g_exit_status);
 }

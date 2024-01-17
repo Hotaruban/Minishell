@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 21:29:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 21:59:01 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,11 @@
 
 static void	exit_ctrl_d(t_data *data)
 {
-	int	status;
-
-	status = data->status;
 	printf("\x1b[A\x1b[K%sexit\n", PROMPT);
 	set_echo_ctl(1);
 	rl_clear_history();
 	free_env(data->env);
-	exit(status);
+	exit(g_exit_status);
 }
 
 static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
@@ -79,7 +76,7 @@ int	main(int ac, char **av, char **ev)
 	char		*line;
 
 	(void)av;
-	exit_status = 0;
+	g_exit_status = 0;
 	if (ac != 1)
 		exit(1);
 	init_data(&data, ev);

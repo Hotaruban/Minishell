@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 21:30:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 22:01:38 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ typedef struct s_data
 {
 	t_cmd				*cmd;
 	t_env				*env;
-	int					status;
 	size_t				pipe_len;
 	int					pipefd[2];
 	struct sigaction	sa_i;

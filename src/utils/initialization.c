@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 09:16:21 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 22:02:50 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	init_data(t_data *data, char **ev)
 {
 	data->cmd = NULL;
 	data->env = set_env(ev);
-	data->status = 0;
 	data->pipe_len = 0;
 	data->pipefd[1] = -1;
 	init_signal(data);
