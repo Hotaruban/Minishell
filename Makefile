@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/17 09:00:43 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/17 12:29:16 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ SRC_FILES = main.c \
 			redirection/here_doc.c \
 			redirection/open_infiles.c \
 			redirection/open_outfiles.c \
-			redirection/redirection.c \
 			redirection/redirection_files.c \
 			environment/set_env.c \
 			environment/free_env.c \
