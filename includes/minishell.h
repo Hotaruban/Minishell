@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 02:10:55 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:43:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define SYNTAX_ERROR "syntax error near unexpected token "
 # define MALLOC_ERROR "Error\nMalloc failed"
 # define F_DENIED "Permission denied"
+# define NO_FILE "No such file or directory"
 # define NO_OPTION "no option accepted"
 # define NO_VALID_ID "not a valid identifier"
 # define TOO_MANY_ARG "too many arguments"
@@ -154,7 +155,6 @@ bool	variable_parser(t_tokens *tokens, t_data *data);
 bool	quote_trim(t_tokens *tokens);
 
 /*Struct_fill*/
-// bool	assign_data_cmd(t_tokens *tokens, t_data *data);
 void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
 
 //init_data
@@ -171,13 +171,12 @@ pid_t	*fork_process(t_data *data, char **env, int index);
 int		separator_op(t_data *data);
 
 /*Redirection*/
+int		check_acces_file(t_data *data, int index);
 int		dup_files(int fd_target, int fd_origin);
 int		redirection_heredoc(t_data *data, int index);
-int		redir_infiles(t_data *data, int index);
-int		redir_outfiles(t_data *data, int index);
+void	redir_infiles(t_data *data, int index);
+void	redir_outfiles(t_data *data, int index);
 int		redirection_pipes(t_data *data, int index);
-int		redirection_files(t_data *data, int index);
-int		check_access_files(t_data *data, int index, int i);
 void	open_heredoc(t_data *data);
 
 /*Builtins*/
@@ -198,10 +197,12 @@ void	error_system(char *msg);
 void	error_input(char *msg, char *msg_type);
 void	error_cmd(char *cmd, char *msg);
 void	error_cmd_var(char *cmd, char *msg, char *str);
+void	error_file_msg(char *file, char *msg);
+void	error_cmd_msg(char *cmd1, char *cmd2, char *msg);
+void	error_exit_msg(char *arg, char *str);
 
 /*Free_functions*/
 void	free_2d_array(char **array);
-// void	free_cmd_struct(t_cmd *cmd);
 void	free_cmd_struct(t_cmd *cmd, int nb_cmd);
 void	free_tokens(t_tokens *tokens);
 void	free_data_struct(t_data *data);
@@ -212,7 +213,5 @@ void	set_echo_ctl(int enable);
 void	sigint_child_handler(int signum);
 void	sigint_parent_handler(int signum);
 void	set_signal(t_data *data, int type);
-// bool	set_termios(struct termios *term);
-// bool	restore_termios(struct termios *term);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 23:20:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/14 23:35:28 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 11:42:35 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,5 @@ int	redirection_pipes(t_data *data, int index)
 	}
 	close(data->pipefd[0]);
 	close(data->pipefd[1]);
-	return (CMD_OK);
-}
-
-int	redirection_files(t_data *data, int index)
-{
-	if (data->cmd[index].file_in == true
-		&& data->cmd[index].here_doc_in == false)
-	{
-		if (redir_infiles(data, index) != CMD_OK)
-			exit (CMD_ERROR);
-	}
-	if (data->cmd[index].file_out == true)
-	{
-		if (redir_outfiles(data, index) != CMD_OK)
-			exit (CMD_ERROR);
-	}
 	return (CMD_OK);
 }
