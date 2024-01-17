@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 12:06:08 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:04:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static char	**token_split(char *line, int nb_tokens_cmd)
 	i = 0;
 	j = 0;
 	tokens = (char **)malloc(sizeof(char *) * (nb_tokens_cmd + 1));
+	if (tokens == NULL)
+		return (error_system(MALLOC_ERROR), NULL);
 	while (j < nb_tokens_cmd)
 	{
 		while (ft_isspace(line[i]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_identify.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 14:28:11 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:06:28 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ static bool	type_count_malloc(t_tokens *tokens)
 	size = tokens->pipe_count + 2;
 	tokens->arg_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->arg_count == NULL)
-		return (false);
+		return (error_system(MALLOC_ERROR), false);
 	tokens->heredoc_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->heredoc_count == NULL)
-		return (false);
+		return (error_system(MALLOC_ERROR), false);
 	tokens->infile_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->infile_count == NULL)
-		return (false);
+		return (error_system(MALLOC_ERROR), false);
 	tokens->outfile_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->outfile_count == NULL)
-		return (false);
+		return (error_system(MALLOC_ERROR), false);
 	tokens->append_count = (int *)ft_calloc(sizeof(int), size);
 	if (tokens->append_count == NULL)
-		return (false);
+		return (error_system(MALLOC_ERROR), false);
 	return (true);
 }
 
@@ -87,7 +87,7 @@ bool	token_identify(t_tokens *tokens, int i)
 
 	type = (t_tk_type *)malloc(sizeof(t_tk_type) * (tokens->token_count + 1));
 	if (!type)
-		return (error_system("malloc failed"), false);
+		return (error_system(MALLOC_ERROR), false);
 	while (i < tokens->token_count)
 	{
 		if (i == 0)
@@ -104,7 +104,7 @@ bool	token_identify(t_tokens *tokens, int i)
 	}
 	tokens->token_type = type;
 	if (!(type_count_malloc(tokens)))
-		return (error_system("malloc failed"), false);
+		return (error_system(MALLOC_ERROR), false);
 	token_type_counter(tokens);
 	return (true);
 }

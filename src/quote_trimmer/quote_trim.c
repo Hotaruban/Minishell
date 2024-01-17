@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:54:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 09:11:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:07:06 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static char	*remove_close_quote(char *token, int *cq, int *j)
 	int		quotelen;
 
 	new_str = (char *)ft_calloc(sizeof(char), (ft_strlen(token) - 1));
+	if (new_str == NULL)
+		return (error_system(MALLOC_ERROR), NULL);
 	i = *j;
 	while (!(ft_isquote(token[i])) && token[i])
 		i++;

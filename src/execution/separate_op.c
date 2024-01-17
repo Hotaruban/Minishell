@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:36:25 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:58:13 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	status = CMD_OK;
 	pid = fork();
 	if (pid == -1)
-		error_system("fork failed");
+		error_system(FORK_ERROR);
 	else if (pid == 0)
 	{
 		pid_array = fork_process(data, env, index);

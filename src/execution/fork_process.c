@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:40:26 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:57:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,17 @@ static void	child_process(t_data *data, char **env, int index)
 		if (is_builtins(data, index) == true)
 			exit(execute_builtins(data, env, index));
 		else
-		{
 			execute_cmd(data->cmd[index].cmd, env);
-		}
 	}
 	exit (data->status);
 }
 
 static void	parent_process(t_data *data, int index)
 {
-	(void) index;
 	close(data->pipefd[1]);
 	if (data->cmd[index].file_in == false
 		&& data->cmd[index].here_doc_in == false)
-	{
 		dup_files(data->pipefd[0], STDIN_FILENO);
-	}
 	close(data->pipefd[0]);
 }
 
@@ -56,15 +51,15 @@ pid_t	*fork_process(t_data *data, char **env, int index)
 
 	pid = (pid_t *)malloc(sizeof(pid_t) * data->pipe_len);
 	if (!pid)
-		return (error_system("malloc failed"), NULL);
+		return (error_system(MALLOC_ERROR), NULL);
 	i = 0;
 	while (i < data->pipe_len)
 	{
 		if (pipe(data->pipefd) == -1)
-			return (error_system("pipe failed"), NULL);
+			return (error_system(PIPE_ERROR), NULL);
 		pid[i] = fork();
 		if (pid[i] == -1)
-			return (error_system("fork failed"), NULL);
+			return (error_system(FORK_ERROR), NULL);
 		else if (pid[i] == 0)
 		{
 			data->sa_i.sa_handler = sigint_child_handler;
