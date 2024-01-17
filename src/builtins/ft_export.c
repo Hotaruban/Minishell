@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 10:51:52 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:33:21 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	find_variable(t_env *env, char **var)
 				break ;
 			}
 			else if (tmp_env->next == NULL
-				&& len_variable(var[i]) < (int)ft_strlen(var[i]))
+				&& len_variable(var[i]) <= (int)ft_strlen(var[i]))
 				add_variable(tmp_env, var[i]);
 			tmp_env = tmp_env->next;
 		}

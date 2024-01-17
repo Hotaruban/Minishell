@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:46 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:19:43 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:09:50 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	is_option_echo(char *arg)
 }
 
 static void	print_echo(char **args, bool flag, int i)
-{	
+{
 	if (!args[i])
 	{
 		if (!flag)
@@ -49,7 +49,7 @@ static void	print_echo(char **args, bool flag, int i)
 	{
 		if (is_option_echo(args[i]) == true && i == 1)
 			i++;
-		else 
+		else
 		{
 			printf("%s", args[i]);
 			if (args[i + 1])

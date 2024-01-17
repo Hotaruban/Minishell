@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 11:43:33 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:11 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,22 @@
 # define GREEN "\033[1;32m"
 
 # define PROMPT	"minishell-hh$ "
-# define SYNTAX_ERROR "syntax error near unexpected token "
-# define MALLOC_ERROR "Error\nMalloc failed"
-# define F_DENIED "Permission denied"
-# define NO_FILE "No such file or directory"
-# define NO_OPTION "no option accepted"
-# define NO_VALID_ID "not a valid identifier"
-# define TOO_MANY_ARG "too many arguments"
-# define NUM_ARG "numeric argument required"
+
+# define MALLOC_ERROR	"malloc failed"
+# define PIPE_ERROR		"pipe failed"
+# define FORK_ERROR		"fork failed"
+# define DUP_ERROR		"dup2 failed"
+
+# define IS_DIR			"is a directory"
+# define NO_FILE		"no such file or directory"
+# define NO_OPTION		"no option accepted"
+# define NO_OPT_ARG		"no option or argument accepted"
+# define NO_VALID_ID	"not a valid identifier"
+# define NO_CMD			"command not found"
+# define F_DENIED		"Permission denied"
+# define TOO_MANY_ARG	"too many arguments"
+# define NUM_ARG		"numeric argument required"
+# define SYNTAX_ERROR	"syntax error near unexpected token "
 
 # ifndef PATH_MAX
 #  define PATH_MAX 4096

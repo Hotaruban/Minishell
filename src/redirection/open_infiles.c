@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:22 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:41:09 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 15:02:49 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	open_infile(char *infile)
 	if (fd_in == -1)
 	{
 		if (pipe(tmpfd) == -1)
-			error_system("pipe failed");
+			error_system(PIPE_ERROR);
 		dup_files(STDIN_FILENO, tmpfd[0]);
 	}
 	else

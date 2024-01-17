@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 23:30:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:55:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static bool	check_cmd_accessible(char **cmd)
 	{
 		if (access(cmd[0], F_OK) == -1)
 		{
-			error_cmd(cmd[0], "No such file or directory");
+			error_cmd(cmd[0], NO_FILE);
 			exit(CMD_NOT_FOUND);
 		}
 		if (access(cmd[0], X_OK) == -1)
 		{
-			error_cmd(cmd[0], "Permission denied");
+			error_cmd(cmd[0], F_DENIED);
 			exit(CMD_NOT_EXEC);
 		}
 		return (true);
@@ -40,7 +40,7 @@ static char	**get_env(char **env)
 		env++;
 	if (*env == NULL)
 	{
-		error_cmd("PATH", "No such file or directory");
+		error_cmd("PATH", NO_FILE);
 		exit(CMD_NOT_FOUND);
 	}
 	if (ft_strncmp(*env, "PATH=", 5) == 0)
@@ -48,7 +48,7 @@ static char	**get_env(char **env)
 		array = ft_split(*env + 5, ':');
 		if (array == NULL)
 		{
-			error_system("malloc failed");
+			error_system(MALLOC_ERROR);
 			exit(CMD_NOT_EXEC);
 		}
 	}
@@ -96,7 +96,7 @@ static char	*get_path(char **cmd, char **env)
 		path = check_path(cmd[0], env);
 	if (path == NULL)
 	{
-		error_cmd(cmd[0], "command not found");
+		error_cmd(cmd[0], NO_CMD);
 		while (*cmd != NULL)
 			free(*cmd++);
 		exit(CMD_NOT_FOUND);
@@ -106,7 +106,7 @@ static char	*get_path(char **cmd, char **env)
 		while (*cmd != NULL)
 			free(*cmd++);
 		free(cmd);
-		error_cmd(path, "No such file or directory");
+		error_cmd(path, NO_FILE);
 		exit(CMD_NOT_FOUND);
 	}
 	return (path);
@@ -119,13 +119,13 @@ void	execute_cmd(char **cmd, char **env)
 
 	if (cmd == NULL || cmd[0][0] == '\0')
 	{
-		error_cmd(cmd[0], "command not found");
+		error_cmd(cmd[0], NO_CMD);
 		exit(CMD_NOT_FOUND);
 	}
 	dir = opendir(cmd[0]);
 	if (dir != NULL)
 	{
-		error_cmd(cmd[0], "is a directory");
+		error_cmd(cmd[0], IS_DIR);
 		closedir(dir);
 		exit (CMD_NOT_EXEC);
 	}
