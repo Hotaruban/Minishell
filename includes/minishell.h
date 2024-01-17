@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 11:43:33 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:37:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 # define F_DENIED "Permission denied"
 # define NO_FILE "No such file or directory"
 # define NO_OPTION "no option accepted"
+# define NO_OPT_ARG "no option or argument accepted"
 # define NO_VALID_ID "not a valid identifier"
 # define TOO_MANY_ARG "too many arguments"
 # define NUM_ARG "numeric argument required"

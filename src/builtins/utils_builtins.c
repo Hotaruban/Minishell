@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 08:53:02 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:39:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	print_env(char **env, int flag)
 	while (env[i])
 	{
 		if (flag == 1)
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-		ft_putendl_fd(env[i], STDOUT_FILENO);
+			printf("declare -x ");
+		printf("%s\n", env[i]);
 		i++;
 	}
 }

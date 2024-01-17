@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:06 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 00:13:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:41:10 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ int	ft_pwd(t_data *data, int index)
 		}
 	}
 	getcwd(pwd, PATH_MAX);
-	ft_putendl_fd(pwd, STDOUT_FILENO);
+	printf("%s\n", pwd);
 	return (CMD_OK);
 }
