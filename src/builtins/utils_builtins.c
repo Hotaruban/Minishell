@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 08:49:39 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/17 08:53:02 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	add_variable(t_env *tmp_env, char *var)
 bool	check_long_long(char *str)
 {
 	char	*tmp;
-	
+
 	if (str[0] == 45 && ft_strlen(str) <= 20)
 	{
 		if (ft_strlen(str) == 20 && str[1] == 57)
