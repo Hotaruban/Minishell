@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/17 15:14:56 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/18 11:46:40 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ INC_DIR = includes
 LIBFT_DIR = ./libft
 HEAD = -I./includes -I$(READLINE_DIR)include/
 INCS = -I$(INC_DIR) -I$(LIBFT_DIR)
+HDRS = $(INC_DIR)/minishell.h
 
 # ### INCLUDE ###
 LIB 	= -lreadline -L$(READLINE_DIR)lib/
@@ -82,11 +83,11 @@ all: $(LIBFT_DIR) $(NAME)
 
 # Rule to build each personal library
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 # Object file build rule
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(HDRS) Makefile
+	mkdir -p $(dir $@)
 	$(CC) $(C_FLAGS) $(HEAD) -c $< -o $@
 
 # Target library build rule
@@ -94,6 +95,9 @@ $(NAME): $(OBJECTS) $(LIBFT)
 	$(CC) $(C_FLAGS) $(LIB) $^ $(INCS) -o $(NAME)
 
 # ---------------------------------------------------------------------------- #
+
+# Phony targets
+.PHONY: all clean fclean re norm
 
 # Clean object files
 clean:
@@ -115,6 +119,3 @@ norm:
 	@norminette -R CheckDefine $(INC_DIR)/*.h ;
 	@norminette -R CheckForbiddenSourceHeader $(LIBFT_DIR)/src/*.c ;
 	@norminette -R CheckDefine $(LIBFT_DIR)/includes/*.h
-
-# Phony targets
-.PHONY: all clean fclean re norm

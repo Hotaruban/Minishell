@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 10:12:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 11:47:37 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define RED "\033[1;32m"
 # define GREEN "\033[1;32m"
 
-# define PROMPT	"minishell$ "
-# define PROMPT_R "minishell: "
+# define PROMPT	"minishell-hh$ "
+# define PROMPT_R "minishell-hh: "
 
 # define MALLOC_ERROR	"malloc failed"
 # define PIPE_ERROR		"pipe failed"
