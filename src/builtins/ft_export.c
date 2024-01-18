@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:33:21 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 16:12:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,39 @@ If export is called with arguments, it adds or changes the value of
 environment variables.
 */
 
+static void	set_var_env(t_env *env, char **var, int index)
+{
+	char	*var_tmp;
+
+	while (env)
+	{
+		var_tmp = ft_substr(var[index], 0, len_variable(var[index]));
+		if (ft_strncmp(env->name, var_tmp, len_variable(var[index])) == 0)
+		{
+			free(env->name);
+			env->name = ft_strdup(var[index]);
+			free (var_tmp);
+			break ;
+		}
+		else if (env->next == NULL
+			&& len_variable(var[index]) <= (int)ft_strlen(var[index]))
+			add_variable(env, var[index]);
+		if (var_tmp != NULL)
+			free(var_tmp);
+		env = env->next;
+	}
+}
+
 static void	find_variable(t_env *env, char **var)
 {
 	t_env	*tmp_env;
-	char	*var_tmp;
 	int		i;
 
 	i = 0;
 	while (var[i])
 	{
 		tmp_env = env;
-		while (tmp_env)
-		{
-			var_tmp = ft_substr(var[i], 0, len_variable(var[i]));
-			if (ft_strncmp(tmp_env->name, var_tmp, len_variable(var[i])) == 0)
-			{
-				free(tmp_env->name);
-				tmp_env->name = ft_strdup(var[i]);
-				free (var_tmp);
-				break ;
-			}
-			else if (tmp_env->next == NULL
-				&& len_variable(var[i]) <= (int)ft_strlen(var[i]))
-				add_variable(tmp_env, var[i]);
-			tmp_env = tmp_env->next;
-		}
+		set_var_env(tmp_env, var, i);
 		i++;
 	}
 }
