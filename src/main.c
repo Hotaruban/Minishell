@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 20:11:46 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 21:01:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	exit_ctrl_d(t_data *data)
 {
-	printf("\n\x1b[A\x1b[K%sexit\n", PROMPT_R);
+	printf("\x1b[A\x1b[K%sexit\n", PROMPT_R);
 	set_echo_ctl(1);
 	rl_clear_history();
 	free_env(data->env);
@@ -65,6 +65,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (tokens != NULL)
 		free_tokens(tokens);
 	separator_op(data);
+	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (true);
 }
 
