@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 18:19:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 20:28:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,16 @@ static int	quit_and_clean(t_data *data)
 	exit (g_exit_status);
 }
 
-static int	check_input_exit(t_data *data, int index)
-{
-	if (data->cmd[index].file_in == true)
-		return (CMD_ERROR);
-	if (data->cmd[index].cmd[1] != NULL)
-	{
-		if (data->cmd[index].cmd[2] != NULL
-			&& check_long_long(data->cmd[index].cmd[1]) == true)
-		{
-			error_exit_msg(NULL, TOO_MANY_ARG, 1);
-			return (CMD_ERROR);
-		}
-	}
-	return (CMD_OK);
-}
-
-static bool	ft_isnumber(char *arg)
+static bool	ft_isnumber(char *arg, bool flag)
 {
 	int	i;
 
 	i = 0;
-	if (arg[i] == '-' || arg[i] == '+')
-		i++;
+	if (flag == true)
+	{
+		if (arg[i] == '-' || arg[i] == '+')
+			i++;
+	}
 	while (arg[i])
 	{
 		if (!ft_isdigit(arg[i]))
@@ -57,6 +44,23 @@ static bool	ft_isnumber(char *arg)
 	return (true);
 }
 
+static int	check_input_exit(t_data *data, int index)
+{
+	if (data->cmd[index].file_in == true)
+		return (CMD_ERROR);
+	if (data->cmd[index].cmd[1] != NULL)
+	{
+		if (data->cmd[index].cmd[2] != NULL
+			&& ft_isnumber(data->cmd[index].cmd[1], false)
+			&& check_long_long(data->cmd[index].cmd[1]) == true)
+		{
+			error_exit_msg(NULL, TOO_MANY_ARG, 1);
+			return (CMD_ERROR);
+		}
+	}
+	return (CMD_OK);
+}
+
 static int	get_exit_status(t_data *data, char *arg, int flag)
 {
 	int			status;
@@ -64,7 +68,7 @@ static int	get_exit_status(t_data *data, char *arg, int flag)
 	status = 0;
 	if (arg)
 	{
-		if (check_long_long(arg) == false || !ft_isnumber(arg))
+		if (check_long_long(arg) == false || !ft_isnumber(arg, true))
 		{
 			error_exit_msg(arg, NUM_ARG, flag);
 			g_exit_status = 255;
