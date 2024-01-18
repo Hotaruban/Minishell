@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 12:23:14 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/18 15:29:56 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,31 @@ It returns the status of the last command executed.
 static void	waiting_pid(t_data *data, size_t len, pid_t *pid)
 {
 	size_t	i;
+	int		status;
 
 	(void)data;
 	i = 0;
+	status = 0;
 	while (i < len)
 	{
-		waitpid(pid[i++], &g_exit_status, WUNTRACED);
-		if (WIFSIGNALED(g_exit_status))
-			g_exit_status = WTERMSIG(g_exit_status) + 128;
+		waitpid(pid[i++], &status, WUNTRACED);
+		if (WIFSIGNALED(status))
+			g_exit_status = WTERMSIG(status) + 128;
 		else
-			g_exit_status = WEXITSTATUS(g_exit_status);
+			g_exit_status = WEXITSTATUS(status);
 	}
 	free(pid);
+	status = 0;
+	exit (0);
 }
 
 static void	capsule_pipe(t_data *data, char **env, int index)
 {
 	pid_t		*pid_array;
 	pid_t		pid;
+	int			status;
 
+	status = 0;
 	pid = fork();
 	if (pid == -1)
 		error_system(FORK_ERROR);
@@ -49,9 +55,12 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 			exit(CMD_EXIT);
 		waiting_pid(data, data->pipe_len, pid_array);
 	}
-	waitpid(pid, &g_exit_status, 0);
-	pid = 0;
-	g_exit_status = WEXITSTATUS(g_exit_status);
+	waitpid(pid, &status, WUNTRACED);
+	g_exit_status = WEXITSTATUS(status);
+	if (WIFSIGNALED(status))
+		g_exit_status = WTERMSIG(status) + 128;
+	else
+		g_exit_status = WEXITSTATUS(status);
 }
 
 static int	pipe_op(t_data *data, char **env, int index)

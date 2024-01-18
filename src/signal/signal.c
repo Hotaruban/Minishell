@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:30:25 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 21:55:55 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/18 14:19:04 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	set_echo_ctl(int enable)
 {
 	struct termios	terminal;
 
+	ft_memset(&terminal, 0, sizeof(struct termios));
 	tcgetattr(STDIN_FILENO, &terminal);
 	if (enable)
 		terminal.c_lflag |= ECHOCTL;
