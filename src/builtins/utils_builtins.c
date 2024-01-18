@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:39:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 15:43:25 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	len_variable(char *var)
 	int	i;
 
 	i = 0;
-	while (var[i] != '=')
+	while (var[i] && var[i] != '=')
 		i++;
 	return (i + 1);
 }
