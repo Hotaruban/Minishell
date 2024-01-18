@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 22:00:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 12:23:14 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,28 @@ The function separator_op is used to execute a list of pipe command.
 It returns the status of the last command executed.
 */
 
-static int	waiting_pid(t_data *data, size_t len, pid_t *pid)
+static void	waiting_pid(t_data *data, size_t len, pid_t *pid)
 {
-	int		status;
 	size_t	i;
 
 	(void)data;
 	i = 0;
 	while (i < len)
 	{
-		waitpid(pid[i++], &status, WUNTRACED);
-		if (WIFSIGNALED(status))
-			status = WTERMSIG(status) + 128;
+		waitpid(pid[i++], &g_exit_status, WUNTRACED);
+		if (WIFSIGNALED(g_exit_status))
+			g_exit_status = WTERMSIG(g_exit_status) + 128;
 		else
-			status = WEXITSTATUS(status);
+			g_exit_status = WEXITSTATUS(g_exit_status);
 	}
 	free(pid);
-	exit (status);
 }
 
 static void	capsule_pipe(t_data *data, char **env, int index)
 {
-	int			status;
 	pid_t		*pid_array;
 	pid_t		pid;
 
-	status = CMD_OK;
 	pid = fork();
 	if (pid == -1)
 		error_system(FORK_ERROR);
@@ -51,22 +47,20 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 		pid_array = fork_process(data, env, index);
 		if (pid_array == NULL)
 			exit(CMD_EXIT);
-		status = waiting_pid(data, data->pipe_len, pid_array);
+		waiting_pid(data, data->pipe_len, pid_array);
 	}
-	waitpid(pid, &status, 0);
+	waitpid(pid, &g_exit_status, 0);
 	pid = 0;
-	g_exit_status = WEXITSTATUS(status);
+	g_exit_status = WEXITSTATUS(g_exit_status);
 }
 
 static int	pipe_op(t_data *data, char **env, int index)
 {
-	int				status;
 	unsigned int	i;
 
-	status = CMD_OK;
 	i = 0;
 	open_heredoc(data);
-	status = check_acces_file(data, index);
+	g_exit_status = check_acces_file(data, index);
 	while (i < data->pipe_len)
 	{
 		if (data->cmd[index].cmd[0] != NULL)
