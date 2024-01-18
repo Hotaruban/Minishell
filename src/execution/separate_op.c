@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 15:29:56 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 19:20:13 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	waiting_pid(t_data *data, size_t len, pid_t *pid)
 	}
 	free(pid);
 	status = 0;
-	exit (0);
+	exit (g_exit_status);
 }
 
 static void	capsule_pipe(t_data *data, char **env, int index)
@@ -76,13 +76,13 @@ static int	pipe_op(t_data *data, char **env, int index)
 			break ;
 		i++;
 		if (i == data->pipe_len)
-			return (CMD_OK);
+			return (g_exit_status);
 	}
 	if (builtin_in_parent(data, env, index) == true)
-		return (CMD_OK);
+		return (g_exit_status);
 	else
 		capsule_pipe(data, env, index);
-	return (CMD_OK);
+	return (g_exit_status);
 }
 
 int	separator_op(t_data *data)
@@ -95,7 +95,7 @@ int	separator_op(t_data *data)
 		return (CMD_ERROR);
 	set_signal(data, IGNORE_SIGINT_PARENT);
 	if (pipe_op(data, ev, 0) != CMD_OK)
-		return (CMD_ERROR);
+		return (g_exit_status);
 	free_2d_array(ev);
 	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (g_exit_status);

@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 17:00:11 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 18:09:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ int	main(int ac, char **av, char **ev)
 		if (line)
 			free(line);
 	}
-	return (0);
+	return (g_exit_status);
 }

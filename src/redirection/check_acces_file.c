@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:00:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:36:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 19:19:22 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	open_infile(char *infile)
 	int	status;
 	int	fd;
 
-	status = CMD_OK;
+	status = g_exit_status;
 	fd = access(infile, F_OK);
 	if (fd == -1)
 	{
@@ -42,7 +42,7 @@ static int	open_outfile(char *outfile, bool flag)
 	w_mode = O_TRUNC;
 	if (flag == true)
 		w_mode = O_APPEND;
-	status = CMD_OK;
+	status = g_exit_status;
 	fd = access(outfile, W_OK);
 	if (fd == -1)
 	{
@@ -64,7 +64,7 @@ static int	access_infile_outfile(t_data *data, int index)
 	int	status;
 	int	i;
 
-	status = CMD_OK;
+	status = g_exit_status;
 	i = 0;
 	if (data->cmd[index].file_in == true
 		&& data->cmd[index].here_doc_in == false)
