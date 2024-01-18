@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 18:09:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 20:11:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	data->pipe_len = tokens->pipe_count + 1;
 	if (tokens != NULL)
 		free_tokens(tokens);
-	if ((separator_op(data) != CMD_OK))
-		return (false);
+	separator_op(data);
 	return (true);
 }
 

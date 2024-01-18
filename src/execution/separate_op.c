@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 20:01:34 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 20:09:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ int	separator_op(t_data *data)
 		return (CMD_ERROR);
 	set_signal(data, IGNORE_SIGINT_PARENT);
 	if (pipe_op(data, ev, 0) != CMD_OK)
+	{
+		free_2d_array(ev);
 		return (g_exit_status);
+	}
 	free_2d_array(ev);
 	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (g_exit_status);
