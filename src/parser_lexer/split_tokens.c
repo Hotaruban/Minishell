@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:14:00 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 16:12:14 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 17:50:53 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ static char	**token_split(char *line, int nb_tokens_cmd)
 			i++;
 		len = len_token(&line[i]);
 		tokens[j] = ft_substr(line, i, len);
-		// printf("token in token split = -%s- \n len = %d \n", tokens[j], len);
 		i += len;
 		j++;
 	}
