@@ -3,6 +3,10 @@
 <p align = "center">
 <a href = https://github.com/Hotaruban><img minishell = "minishell" src = "./doc/minishelln.png"></a></p>
 
+Team members:
+- <a href = https://github.com/Adamsandlerisgod>Wolf</a> (intra: <a href = https://profile.intra.42.fr/users/whendrik>whendrik</a>)
+- <a href = https://github.com/Hotaruban>Jeremy</a> (intra: <a href = https://profile.intra.42.fr/users/jhurpy>jhurpy</a>)
+
 ### The "Minishell" project at 42 school challenges participants to develop a minimalistic Unix shell. This project provides an opportunity to delve into the fundamentals of shell programming, emphasizing process creation, signal handling, and command execution.
 
 ### Key Points:
