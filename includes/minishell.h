@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 18:42:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 22:53:25 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,6 @@
 # ifndef PATH_MAX
 #  define PATH_MAX 4096
 # endif
-
-# define true 1
-# define false 0
 
 # define STDIN 0
 # define STDOUT 1
