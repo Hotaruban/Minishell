@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 10:12:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 11:50:02 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@
 # define RED "\033[1;32m"
 # define GREEN "\033[1;32m"
 
-# define PROMPT	"minishell$ "
-# define PROMPT_R "minishell: "
+# define PROMPT	"minishell-hh$ "
+# define PROMPT_R "minishell-hh: "
 
 # define MALLOC_ERROR	"malloc failed"
 # define PIPE_ERROR		"pipe failed"
@@ -167,7 +167,7 @@ bool	quote_trim(t_tokens *tokens);
 /*Struct_fill*/
 void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
 
-//init_data
+/*init_data*/
 void	init_data_cmd(t_cmd *cmd);
 void	init_data(t_data *data, char **ev);
 void	init_tokens(t_tokens *tokens);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/17 15:14:56 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/18 11:57:25 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,16 @@ NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
 SRC_FILES = main.c \
-			checker_and_split/check_line.c \
-			checker_and_split/split_tokens.c \
-			identify_and_syntax/token_identify.c\
-			identify_and_syntax/token_syntax.c\
-			var_expander/variable_parser.c \
-			quote_trimmer/quote_trim.c \
-			struct_filler/identify_cmd.c \
+			parser_lexer/check_line.c \
+			parser_lexer/split_tokens.c \
+			parser_lexer/token_identify.c\
+			parser_lexer/token_syntax.c\
+			parser_lexer/variable_parser.c \
+			parser_lexer/quote_trim.c \
+			parser_lexer/identify_cmd.c \
+			utils/free_functions.c \
 			utils/initialization.c \
-			utils/utils_token_is.c \
-			utils/utils_token_len.c \
+			utils/utils_token.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \
@@ -58,14 +58,14 @@ SRC_FILES = main.c \
 			redirection/redirection_files.c \
 			environment/set_env.c \
 			environment/free_env.c \
-			free_functions.c \
-			signal.c
+			signal/signal.c
 
 OBJ_DIR = obj
 INC_DIR = includes
 LIBFT_DIR = ./libft
 HEAD = -I./includes -I$(READLINE_DIR)include/
 INCS = -I$(INC_DIR) -I$(LIBFT_DIR)
+HDRS = $(INC_DIR)/minishell.h
 
 # ### INCLUDE ###
 LIB 	= -lreadline -L$(READLINE_DIR)lib/
@@ -82,11 +82,11 @@ all: $(LIBFT_DIR) $(NAME)
 
 # Rule to build each personal library
 $(LIBFT):
-	@make -C $(LIBFT_DIR)
+	make -C $(LIBFT_DIR)
 
 # Object file build rule
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(dir $@)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT) $(HDRS) Makefile
+	mkdir -p $(dir $@)
 	$(CC) $(C_FLAGS) $(HEAD) -c $< -o $@
 
 # Target library build rule
@@ -94,6 +94,9 @@ $(NAME): $(OBJECTS) $(LIBFT)
 	$(CC) $(C_FLAGS) $(LIB) $^ $(INCS) -o $(NAME)
 
 # ---------------------------------------------------------------------------- #
+
+# Phony targets
+.PHONY: all clean fclean re norm
 
 # Clean object files
 clean:
@@ -115,6 +118,3 @@ norm:
 	@norminette -R CheckDefine $(INC_DIR)/*.h ;
 	@norminette -R CheckForbiddenSourceHeader $(LIBFT_DIR)/src/*.c ;
 	@norminette -R CheckDefine $(LIBFT_DIR)/includes/*.h
-
-# Phony targets
-.PHONY: all clean fclean re norm
