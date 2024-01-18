@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 17:24:34 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 18:19:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ The function ft_exit is used to exit the minishell.
 It returns the exit status.
 */
 
-static int	quit_and_clean(t_data *data, int status)
+static int	quit_and_clean(t_data *data)
 {
 	rl_clear_history();
 	free_env(data->env);
 	free_data_struct(data);
-	exit (status);
+	exit (g_exit_status);
 }
 
 static int	check_input_exit(t_data *data, int index)
@@ -67,7 +67,8 @@ static int	get_exit_status(t_data *data, char *arg, int flag)
 		if (check_long_long(arg) == false || !ft_isnumber(arg))
 		{
 			error_exit_msg(arg, NUM_ARG, flag);
-			quit_and_clean(data, 255);
+			g_exit_status = 255;
+			quit_and_clean(data);
 		}
 		else
 			status = (ft_atoll(arg) % 256);
@@ -79,20 +80,19 @@ static int	get_exit_status(t_data *data, char *arg, int flag)
 
 int	ft_exit(t_data *data, int index)
 {
-	int	status;
 	int	flag;
 
 	flag = 0;
 	if (data->pipe_len > 1)
 		flag = 1;
-	status = check_input_exit(data, index);
-	if (status != CMD_OK)
-		return (status);
-	status = get_exit_status(data, data->cmd[0].cmd[1], flag);
+	g_exit_status = check_input_exit(data, index);
+	if (g_exit_status != CMD_OK)
+		return (g_exit_status);
+	g_exit_status = get_exit_status(data, data->cmd[0].cmd[1], flag);
 	if (data->cmd[index].pipe_out == true
 		|| data->cmd[index].pipe_in == true)
 		return (CMD_ERROR);
 	error_exit_msg(NULL, NULL, flag);
-	quit_and_clean(data, status);
-	return (status);
+	quit_and_clean(data);
+	return (g_exit_status);
 }

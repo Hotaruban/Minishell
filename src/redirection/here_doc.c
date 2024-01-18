@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 15:37:39 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 19:20:47 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	execute_heredoc(t_data *data)
 		}
 		i++;
 	}
+	exit (g_exit_status);
 }
 
 void	open_heredoc(t_data *data)
@@ -82,6 +83,7 @@ void	open_heredoc(t_data *data)
 			sigaction(SIGINT, &data->sa_i, NULL);
 			execute_heredoc(data);
 		}
-		waitpid(pid, &status, 0);
+		waitpid(pid, &g_exit_status, WUNTRACED);
+		g_exit_status = WEXITSTATUS(status) + 1;
 	}
 }
