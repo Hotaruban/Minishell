@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:57:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 17:21:27 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 09:49:37 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	error_system(char *msg)
 {
-	ft_putstr_fd(PROMPT, STDERR_FILENO);
+	ft_putstr_fd(PROMPT_R, STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
 }
 
@@ -24,7 +24,7 @@ void	error_exit_msg(char *arg, char *str, int flag)
 		ft_putendl_fd("exit", STDERR_FILENO);
 	if (str != NULL)
 	{
-		ft_putstr_fd(PROMPT, STDERR_FILENO);
+		ft_putstr_fd(PROMPT_R, STDERR_FILENO);
 		ft_putstr_fd("exit: ", STDERR_FILENO);
 		if (arg != NULL)
 		{
@@ -37,7 +37,7 @@ void	error_exit_msg(char *arg, char *str, int flag)
 
 void	error_input(char *msg, char *msg_type)
 {
-	ft_putstr_fd(PROMPT, STDERR_FILENO);
+	ft_putstr_fd(PROMPT_R, STDERR_FILENO);
 	ft_putstr_fd(msg, STDERR_FILENO);
 	ft_putstr_fd("`", STDERR_FILENO);
 	ft_putstr_fd(msg_type, STDERR_FILENO);
@@ -46,7 +46,7 @@ void	error_input(char *msg, char *msg_type)
 
 void	error_file_msg(char *file, char *msg)
 {
-	ft_putstr_fd(PROMPT, STDERR_FILENO);
+	ft_putstr_fd(PROMPT_R, STDERR_FILENO);
 	ft_putstr_fd(file, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
