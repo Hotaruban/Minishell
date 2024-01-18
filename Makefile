@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/18 11:46:40 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/18 11:57:25 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,16 +26,16 @@ NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
 SRC_FILES = main.c \
-			checker_and_split/check_line.c \
-			checker_and_split/split_tokens.c \
-			identify_and_syntax/token_identify.c\
-			identify_and_syntax/token_syntax.c\
-			var_expander/variable_parser.c \
-			quote_trimmer/quote_trim.c \
-			struct_filler/identify_cmd.c \
+			parser_lexer/check_line.c \
+			parser_lexer/split_tokens.c \
+			parser_lexer/token_identify.c\
+			parser_lexer/token_syntax.c\
+			parser_lexer/variable_parser.c \
+			parser_lexer/quote_trim.c \
+			parser_lexer/identify_cmd.c \
+			utils/free_functions.c \
 			utils/initialization.c \
-			utils/utils_token_is.c \
-			utils/utils_token_len.c \
+			utils/utils_token.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \
@@ -58,8 +58,7 @@ SRC_FILES = main.c \
 			redirection/redirection_files.c \
 			environment/set_env.c \
 			environment/free_env.c \
-			free_functions.c \
-			signal.c
+			signal/signal.c
 
 OBJ_DIR = obj
 INC_DIR = includes

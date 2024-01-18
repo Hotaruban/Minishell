@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 11:47:37 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/18 11:50:02 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ bool	quote_trim(t_tokens *tokens);
 /*Struct_fill*/
 void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
 
-//init_data
+/*init_data*/
 void	init_data_cmd(t_cmd *cmd);
 void	init_data(t_data *data, char **ev);
 void	init_tokens(t_tokens *tokens);
