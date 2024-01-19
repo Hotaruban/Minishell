@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 14:11:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 11:41:19 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/18 23:54:15 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	redir_outfiles(t_data *data, int index)
 	{
 		while (data->cmd[index].outfiles[i + 1] != NULL)
 			i++;
-		open_outfile(data->cmd[index].outfiles[i], data->cmd[index].append);
+		if (access(data->cmd[index].outfiles[i], W_OK) == 0)
+			open_outfile(data->cmd[index].outfiles[i], data->cmd[index].append);
 	}
 }

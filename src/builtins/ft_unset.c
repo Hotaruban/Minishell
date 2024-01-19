@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:48:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 12:08:57 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	check_input_unset(t_data *data, int index)
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
 		error_cmd(data->cmd[index].cmd[0], NO_OPTION);
-		return (CMD_EXIT);
+		return (CMD_ERROR);
 	}
 	return (CMD_OK);
 }
@@ -95,7 +95,7 @@ int	ft_unset(t_data *data, int index)
 		{
 			error_cmd_var("unset", "not a valid identifier",
 				data->cmd[index].cmd[i]);
-			status = CMD_EXIT;
+			status = CMD_ERROR;
 		}
 		i++;
 	}

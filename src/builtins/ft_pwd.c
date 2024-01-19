@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:06 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 14:41:10 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 12:08:45 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_pwd(t_data *data, int index)
 		{
 			printf("%s%s: %s: %s\n", PROMPT, data->cmd[index].cmd[0],
 				data->cmd[index].cmd[1], NO_OPTION);
-			return (CMD_EXIT);
+			return (CMD_ERROR);
 		}
 	}
 	getcwd(pwd, PATH_MAX);

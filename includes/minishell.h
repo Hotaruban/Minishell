@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 22:53:25 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 12:06:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,48 +34,81 @@
 # include <errno.h>
 # include <termios.h>
 
-# define RESET "\033[0m"
-# define YELLOW "\033[1;33m"
-# define BLUE "\033[1;34m"
-# define RED "\033[1;32m"
-# define GREEN "\033[1;32m"
+# ifndef PATH_MAX
+#  define PATH_MAX 4096
+# endif
 
-# define PROMPT	"minishell-hh$ "
-# define PROMPT_R "minishell-hh: "
+/* ************************************************************************** */
+/*                                                                            */
+/*                               MACRO PROMPT                                 */
+/*                                                                            */
+/* ************************************************************************** */
+
+# define PROMPT			"minishell-hh$ "
+# define PROMPT_R		"minishell-hh: "
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                           MACRO ERROR SYSTEM                               */
+/*                                                                            */
+/* ************************************************************************** */
 
 # define MALLOC_ERROR	"malloc failed"
 # define PIPE_ERROR		"pipe failed"
 # define FORK_ERROR		"fork failed"
 # define DUP_ERROR		"dup2 failed"
 
-# define IS_DIR			"is a directory"
-# define NO_FILE		"No such file or directory"
-# define NO_OPTION		"no option accepted"
-# define NO_OPT_ARG		"no option or argument accepted"
-# define NO_VALID_ID	"not a valid identifier"
-# define NO_CMD			"command not found"
-# define F_DENIED		"Permission denied"
-# define TOO_MANY_ARG	"too many arguments"
-# define NUM_ARG		"numeric argument required"
-# define SYNTAX_ERROR	"syntax error near unexpected token "
-
-# ifndef PATH_MAX
-#  define PATH_MAX 4096
-# endif
-
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
+/* ************************************************************************** */
+/*                                                                            */
+/*                           MACRO ERROR COMMAND                              */
+/*                                                                            */
+/* ************************************************************************** */
 
 # define CMD_OK 0
-# define CMD_ERROR 1
-# define CMD_EXIT 2
-# define CMD_NOT_EXEC 126
-# define CMD_NOT_FOUND 127
+# define IS_DIR			"is a directory"
+# define CMD_NOT_EXEC	126
+# define NO_FILE		"No such file or directory"
+# define CMD_NOT_FOUND	127
+# define NO_CMD			"command not found"
+# define CMD_ERROR		1
+# define F_DENIED		"Permission denied"										 // let see if good position
+# define PERM_ERROR		4
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                           MACRO ERROR BUILTINS                             */
+/*                                                                            */
+/* ************************************************************************** */
+
+# define NO_OPTION		"no option accepted"
+# define NO_OPT_ARG		"no option or argument accepted"
+# define TOO_MANY_ARG	"too many arguments"
+# define NUM_ARG		"numeric argument required"
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                           MACRO ERROR SYNTAX                               */
+/*                                                                            */
+/* ************************************************************************** */
+
+# define SYNTAX_ERROR	"syntax error near unexpected token "
+# define NO_VALID_ID	"not a valid identifier"
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                               MACRO SIGNAL                                 */
+/*                                                                            */
+/* ************************************************************************** */
 
 # define HANDLE_SIGINT_PARENT 1
 # define IGNORE_SIGINT_PARENT 2
 # define IGNORE_SIGQUIT 3
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                              GLOBAL VARIABLE                               */
+/*                                                                            */
+/* ************************************************************************** */
 
 int	g_exit_status;
 
@@ -88,6 +121,18 @@ typedef struct s_env
 typedef struct s_cmd
 {
 	char			**cmd;
+	int				status;
+	char			*error_str;
+	char			*path;
+	int				fd_infile;
+	int				fd_outfile;
+
+	
+
+
+
+
+	
 	bool			pipe_in;
 	bool			pipe_out;
 	bool			here_doc_in;
