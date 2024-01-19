@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 21:29:40 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 12:10:56 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static char	**get_env(const char **env)
 		if (array == NULL)
 		{
 			error_system(MALLOC_ERROR);
-			exit(CMD_EXIT);
+			exit(CMD_ERROR);
 		}
 	}
 	return (array);

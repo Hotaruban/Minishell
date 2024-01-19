@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 09:00:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 19:19:22 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:12:31 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	access_infile_outfile(t_data *data, int index)
 	if (data->cmd[index].file_in == true
 		&& data->cmd[index].here_doc_in == false)
 	{
-		while (data->cmd[index].infiles[i])
+		while (data->cmd[index].infiles[i] && status != CMD_ERROR)
 		{
 			status = open_infile(data->cmd[index].infiles[i]);
 			i++;
@@ -78,7 +78,7 @@ static int	access_infile_outfile(t_data *data, int index)
 	}
 	else
 	{
-		while (data->cmd[index].outfiles[i])
+		while (data->cmd[index].outfiles[i] && status != CMD_ERROR)
 		{
 			status = open_outfile(data->cmd[index].outfiles[i],
 					data->cmd[index].append);

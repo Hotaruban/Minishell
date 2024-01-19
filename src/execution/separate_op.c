@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 21:23:19 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 12:09:25 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	{
 		pid_array = fork_process(data, env, index);
 		if (pid_array == NULL)
-			exit(CMD_EXIT);
+			exit(CMD_ERROR);
 		waiting_pid(data, data->pipe_len, pid_array);
 	}
 	waitpid(pid, &status, WUNTRACED);
@@ -74,6 +74,7 @@ static int	pipe_op(t_data *data, char **env, int index)
 		if (data->cmd[index].cmd[0] != NULL)
 			break ;
 		i++;
+		index++;
 		if (i == data->pipe_len)
 			return (g_exit_status);
 	}
