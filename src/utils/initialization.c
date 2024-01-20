@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/17 22:02:50 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 17:13:39 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,6 @@ void	init_data_cmd(t_cmd *cmd)
 	cmd->limiters = NULL;
 	cmd->infiles = NULL;
 	cmd->outfiles = NULL;
+	cmd->files = NULL;
+	cmd->type = NULL;
 }

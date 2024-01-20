@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/18 21:01:58 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 17:57:45 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,16 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		return (false);
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
+	// heredoc(&data);
+	// if (g_exit_status == 1)
+	// 	return (true);
+	// path_infile_outfile_check(); //for *error_str as well as path, and fd infile outfile and status
 	data->pipe_len = tokens->pipe_count + 1;
 	if (tokens != NULL)
 		free_tokens(tokens);
+	return (true);
 	separator_op(data);
-	set_signal(data, HANDLE_SIGINT_PARENT);
+	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
 	return (true);
 }
 

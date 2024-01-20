@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/19 12:06:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 17:14:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,18 +118,28 @@ typedef struct s_env
 	struct s_env	*next;
 }		t_env;
 
+typedef enum e_type_rdrt
+{
+	e_infile, //(<)
+	e_heredoc, //(<<)
+	e_outfile, // (>)
+	e_append, // (>>)
+}	t_rdrt_type;
+
 typedef struct s_cmd
 {
 	char			**cmd;
-	int				status;
-	char			*error_str;
-	char			*path;
-	int				fd_infile;
-	int				fd_outfile;
+	char			**files;
+	t_rdrt_type		*type;
+	// int				status;
+	// char			*error_str;
+	// char			*path;
+	// int				fd_infile;
+	// int				fd_outfile;
 
 	
-
-
+// int fd;
+// fd = open("main.c", O_RDONLY);
 
 
 	
@@ -140,8 +150,8 @@ typedef struct s_cmd
 	int				nb_heredocs;
 	char			**limiters;
 	bool			file_in;
-	char			**infiles;
 	bool			file_out;
+	char			**infiles;
 	char			**outfiles;
 	bool			append;
 }			t_cmd;
