@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 23:56:25 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 20:36:04 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ static void	child_process(t_data *data, char **env, int index)
 		if (is_builtins(data, index) == true)
 			exit(execute_builtins(data, env, index));
 		else
-			execute_cmd((const t_data *)data,
-				(const char **)data->cmd[index].cmd,
-				(const char **)env);
+			execute_cmd(data, index, env);
 	}
 	exit (g_exit_status);
 }

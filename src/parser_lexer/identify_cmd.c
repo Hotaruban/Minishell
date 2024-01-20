@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:25:44 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 17:35:23 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/20 19:46:17 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 	x = 0;
 	init_cmd(cmd, j, tokens);
 	malloc_cmd(cmd, tokens, j);
+	
 	while (*i < tokens->token_count && tokens->token_type[*i] != e_pipe)
 	{
 		if (tokens->token_type[*i] == e_rdrt)

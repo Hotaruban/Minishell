@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 17:13:39 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/20 20:03:45 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	init_data(t_data *data, char **ev)
 {
 	data->cmd = NULL;
 	data->env = set_env(ev);
+	data->ev_array = NULL;
 	data->pipe_len = 0;
 	data->pipefd[1] = -1;
 	init_signal(data);
@@ -51,4 +52,7 @@ void	init_data_cmd(t_cmd *cmd)
 	cmd->outfiles = NULL;
 	cmd->files = NULL;
 	cmd->type = NULL;
+	cmd->error_str = NULL;
+	cmd->path = NULL;
+	cmd->status = CMD_OK;
 }
