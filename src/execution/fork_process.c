@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 23:56:25 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 17:51:43 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,18 @@
 
 static void	child_process(t_data *data, char **env, int index)
 {
-	if (data->cmd[index].here_doc_in == true)
+	if (data->cmd[index].status != 0)
+		;// Exit function for error message and exit status
+	else if (data->cmd[index].fd_infile > 2 || data->cmd[index].fd_outfile > 2)
+		;// Function for redirection of the filedescriptor
+	else if (data->cmd[index].status == 0)
+		;// Function for redirection of the pipe
+	if (is_builtins(data, index) == true)
+		execute_builtins(data, env, index);
+	else if (execve(data->cmd[index].path, data->cmd[index].cmd, env) == -1)
 	{
-		if (redirection_heredoc(data, index) != CMD_OK)
-			exit(CMD_ERROR);
-	}
-	if (data->cmd[index].cmd != NULL)
-	{
-		if (data->cmd[index].file_in == true
-			&& data->cmd[index].here_doc_in == false)
-			redir_infiles(data, index);
-		if (data->cmd[index].file_out == true)
-			redir_outfiles(data, index);
-		if (redirection_pipes(data, index) != CMD_OK)
-			g_exit_status = CMD_ERROR;
-		if (is_builtins(data, index) == true)
-			exit(execute_builtins(data, env, index));
-		else
-			execute_cmd((const t_data *)data,
-				(const char **)data->cmd[index].cmd,
-				(const char **)env);
+		error_system("execve failed");
+		exit (CMD_ERROR);
 	}
 	exit (g_exit_status);
 }
@@ -75,3 +67,68 @@ pid_t	*fork_process(t_data *data, char **env, int index)
 	}
 	return (pid);
 }
+
+
+// static void	child_process(t_data *data, char **env, int index)
+// {
+// 	if (data->cmd[index].here_doc_in == true)
+// 	{
+// 		if (redirection_heredoc(data, index) != CMD_OK)
+// 			exit(CMD_ERROR);
+// 	}
+// 	if (data->cmd[index].cmd != NULL)
+// 	{
+// 		if (data->cmd[index].file_in == true
+// 			&& data->cmd[index].here_doc_in == false)
+// 			redir_infiles(data, index);
+// 		if (data->cmd[index].file_out == true)
+// 			redir_outfiles(data, index);
+// 		if (redirection_pipes(data, index) != CMD_OK)
+// 			g_exit_status = CMD_ERROR;
+// 		if (is_builtins(data, index) == true)
+// 			exit(execute_builtins(data, env, index));
+// 		else
+// 			execute_cmd((const t_data *)data,
+// 				(const char **)data->cmd[index].cmd,
+// 				(const char **)env);
+// 	}
+// 	exit (g_exit_status);
+// }
+
+// static void	parent_process(t_data *data, int index)
+// {
+// 	close(data->pipefd[1]);
+// 	if (data->cmd[index + 1].file_in == false
+// 		&& data->cmd[index + 1].here_doc_in == false)
+// 		dup_files(data->pipefd[0], STDIN_FILENO);
+// 	close(data->pipefd[0]);
+// }
+
+// pid_t	*fork_process(t_data *data, char **env, int index)
+// {
+// 	pid_t	*pid;
+// 	size_t	i;
+
+// 	pid = (pid_t *)malloc(sizeof(pid_t) * data->pipe_len);
+// 	if (!pid)
+// 		return (error_system(MALLOC_ERROR), NULL);
+// 	i = 0;
+// 	while (i < data->pipe_len)
+// 	{
+// 		if (pipe(data->pipefd) == -1)
+// 			return (error_system(PIPE_ERROR), NULL);
+// 		pid[i] = fork();
+// 		if (pid[i] == -1)
+// 			return (error_system(FORK_ERROR), NULL);
+// 		else if (pid[i] == 0)
+// 		{
+// 			data->sa_i.sa_handler = sigint_child_handler;
+// 			sigaction(SIGINT, &data->sa_i, NULL);
+// 			child_process(data, env, index + i);
+// 		}
+// 		else if (pid[i] > 0)
+// 			parent_process(data, index + i);
+// 		i++;
+// 	}
+// 	return (pid);
+// }

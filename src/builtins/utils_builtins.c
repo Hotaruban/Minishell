@@ -6,11 +6,21 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 15:43:25 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:47:42 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+// int	len_2d_array(char **arg)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (**arg && arg[i] != NULL)
+// 		i++;
+// 	return (i + 1);
+// }
 
 int	len_variable(char *var)
 {

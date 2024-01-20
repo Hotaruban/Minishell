@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/19 12:06:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:48:41 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define CMD_OK 0
+# define CMD_OK 		0
+# define LAST_CMD		-1
 # define IS_DIR			"is a directory"
 # define CMD_NOT_EXEC	126
 # define NO_FILE		"No such file or directory"
@@ -150,6 +151,7 @@ typedef struct s_data
 {
 	t_cmd				*cmd;
 	t_env				*env;
+	char				**env_array;
 	size_t				pipe_len;
 	int					pipefd[2];
 	struct sigaction	sa_i;
@@ -216,10 +218,13 @@ void	init_tokens(t_tokens *tokens);
 
 /*Executation*/
 bool	builtin_in_parent(t_data *data, char **env, int index);
+// void	execute_builtins(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
+// bool	is_parent_builtin(t_data *data, int index);
 void	execute_cmd(const t_data *data, const char **cmd, const char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
+// void	separator_op(t_data *data);
 int		separator_op(t_data *data);
 
 /*Redirection*/
@@ -234,6 +239,7 @@ void	open_heredoc(t_data *data);
 /*Builtins*/
 int		ft_echo(t_data *data, int index);
 int		ft_cd(t_data *data, int index);
+// void	ft_cd(t_data *data, int index);
 int		ft_pwd(t_data *data, int index);
 int		ft_export(t_data *data, char **env, int index);
 int		ft_unset(t_data *data, int index);
