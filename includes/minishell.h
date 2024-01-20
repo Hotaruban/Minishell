@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/19 14:48:41 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 20:38:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,18 +119,28 @@ typedef struct s_env
 	struct s_env	*next;
 }		t_env;
 
+typedef enum e_type_rdrt
+{
+	e_infile, //(<)
+	e_heredoc, //(<<)
+	e_outfile, // (>)
+	e_append, // (>>)
+}	t_rdrt_type;
+
 typedef struct s_cmd
 {
 	char			**cmd;
+	char			**files;
+	t_rdrt_type		*type;
 	int				status;
 	char			*error_str;
 	char			*path;
-	int				fd_infile;
-	int				fd_outfile;
+	// int				fd_infile;
+	// int				fd_outfile;
 
 	
-
-
+// int fd;
+// fd = open("main.c", O_RDONLY);
 
 
 	
@@ -141,8 +151,8 @@ typedef struct s_cmd
 	int				nb_heredocs;
 	char			**limiters;
 	bool			file_in;
-	char			**infiles;
 	bool			file_out;
+	char			**infiles;
 	char			**outfiles;
 	bool			append;
 }			t_cmd;
@@ -151,7 +161,7 @@ typedef struct s_data
 {
 	t_cmd				*cmd;
 	t_env				*env;
-	char				**env_array;
+	char				**ev_array;
 	size_t				pipe_len;
 	int					pipefd[2];
 	struct sigaction	sa_i;
@@ -210,6 +220,8 @@ bool	quote_trim(t_tokens *tokens);
 
 /*Struct_fill*/
 void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
+void	assign_path(t_data *data);
+
 
 /*init_data*/
 void	init_data_cmd(t_cmd *cmd);
@@ -221,11 +233,12 @@ bool	builtin_in_parent(t_data *data, char **env, int index);
 // void	execute_builtins(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
-// bool	is_parent_builtin(t_data *data, int index);
-void	execute_cmd(const t_data *data, const char **cmd, const char **env);
+
+void	execute_cmd( t_data *data, int index,  char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
 // void	separator_op(t_data *data);
 int		separator_op(t_data *data);
+
 
 /*Redirection*/
 int		check_acces_file(t_data *data, int index);
@@ -234,7 +247,7 @@ int		redirection_heredoc(t_data *data, int index);
 void	redir_infiles(t_data *data, int index);
 void	redir_outfiles(t_data *data, int index);
 int		redirection_pipes(t_data *data, int index);
-void	open_heredoc(t_data *data);
+bool	open_heredoc(t_data *data);
 
 /*Builtins*/
 int		ft_echo(t_data *data, int index);

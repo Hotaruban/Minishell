@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 17:51:43 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 20:36:04 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ static void	child_process(t_data *data, char **env, int index)
 	{
 		error_system("execve failed");
 		exit (CMD_ERROR);
+		if (redirection_heredoc(data, index) != CMD_OK)
+			exit(CMD_ERROR);
+	}
+	if (data->cmd[index].cmd != NULL)
+	{
+		if (data->cmd[index].file_in == true
+			&& data->cmd[index].here_doc_in == false)
+			redir_infiles(data, index);
+		if (data->cmd[index].file_out == true)
+			redir_outfiles(data, index);
+		if (redirection_pipes(data, index) != CMD_OK)
+			g_exit_status = CMD_ERROR;
+		if (is_builtins(data, index) == true)
+			exit(execute_builtins(data, env, index));
+		else
+			execute_cmd(data, index, env);
 	}
 	exit (g_exit_status);
 }

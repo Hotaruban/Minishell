@@ -19,16 +19,19 @@ Wolf =
 	-- - Ctrl + c prints "minishell : minishell : minishell :"
 	-- - Ctrl + d works but can cause segmentation fault
 
-	- ADD in argument in the 2d array the infiles without the "<" only the infiles
-	- IMP in the input the the entry of last command if missing
+	-- - ADD in argument in the 2d array the infiles without the "<" only the infiles
+	-- - IMP in the input the the entry of last command if missing
 
-	- IMP heredoc before send data struct for execution
+	To do in english:
+		-get line
+
+	- IMP heredoc before send data struct for execution (sorted)
 	- IMP the opening of every files of the cmd (stop if one file fail), command by command and return an error command if need with the str_error
-	- IMP the path for every command
+	- IMP the path for every command (okay)
 	- Return the fd_in and fd_out // if do not have return -2
 		- USE last infile and last outfiles for the redirection with the type (O_APPEND/O_TRUNC/O_RDONLY)
 
-
+- Do the int status variable in s_cmd, in PATH instead of error message(bc now we exit)
 
 
 Jeremy = 
