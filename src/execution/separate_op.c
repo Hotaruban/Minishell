@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/19 12:09:25 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 20:26:50 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static int	pipe_op(t_data *data, char **env, int index)
 	unsigned int	i;
 
 	i = 0;
-	open_heredoc(data);
+	// open_heredoc(data);
 	g_exit_status = check_acces_file(data, index);
 	while (i < data->pipe_len)
 	{
@@ -87,18 +87,18 @@ static int	pipe_op(t_data *data, char **env, int index)
 
 int	separator_op(t_data *data)
 {
-	char	**ev;
+	// char	**ev;
 
 	g_exit_status = CMD_OK;
 	set_signal(data, IGNORE_SIGINT_PARENT);
-	ev = env_array(data->env);
-	if (ev == NULL)
+	// ev = env_array(data->env);
+	if (data->ev_array == NULL)
 		return (CMD_ERROR);
-	if (pipe_op(data, ev, 0) != CMD_OK)
+	if (pipe_op(data, data->ev_array, 0) != CMD_OK)
 	{
-		free_2d_array(ev);
+		free_2d_array(data->ev_array);
 		return (g_exit_status);
 	}
-	free_2d_array(ev);
+	free_2d_array(data->ev_array);
 	return (g_exit_status);
 }

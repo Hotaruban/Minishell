@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 20:01:01 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/20 19:35:35 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,24 +61,27 @@ static void	execute_heredoc(t_data *data)
 
 static void	get_exit_status(void)
 {
+	printf("exit status = %d\n", g_exit_status);
 	if (g_exit_status == 33280)
 		g_exit_status = 1;
 	else
 		g_exit_status = WEXITSTATUS(g_exit_status);
 }
 
-void	open_heredoc(t_data *data)
+bool	open_heredoc(t_data *data)
 {
 	pid_t	pid;
 	size_t	i;
+	bool	flag;
 
 	i = 0;
-	while (data->pipe_len > i)
+	flag = false;
+	while (data->pipe_len > i) //Maybe create a flag to say if its true
 	{
 		if (data->cmd[i++].here_doc_in == true)
-			g_exit_status = CMD_OK;
+			flag = true;
 	}
-	if (g_exit_status == CMD_OK)
+	if (flag == true)
 	{
 		pid = fork();
 		if (pid == -1)
@@ -92,4 +95,5 @@ void	open_heredoc(t_data *data)
 		waitpid(pid, &g_exit_status, WUNTRACED);
 		get_exit_status();
 	}
+	return (flag);
 }

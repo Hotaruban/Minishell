@@ -6,7 +6,7 @@
 #    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/18 11:57:25 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/20 20:27:32 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC_FILES = main.c \
 			parser_lexer/variable_parser.c \
 			parser_lexer/quote_trim.c \
 			parser_lexer/identify_cmd.c \
+			parser_lexer/assign_path.c \
 			utils/free_functions.c \
 			utils/initialization.c \
 			utils/utils_token.c \
