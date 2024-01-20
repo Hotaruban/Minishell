@@ -3,54 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 20:36:04 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/20 22:59:47 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static void	child_process(t_data *data, char **env, int index)
-{
-	if (data->cmd[index].status != 0)
-		;// Exit function for error message and exit status
-	else if (data->cmd[index].fd_infile > 2 || data->cmd[index].fd_outfile > 2)
-		;// Function for redirection of the filedescriptor
-	else if (data->cmd[index].status == 0)
-		;// Function for redirection of the pipe
-	if (is_builtins(data, index) == true)
-		execute_builtins(data, env, index);
-	else if (execve(data->cmd[index].path, data->cmd[index].cmd, env) == -1)
-	{
-		error_system("execve failed");
-		exit (CMD_ERROR);
-		if (redirection_heredoc(data, index) != CMD_OK)
-			exit(CMD_ERROR);
-	}
-	if (data->cmd[index].cmd != NULL)
-	{
-		if (data->cmd[index].file_in == true
-			&& data->cmd[index].here_doc_in == false)
-			redir_infiles(data, index);
-		if (data->cmd[index].file_out == true)
-			redir_outfiles(data, index);
-		if (redirection_pipes(data, index) != CMD_OK)
-			g_exit_status = CMD_ERROR;
-		if (is_builtins(data, index) == true)
-			exit(execute_builtins(data, env, index));
-		else
-			execute_cmd(data, index, env);
-	}
-	exit (g_exit_status);
-}
-
 static void	parent_process(t_data *data, int index)
 {
 	close(data->pipefd[1]);
-	if (data->cmd[index + 1].file_in == false
-		&& data->cmd[index + 1].here_doc_in == false)
+	if (data->cmd[index + 1].fd_infile > 2)
 		dup_files(data->pipefd[0], STDIN_FILENO);
 	close(data->pipefd[0]);
 }

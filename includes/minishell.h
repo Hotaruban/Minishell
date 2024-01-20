@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/20 20:38:22 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 01:13:23 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@
 
 # define CMD_OK 		0
 # define LAST_CMD		-1
-# define IS_DIR			"is a directory"
-# define CMD_NOT_EXEC	126
-# define NO_FILE		"No such file or directory"
-# define CMD_NOT_FOUND	127
-# define NO_CMD			"command not found"
 # define CMD_ERROR		1
-# define F_DENIED		"Permission denied"										 // let see if good position
-# define PERM_ERROR		4
+# define NO_CMD			"command not found"
+# define F_DENIED		"Permission denied"
+# define NO_VAR			"not set"
+# define CMD_NOT_EXEC	126
+# define IS_DIR			"is a directory"
+# define CMD_NOT_FOUND	127
+# define NO_FILE		"No such file or directory"
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -134,9 +134,10 @@ typedef struct s_cmd
 	t_rdrt_type		*type;
 	int				status;
 	char			*error_str;
+	char			*msg_error;
 	char			*path;
-	// int				fd_infile;
-	// int				fd_outfile;
+	int				fd_infile;
+	int				fd_outfile;
 
 	
 // int fd;
@@ -229,35 +230,41 @@ void	init_data(t_data *data, char **ev);
 void	init_tokens(t_tokens *tokens);
 
 /*Executation*/
+void	separator_op(t_data *data);
 bool	builtin_in_parent(t_data *data, char **env, int index);
-// void	execute_builtins(t_data *data, char **env, int index);
-int		execute_builtins(t_data *data, char **env, int index);
-bool	is_builtins(t_data *data, int index);
-
-void	execute_cmd( t_data *data, int index,  char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
-// void	separator_op(t_data *data);
-int		separator_op(t_data *data);
+int		execute_builtins(t_data *data, char **env, int index);
+
+// void	execute_builtins(t_data *data, char **env, int index);
+// bool	is_builtins(t_data *data, int index);
+// void	execute_cmd( t_data *data, int index,  char **env);
+// int		separator_op(t_data *data);
 
 
 /*Redirection*/
 int		check_acces_file(t_data *data, int index);
 int		dup_files(int fd_target, int fd_origin);
-int		redirection_heredoc(t_data *data, int index);
-void	redir_infiles(t_data *data, int index);
-void	redir_outfiles(t_data *data, int index);
-int		redirection_pipes(t_data *data, int index);
 bool	open_heredoc(t_data *data);
 
+// int		redirection_pipes(t_data *data, int index);
+// int		redirection_heredoc(t_data *data, int index);
+// void	redir_infiles(t_data *data, int index);
+// void	redir_outfiles(t_data *data, int index);
+
 /*Builtins*/
-int		ft_echo(t_data *data, int index);
-int		ft_cd(t_data *data, int index);
-// void	ft_cd(t_data *data, int index);
-int		ft_pwd(t_data *data, int index);
-int		ft_export(t_data *data, char **env, int index);
+// int		ft_echo(t_data *data, int index);
+void	ft_echo(t_data *data, int index);
+// int		ft_cd(t_data *data, int index);
+void	ft_cd(t_data *data, int index);
+// int		ft_pwd(t_data *data, int index);
+void		ft_pwd(t_data *data, int index);
+// int		ft_export(t_data *data, char **env, int index);
+void	ft_export(t_data *data, char **env, int index);
 int		ft_unset(t_data *data, int index);
-int		ft_env(t_data *data, char **env, int index);
-int		ft_exit(t_data *data, int index);
+// int		ft_env(t_data *data, char **env, int index);
+void		ft_env(t_data *data, char **env, int index);
+// int		ft_exit(t_data *data, int index);
+void		ft_exit(t_data *data, int index);
 int		len_variable(char *var);
 bool	check_variable(char *var);
 void	print_env(char **env, int flag);

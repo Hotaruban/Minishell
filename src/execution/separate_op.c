@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 20:26:50 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/20 23:29:24 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,54 +64,54 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 }
 
 void	separator_op(t_data *data)
-static int	pipe_op(t_data *data, char **env, int index)
 {
-	unsigned int	i;
-
-	i = 0;
-	// open_heredoc(data);
-	g_exit_status = check_acces_file(data, index);
-	while (i < data->pipe_len)
-	{
-		if (data->cmd[index].cmd[0] != NULL)
-			break ;
-		i++;
-		index++;
-		if (i == data->pipe_len)
-			return (g_exit_status);
-	}
-	if (builtin_in_parent(data, env, index) == true)
-		return (g_exit_status);
-	else
-		capsule_pipe(data, env, index);
-	return (g_exit_status);
-}
-
-int	separator_op(t_data *data)
-{
-	// char	**ev;
-
-	ev = env_array(data->env);
 	set_signal(data, IGNORE_SIGINT_PARENT);
-	if (builtin_in_parent(data, data->env, index) == true 
+	if (builtin_in_parent(data, data->env, 0) == true 
 		&& data->pipe_len == 1)
-		execute_builtins(data, data->env_array, index);
+		execute_builtins(data, data->ev_array, 0);
 	else
-		capsule_pipe(data, data->env_array, index);
-	free_2d_array(ev);
-	g_exit_status = CMD_OK;
-	set_signal(data, IGNORE_SIGINT_PARENT);
-	// ev = env_array(data->env);
-	if (data->ev_array == NULL)
-		return (CMD_ERROR);
-	if (pipe_op(data, data->ev_array, 0) != CMD_OK)
-	{
-		free_2d_array(data->ev_array);
-		return (g_exit_status);
-	}
-	free_2d_array(data->ev_array);
-	return (g_exit_status);
+		capsule_pipe(data, data->ev_array, 0);
+	// check if need to free env_array
 }
+
+// static int	pipe_op(t_data *data, char **env, int index)
+// {
+// 	unsigned int	i;
+
+// 	i = 0;
+// 	// open_heredoc(data);
+// 	g_exit_status = check_acces_file(data, index);
+// 	while (i < data->pipe_len)
+// 	{
+// 		if (data->cmd[index].cmd[0] != NULL)
+// 			break ;
+// 		i++;
+// 		index++;
+// 		if (i == data->pipe_len)
+// 			return (g_exit_status);
+// 	}
+// 	if (builtin_in_parent(data, env, index) == true)
+// 		return (g_exit_status);
+// 	else
+// 		capsule_pipe(data, env, index);
+// 	return (g_exit_status);
+// }
+
+
+		
+	// g_exit_status = CMD_OK;
+	// set_signal(data, IGNORE_SIGINT_PARENT);
+	// ev = env_array(data->env);
+	// if (data->ev_array == NULL)
+	// 	return (CMD_ERROR);
+	// if (pipe_op(data, data->ev_array, 0) != CMD_OK)
+	// {
+	// 	free_2d_array(data->ev_array);
+	// 	return (g_exit_status);
+	// }
+	// free_2d_array(data->ev_array);
+	// return (g_exit_status);
+// }
 
 
 // static void	waiting_pid(t_data *data, size_t len, pid_t *pid)

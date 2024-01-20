@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/20 20:27:32 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/20 23:40:47 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,9 +54,6 @@ SRC_FILES = main.c \
 			redirection/dup_files.c \
 			redirection/check_acces_file.c \
 			redirection/here_doc.c \
-			redirection/open_infiles.c \
-			redirection/open_outfiles.c \
-			redirection/redirection_files.c \
 			environment/set_env.c \
 			environment/free_env.c \
 			signal/signal.c

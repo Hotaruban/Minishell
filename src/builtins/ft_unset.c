@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/19 12:08:57 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 01:25:10 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	remove_variable(t_env *env, char **var)
 	char	*var_tmp;
 	int		i;
 
-	i = 0;
+	i = 1;
 	while (var[i])
 	{
 		var_tmp = ft_substr(var[i], 0, ft_strlen(var[i]));
@@ -84,21 +84,18 @@ static bool	is_wrong_arg(char *arg)
 
 int	ft_unset(t_data *data, int index)
 {
-	int	status;
 	int	i;
 
-	status = check_input_unset(data, index);
+	g_exit_status = check_input_unset(data, index);
 	i = 1;
 	while (data->cmd[index].cmd[i])
 	{
 		if (is_wrong_arg(data->cmd[index].cmd[i]) == true)
 		{
-			error_cmd_var("unset", "not a valid identifier",
-				data->cmd[index].cmd[i]);
-			status = CMD_ERROR;
+			error_cmd_var("unset", data->cmd[index].cmd[i], NO_VALID_ID);
+			g_exit_status = CMD_ERROR;
 		}
 		i++;
 	}
 	remove_variable(data->env, data->cmd[index].cmd);
-	return (status);
 }

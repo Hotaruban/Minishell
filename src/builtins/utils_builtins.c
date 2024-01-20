@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/19 14:47:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 01:07:10 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	print_env(char **env, int flag)
 		printf("%s\n", env[i]);
 		i++;
 	}
+	g_exit_status = CMD_OK;
 }
 
 void	add_variable(t_env *tmp_env, char *var)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/24 19:44:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 20:37:55 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/20 22:36:54 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,34 +104,28 @@
 // 	return (path);
 // }
 
-void	execute_cmd(t_data *data, int index, char **env)
-{
-	// char	*path;
-	DIR		*dir;
+// void	execute_cmd(t_data *data, int index, char **env)
+// {
+// 	DIR		*dir;
 
-	if (data->cmd[index].cmd == NULL || data->cmd[index].cmd[0][0] == '\0')
-	{
-		error_cmd(data->cmd[index].cmd[0], NO_CMD);
-		exit(CMD_NOT_FOUND);
-	}
-	dir = opendir(data->cmd[index].cmd[0]);
-	if (dir != NULL)
-	{
-		error_cmd(data->cmd[index].cmd[0], IS_DIR);
-		closedir(dir);
-		exit (CMD_NOT_EXEC);
-	}
-	// printf("PATH = %s\n", data->cmd)
-	// if (check_cmd_accessible(cmd) == true)
-	// 	path = (char *)cmd[0];
-	// else
-	// 	path = get_path(data, cmd, env);
-	if (execve(data->cmd[index].path, data->cmd[index].cmd, env) == -1)
-	{
-		error_system("execve failed");
-		exit (CMD_ERROR);
-	}
-}
+// 	if (data->cmd[index].cmd == NULL || data->cmd[index].cmd[0][0] == '\0')
+// 	{
+// 		error_cmd(data->cmd[index].cmd[0], NO_CMD);
+// 		exit(CMD_NOT_FOUND);
+// 	}
+// 	dir = opendir(data->cmd[index].cmd[0]);
+// 	if (dir != NULL)
+// 	{
+// 		error_cmd(data->cmd[index].cmd[0], IS_DIR);
+// 		closedir(dir);
+// 		exit (CMD_NOT_EXEC);
+// 	}
+// 	if (execve(data->cmd[index].path, data->cmd[index].cmd, env) == -1)
+// 	{
+// 		error_system("execve failed");
+// 		exit (CMD_ERROR);
+// 	}
+// }
 
 
 // static bool	check_cmd_accessible(const char **cmd)
