@@ -64,7 +64,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# define CMD_OK 0
+# define CMD_OK 		0
+# define LAST_CMD		-1
 # define IS_DIR			"is a directory"
 # define CMD_NOT_EXEC	126
 # define NO_FILE		"No such file or directory"
@@ -229,10 +230,13 @@ void	init_tokens(t_tokens *tokens);
 
 /*Executation*/
 bool	builtin_in_parent(t_data *data, char **env, int index);
+// void	execute_builtins(t_data *data, char **env, int index);
 int		execute_builtins(t_data *data, char **env, int index);
 bool	is_builtins(t_data *data, int index);
+
 void	execute_cmd( t_data *data, int index,  char **env);
 pid_t	*fork_process(t_data *data, char **env, int index);
+// void	separator_op(t_data *data);
 int		separator_op(t_data *data);
 
 
@@ -248,6 +252,7 @@ bool	open_heredoc(t_data *data);
 /*Builtins*/
 int		ft_echo(t_data *data, int index);
 int		ft_cd(t_data *data, int index);
+// void	ft_cd(t_data *data, int index);
 int		ft_pwd(t_data *data, int index);
 int		ft_export(t_data *data, char **env, int index);
 int		ft_unset(t_data *data, int index);
