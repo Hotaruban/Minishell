@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:46 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 20:36:31 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 00:36:50 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	print_echo(char **args, bool flag, int i)
 	}
 }
 
-int	ft_echo(t_data *data, int index)
+void	ft_echo(t_data *data, int index)
 {
 	bool	flag;
 
@@ -72,5 +72,5 @@ int	ft_echo(t_data *data, int index)
 			flag = true;
 	}
 	print_echo(data->cmd[index].cmd, flag, 1);
-	return (g_exit_status);
+	g_exit_status = CMD_OK;
 }

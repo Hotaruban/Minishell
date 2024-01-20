@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/19 20:18:13 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 01:02:38 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,45 +64,63 @@ static void	set_variable_pwd(t_env *env)
 	set_oldpwd(env, tmp_pwd);
 }
 
-static int	change_directory(t_data *data, char *path, t_env *env)
+static void	change_directory(char *path, t_env *env)
 {
-	(void)data;
 	if (chdir(path) == -1)
 	{
 		error_cmd_msg("cd ", path, NO_FILE);
-		return (CMD_ERROR);
+		g_exit_status = CMD_ERROR;
 	}
-	set_variable_pwd(env);
+	else
+	{
+		set_variable_pwd(env);
+		g_exit_status = CMD_OK;
+	}
 	if (path != NULL)
 		free(path);
-	return (CMD_OK);
 }
 
-int	ft_cd(t_data *data, int index)
+static char	*change_home_oldpwd(t_data *data, int index)
 {
-	char	*path;
+	char	*var;
 
-	path = NULL;
+	var = NULL;
 	if (!data->cmd[index].cmd || !data->cmd[index].cmd[1]
 		|| ft_isspace(data->cmd[index].cmd[1][0])
 		|| data->cmd[index].cmd[1][0] == '\0'
 		|| ft_strncmp(data->cmd[index].cmd[1], "--", 3) == 0)
-	{
-		path = get_env_value("HOME", &data->env, 4, g_exit_status);
-		return (change_directory(data, path, data->env));
-	}
-	if (data->cmd[index].cmd[2])
-		return (error_cmd(data->cmd[index].cmd[0],
-				TOO_MANY_ARG), CMD_ERROR);
-	if (ft_strncmp(data->cmd[index].cmd[1], "-", 2) == 0)
-	{
-		path = get_env_value("OLDPWD", &data->env, 6, 0);
-		printf("%s\n", path);
-		if (!path)
-			return (error_cmd(data->cmd[index].cmd[0],
-					"OLDPWD not set"), CMD_ERROR);
-		return (change_directory(data, path, data->env));
-	}
-	path = ft_strdup(data->cmd[index].cmd[1]);
-	return (change_directory(data, path, data->env));
+		var = ft_strdup("HOME");
+	else if (ft_strncmp(data->cmd[index].cmd[1], "-", 2) == 0)
+		var = ft_strdup("OLDPWD");
+	return (var);
 }
+
+void	ft_cd(t_data *data, int index)
+{
+	char	*path;
+	char	*var;
+
+	var = change_home_oldpwd(data, index);
+	if(ft_strncmp("OLDPWD", var, 7) == 0 || ft_strncmp("HOME", var, 7) == 0)
+	{
+		path = get_env_value(var, &data->env, 6, 0);
+		if (!path)
+		{
+			error_cmd_msg("cd", var, NO_VAR);
+			g_exit_status = CMD_ERROR;
+		}
+		if (var != NULL)
+			free(var);
+	}
+	else if (path == NULL)
+		path = ft_strdup(data->cmd[index].cmd[1]);
+	change_directory(path, data->env);
+}
+
+	// if (data->cmd[index].cmd[2])
+	// {
+	// 	error_cmd(data->cmd[index].cmd[0],TOO_MANY_ARG);
+	// 	g_exit_status = CMD_ERROR;
+	// 	return ;
+	// }
+	

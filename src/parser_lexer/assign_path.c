@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/20 20:51:26 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/20 22:36:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 static bool	check_cmd_accessible(t_data *data, int index)
 {
-	if (ft_strncmp(data->cmd[index].cmd[0], "../", 3) == 0 || ft_strncmp(data->cmd[index].cmd[0], "./", 2) == 0)
+	if (ft_strncmp(data->cmd[index].cmd[0], "../", 3) == 0 
+		|| ft_strncmp(data->cmd[index].cmd[0], "./", 2) == 0)
 	{
 		if (access(data->cmd[index].cmd[0], F_OK) == -1)
 		{
-			error_cmd(data->cmd[index].cmd[0], NO_FILE); // "THis will dissapear" - JErermy
-			exit(CMD_NOT_FOUND);
+			data->cmd[index].status = 127;
+			data->cmd[index].error_str = data->cmd[index].cmd[0];
+			data->cmd[index].msg_error = NO_FILE;
+			return (false);
 		}
 		if (access(data->cmd[index].cmd[0], X_OK) == -1)
 		{
-			error_cmd(data->cmd[index].cmd[0], F_DENIED);// "THis will dissapear" - JErermy
-			exit(CMD_NOT_EXEC);
+			data->cmd[index].status = 126;
+			data->cmd[index].error_str = data->cmd[index].cmd[0];
+			data->cmd[index].msg_error = F_DENIED;
+			return (false);
 		}
 		return (true);
 	}
@@ -40,8 +45,10 @@ static char	**get_env(t_data *data, char **env, int index)
 		env++;
 	if (*env == NULL)
 	{
-		error_cmd(data->cmd[index].cmd[0], NO_FILE); //"THis will be changed also" - Sick jeremy
-		exit(CMD_NOT_FOUND);
+		data->cmd[index].status = 127;
+		data->cmd[index].error_str = data->cmd[index].cmd[0];
+		data->cmd[index].msg_error = NO_FILE;
+		return (NULL);
 	}
 	if (ft_strncmp(*env, "PATH=", 5) == 0)
 	{
@@ -62,6 +69,7 @@ static char	*check_path(t_data *data, char **env, int index)
 	char	*path;
 	int		i;
 
+	path = NULL;
 	path_array = get_env(data, env, index);
 	i = -1;
 	while (path_array[++i] != NULL)
@@ -90,15 +98,13 @@ static char	*get_path(t_data *data, char **env, int index)
 	else
 		path = check_path(data, env, index);
 	if (path == NULL)
+		return (NULL);
+	if (access(path, F_OK) == -1)
 	{
-		error_cmd(data->cmd[index].cmd[0], NO_CMD);// "THIsi wll be rmeovd also" - Jeremy in french
-		exit(CMD_NOT_FOUND);
-	}
-	if (access(path, F_OK) == -1)// "THis too"
-	{
-		error_cmd(path, NO_FILE);
+		data->cmd[index].status = 127;
+		data->cmd[index].error_str = ft_strdup(path);
+		data->cmd[index].msg_error = NO_CMD;
 		free(path);
-		exit(CMD_NOT_FOUND);
 	}
 	return (path);
 }
@@ -115,15 +121,16 @@ void	assign_path(t_data *data)
 	{
 		if (is_builtins(data, i) == false)
 		{
-			if (check_cmd_accessible(data, i) == true)
-			data->cmd[i].path = (char *)data->cmd[i].cmd[0];
-			else
-				data->cmd[i].path = get_path(data, env, i);
-			if (data->cmd[i].path == NULL)
+			if (data->cmd == NULL || data->cmd[i][0] == '\0')
 			{
-				data->cmd[i].status = CMD_NOT_FOUND;
-				data->cmd[i].error_str = ft_strdup(data->cmd[i].cmd[0]);	
+				data->cmd[i].status = 127;
+				data->cmd[i].error_str = ft_strdup(data->cmd[i]);
+				data->cmd[i].msg_error = NO_CMD;			
 			}
+			else if (check_cmd_accessible(data, i) == true && data->cmd[i].status == 0)
+				data->cmd[i].path = (char *)data->cmd[i].cmd[0];
+			else if (data->cmd[i].status == 0)
+				data->cmd[i].path = get_path(data, env, i);
 		}
 		i++;
 	}
