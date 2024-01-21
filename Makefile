@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/21 16:27:03 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/21 23:46:57 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRC_FILES = main.c \
 			builtins/ft_unset.c \
 			builtins/utils_builtins.c \
 			execution/exec_builtins.c \
-			execution/execute_cmd.c \
 			execution/fork_process.c \
 			execution/child_process.c \
 			execution/separate_op.c \

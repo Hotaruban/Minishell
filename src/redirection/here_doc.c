@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 19:35:35 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:24:03 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static void	execute_heredoc(t_data *data)
 
 static void	get_exit_status(void)
 {
-	printf("exit status = %d\n", g_exit_status);
 	if (g_exit_status == 33280)
 		g_exit_status = 1;
 	else
@@ -76,7 +75,7 @@ bool	open_heredoc(t_data *data)
 
 	i = 0;
 	flag = false;
-	while (data->pipe_len > i) //Maybe create a flag to say if its true
+	while (data->pipe_len > i)
 	{
 		if (data->cmd[i++].here_doc_in == true)
 			flag = true;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 16:26:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:24:34 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,10 @@ typedef struct s_env
 
 typedef enum e_type_rdrt
 {
-	e_infile, //(<)
-	e_heredoc, //(<<)
-	e_outfile, // (>)
-	e_append, // (>>)
+	e_infile,
+	e_heredoc,
+	e_outfile,
+	e_append,
 }	t_rdrt_type;
 
 typedef struct s_cmd
@@ -138,10 +138,6 @@ typedef struct s_cmd
 	char			*path;
 	int				fd_infile;
 	int				fd_outfile;
-
-	
-// int fd;
-// fd = open("main.c", O_RDONLY);
 
 
 	

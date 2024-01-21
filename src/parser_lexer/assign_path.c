@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 16:58:04 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 19:15:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,15 @@ static char	*check_path(t_data *data, char **env, int index)
 
 	path = NULL;
 	path_array = get_env(data, env, index);
-	i = -1;
-	while (path_array[++i] != NULL)
+	if (path_array == NULL)
+	{
+		data->cmd[index].status = 127;
+		data->cmd[index].error_str = ft_strdup(data->cmd[index].cmd[0]);
+		data->cmd[index].msg_error = NO_FILE;
+		return (path);
+	}
+	i = 0;
+	while (path_array[i] != NULL)
 	{
 		tmp_path = ft_strjoin(path_array[i], "/");
 		path = ft_strjoin(tmp_path, data->cmd[index].cmd[0]);
@@ -83,6 +90,7 @@ static char	*check_path(t_data *data, char **env, int index)
 		if (path != NULL)
 			free(path);
 		path = NULL;
+		i++;
 	}
 	free_2d_array(path_array);
 	return (path);
@@ -98,7 +106,12 @@ static char	*get_path(t_data *data, char **env, int index)
 	else
 		path = check_path(data, env, index);
 	if (path == NULL)
+	{
+		// data->cmd[index].status = 127;
+		// data->cmd[index].error_str = ft_strdup("");
+		// data->cmd[index].msg_error = NO_CMD;
 		return (NULL);
+	}
 	if (access(path, F_OK) == -1)
 	{
 		data->cmd[index].status = 127;
@@ -117,20 +130,10 @@ void	assign_path(t_data *data)
 	i = 0;
 	data->ev_array = env_array(data->env);
 	env = data->ev_array;
-	printf("data->cmd[0].status = %d \n", data->cmd[0].status);
 	while (i < (int)data->pipe_len)
 	{
-		printf("BEFORE NULL\n");
-		if (data->cmd[i].cmd[0] == NULL)
+		if (data->cmd[i].cmd[0] != NULL && is_builtins(data, i) == false && data->cmd[i].status == CMD_OK)
 		{
-			data->cmd[i].status = 127;
-			data->cmd[i].error_str = ft_strdup("");
-			data->cmd[i].msg_error = NO_CMD;			
-		}
-		printf("AFTER NULL\n");
-		if (is_builtins(data, i) == false && data->cmd[i].status == CMD_OK)
-		{
-			printf("HERE\n");
 			if (check_cmd_accessible(data, i) == true && data->cmd[i].status == 0)
 				data->cmd[i].path = ft_strdup(data->cmd[i].cmd[0]);
 			else if (data->cmd[i].status == 0)

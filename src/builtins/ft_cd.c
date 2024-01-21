@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 16:21:59 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:39:04 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,26 +102,24 @@ void	ft_cd(t_data *data, int index)
 
 	path = NULL;
 	var = change_home_oldpwd(data, index);
-	if(ft_strncmp("OLDPWD", var, 7) == 0 || ft_strncmp("HOME", var, 7) == 0)
+	if (var != NULL)
 	{
-		path = get_env_value(var, &data->env, 6, 0);
-		if (!path)
+		if(ft_strncmp("OLDPWD", var, 7) == 0 || ft_strncmp("HOME", var, 7) == 0)
 		{
-			error_cmd_msg("cd", var, NO_VAR);
-			g_exit_status = CMD_ERROR;
+			path = get_env_value(var, &data->env, 6, 0);
+			if (!path)
+			{
+				error_cmd_msg("cd", var, NO_VAR);
+				g_exit_status = CMD_ERROR;
+			}
+			if (var != NULL)
+				free(var);
 		}
-		if (var != NULL)
-			free(var);
 	}
 	else if (path == NULL)
+	{
 		path = ft_strdup(data->cmd[index].cmd[1]);
+	}
 	change_directory(path, data->env);
 }
-
-	// if (data->cmd[index].cmd[2])
-	// {
-	// 	error_cmd(data->cmd[index].cmd[0],TOO_MANY_ARG);
-	// 	g_exit_status = CMD_ERROR;
-	// 	return ;
-	// }
 	
