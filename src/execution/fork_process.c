@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 23:42:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:10:28 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	parent_process(t_data *data, int index)
 			if (data->cmd[index].fd_infile < 2)
 				dup2(data->pipefd[0], STDIN_FILENO);
 		}
-	}	
+	}
 	close(data->pipefd[0]);
 }
 

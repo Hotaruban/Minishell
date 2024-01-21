@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 23:38:45 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 00:09:37 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	data->pipe_len = tokens->pipe_count + 1;
 	set_signal(data, IGNORE_SIGINT_PARENT);
 	if (open_heredoc(data) == true && g_exit_status == 1)
-		return (set_signal(data, HANDLE_SIGINT_PARENT), true);
-	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
+		return (true);
+	// set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
 	assign_fd(data, 0);
 	assign_path(data);
 	if (tokens != NULL)

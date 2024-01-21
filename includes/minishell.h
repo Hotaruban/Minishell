@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 23:24:34 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:40:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,105 +188,79 @@ typedef struct s_tokens
 	int			*append_count;
 }	t_tokens;
 
-/*Environment*/
-t_env	*set_env(char **env);
-char	**env_array(t_env *env);
-void	free_env(t_env *my_env);
-void	add_variable(t_env *tmp_env, char *var);
-char	*get_env_value(char *var, t_env **env, int var_len, int status);
-
-/*Checker*/
-bool	check_line(char *line);
-int		len_operator(char *line);
-int		len_quote(char *line);
-int		len_var(char *line);
-bool	is_operator(int c);
-
-/*Split_token*/
-int		split_tokens(char *line, t_tokens *stuff);
-
-/*Token_identify & syntax*/
-bool	token_identify(t_tokens *tokens, int i);
-bool	token_syntax(t_tokens *tokens);
-
-/*Expand_var*/
-bool	variable_parser(t_tokens *tokens, t_data *data);
-
-/*Quote_trim*/
-bool	quote_trim(t_tokens *tokens);
-
-/*Struct_fill*/
-void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
-void	assign_path(t_data *data);
-
-
-/*init_data*/
-void	init_data_cmd(t_cmd *cmd);
-void	init_data(t_data *data, char **ev);
-void	init_tokens(t_tokens *tokens);
-
-/*Executation*/
-void	separator_op(t_data *data);
-bool	builtin_in_parent(t_data *data, int index);
-pid_t	*fork_process(t_data *data, char **env, int index);
-void	execute_builtins(t_data *data, char **env, int index);
-void	child_process(t_data *data, char **env, int index);
-// void	execute_builtins(t_data *data, char **env, int index);
-bool	is_builtins(t_data *data, int index);
-// void	execute_cmd( t_data *data, int index,  char **env);
-// int		separator_op(t_data *data);
-
-
-/*Redirection*/
-// int		check_acces_file(t_data *data, int index);
-void	assign_fd(t_data *data, int index);
-int		dup_files(int fd_target, int fd_origin);
-bool	open_heredoc(t_data *data);
-
-// int		redirection_pipes(t_data *data, int index);
-// int		redirection_heredoc(t_data *data, int index);
-// void	redir_infiles(t_data *data, int index);
-// void	redir_outfiles(t_data *data, int index);
-
-/*Builtins*/
-// int		ft_echo(t_data *data, int index);
+// Builtins
 void	ft_echo(t_data *data, int index);
-// int		ft_cd(t_data *data, int index);
 void	ft_cd(t_data *data, int index);
-// int		ft_pwd(t_data *data, int index);
-void		ft_pwd(t_data *data, int index);
-// int		ft_export(t_data *data, char **env, int index);
+void	ft_pwd(t_data *data, int index);
 void	ft_export(t_data *data, char **env, int index);
 void	ft_unset(t_data *data, int index);
-// int		ft_env(t_data *data, char **env, int index);
-void		ft_env(t_data *data, char **env, int index);
-// int		ft_exit(t_data *data, int index);
-void		ft_exit(t_data *data, int index);
-int		len_variable(char *var);
-bool	check_variable(char *var);
-void	print_env(char **env, int flag);
-bool	check_long_long(char *str);
+void	ft_env(t_data *data, char **env, int index);
+void	ft_exit(t_data *data, int index);
 
-/*Messages*/
-void	error_system(char *msg);
-void	error_input(char *msg, char *msg_type);
+// Parser Lexer
+void	assign_path(t_data *data);
+bool	check_line(char *line);
+void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
+bool	quote_trim(t_tokens *tokens);
+int		split_tokens(char *line, t_tokens *stuff);
+bool	token_identify(t_tokens *tokens, int i);
+bool	token_syntax(t_tokens *tokens);
+bool	variable_parser(t_tokens *tokens, t_data *data);
+
+// Environment
+void	free_env(t_env *my_env);
+char	*get_env_value(char *var, t_env **env, int var_len, int status);
+char	**env_array(t_env *env);
+t_env	*set_env(char **env);
+
+// Execution
+bool	is_builtins(t_data *data, int index);
+void	child_process(t_data *data, char **env, int index);
+void	execute_builtins(t_data *data, char **env, int index);
+bool	builtin_in_parent(t_data *data, int index);
+pid_t	*fork_process(t_data *data, char **env, int index);
+void	separator_op(t_data *data);
+
+// Message
 void	error_cmd(char *cmd, char *msg);
 void	error_cmd_var(char *cmd, char *msg, char *str);
-void	error_file_msg(char *file, char *msg);
 void	error_cmd_msg(char *cmd1, char *cmd2, char *msg);
+void	error_system(char *msg);
 void	error_exit_msg(char *arg, char *str, int flag);
+void	error_input(char *msg, char *msg_type);
+void	error_file_msg(char *file, char *msg);
 
-/*Free_functions*/
+// Redirection
+void	assign_fd(t_data *data, int index);
+bool	open_heredoc(t_data *data);
+
+// Signal
+void	sigint_parent_handler(int signum);
+void	sigint_child_handler(int signum);
+void	set_signal(t_data *data, int type);
+void	init_signal(t_data *data);
+void	set_echo_ctl(int enable);
+
+// Utils
 void	free_2d_array(char **array);
 void	free_cmd_struct(t_cmd *cmd, int nb_cmd);
 void	free_tokens(t_tokens *tokens);
 void	free_data_struct(t_data *data);
 
-/*Signal functions*/
-void	init_signal(t_data *data);
-void	set_echo_ctl(int enable);
-void	sigint_child_handler(int signum);
-void	sigint_parent_handler(int signum);
-void	set_signal(t_data *data, int type);
+void	init_data(t_data *data, char **ev);
+void	init_tokens(t_tokens *tokens);
+void	init_data_cmd(t_cmd *cmd);
+
+int		len_variable(char *var);
+bool	check_variable(char *var);
+void	print_env(char **env, int flag);
+void	add_variable(t_env *tmp_env, char *var);
+bool	check_long_long(char *str);
+char	*get_home_oldpwd_path(char *var, t_data *data);
+
+bool	is_operator(int c);
+int		len_var(char *line);
+int		len_operator(char *line);
+int		len_quote(char *line);
 
 #endif

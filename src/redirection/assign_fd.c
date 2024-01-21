@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:17:27 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 23:20:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 00:45:07 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	access_infile_outfile(t_cmd *cmd)
 	}
 }
 
-void	find_last_infile_outfile(t_cmd *cmd)
+static void	find_last_infile_outfile(t_cmd *cmd)
 {
 	int	i;
 	int	ptr_out;

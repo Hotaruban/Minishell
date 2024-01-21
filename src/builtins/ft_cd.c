@@ -6,17 +6,15 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 23:39:04 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:41:18 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*
-The function cd_builtins is used to change the current working directory
+The function ft_cd is used to change the current working directory
 to the directory specified in the path and update the environment.
-If the path is not valid, the function returns 1.
-If the path is valid, the function returns 0.
 */
 
 static void	set_oldpwd(t_env *env, char *oldpwd)
@@ -64,7 +62,7 @@ static void	set_variable_pwd(t_env *env)
 	set_oldpwd(env, tmp_pwd);
 }
 
-static void	change_directory(char *path, t_env *env)
+static void	change_directory(char *path, t_env *env, bool flag)
 {
 	if (chdir(path) == -1)
 	{
@@ -76,6 +74,8 @@ static void	change_directory(char *path, t_env *env)
 		set_variable_pwd(env);
 		g_exit_status = CMD_OK;
 	}
+	if (flag == true)
+		printf("%s\n", path);
 	if (path != NULL)
 		free(path);
 }
@@ -99,27 +99,19 @@ void	ft_cd(t_data *data, int index)
 {
 	char	*path;
 	char	*var;
+	bool	flag;
 
 	path = NULL;
+	flag = false;
 	var = change_home_oldpwd(data, index);
 	if (var != NULL)
 	{
-		if(ft_strncmp("OLDPWD", var, 7) == 0 || ft_strncmp("HOME", var, 7) == 0)
-		{
-			path = get_env_value(var, &data->env, 6, 0);
-			if (!path)
-			{
-				error_cmd_msg("cd", var, NO_VAR);
-				g_exit_status = CMD_ERROR;
-			}
-			if (var != NULL)
-				free(var);
-		}
+		if (ft_strncmp("OLDPWD", var, 7) == 0)
+			flag = true;
 	}
+	if (var != NULL)
+		path = get_home_oldpwd_path(var, data);
 	else if (path == NULL)
-	{
 		path = ft_strdup(data->cmd[index].cmd[1]);
-	}
-	change_directory(path, data->env);
+	change_directory(path, data->env, flag);
 }
-	

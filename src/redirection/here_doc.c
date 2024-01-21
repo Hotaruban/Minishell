@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 20:24:03 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:15:22 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,25 @@ static void	get_exit_status(void)
 		g_exit_status = WEXITSTATUS(g_exit_status);
 }
 
-bool	open_heredoc(t_data *data)
+static void	fork_heredoc(t_data *data)
 {
 	pid_t	pid;
+	
+	pid = fork();
+	if (pid == -1)
+		error_system(FORK_ERROR);
+	else if (pid == 0)
+	{
+		data->sa_i.sa_handler = sigint_child_handler;
+		sigaction(SIGINT, &data->sa_i, NULL);
+		execute_heredoc(data);
+	}
+	waitpid(pid, &g_exit_status, WUNTRACED);
+	get_exit_status();
+}
+
+bool	open_heredoc(t_data *data)
+{
 	size_t	i;
 	bool	flag;
 
@@ -81,18 +97,6 @@ bool	open_heredoc(t_data *data)
 			flag = true;
 	}
 	if (flag == true)
-	{
-		pid = fork();
-		if (pid == -1)
-			error_system(FORK_ERROR);
-		else if (pid == 0)
-		{
-			data->sa_i.sa_handler = sigint_child_handler;
-			sigaction(SIGINT, &data->sa_i, NULL);
-			execute_heredoc(data);
-		}
-		waitpid(pid, &g_exit_status, WUNTRACED);
-		get_exit_status();
-	}
+		fork_heredoc(data);
 	return (flag);
 }

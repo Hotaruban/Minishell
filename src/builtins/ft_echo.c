@@ -6,14 +6,15 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:46 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 00:36:50 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 00:35:26 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*
-The function ft_echo is used to print the arguments.
+The function ft_echo is used to print the arguments with newline.
+With the option "-n" it print it withou newline.
 */
 
 static bool	is_option_echo(char *arg)
