@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/20 22:36:33 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:58:04 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,18 +117,22 @@ void	assign_path(t_data *data)
 	i = 0;
 	data->ev_array = env_array(data->env);
 	env = data->ev_array;
+	printf("data->cmd[0].status = %d \n", data->cmd[0].status);
 	while (i < (int)data->pipe_len)
 	{
-		if (is_builtins(data, i) == false)
+		printf("BEFORE NULL\n");
+		if (data->cmd[i].cmd[0] == NULL)
 		{
-			if (data->cmd == NULL || data->cmd[i][0] == '\0')
-			{
-				data->cmd[i].status = 127;
-				data->cmd[i].error_str = ft_strdup(data->cmd[i]);
-				data->cmd[i].msg_error = NO_CMD;			
-			}
-			else if (check_cmd_accessible(data, i) == true && data->cmd[i].status == 0)
-				data->cmd[i].path = (char *)data->cmd[i].cmd[0];
+			data->cmd[i].status = 127;
+			data->cmd[i].error_str = ft_strdup("");
+			data->cmd[i].msg_error = NO_CMD;			
+		}
+		printf("AFTER NULL\n");
+		if (is_builtins(data, i) == false && data->cmd[i].status == CMD_OK)
+		{
+			printf("HERE\n");
+			if (check_cmd_accessible(data, i) == true && data->cmd[i].status == 0)
+				data->cmd[i].path = ft_strdup(data->cmd[i].cmd[0]);
 			else if (data->cmd[i].status == 0)
 				data->cmd[i].path = get_path(data, env, i);
 		}
