@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 01:13:23 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:26:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,18 +231,19 @@ void	init_tokens(t_tokens *tokens);
 
 /*Executation*/
 void	separator_op(t_data *data);
-bool	builtin_in_parent(t_data *data, char **env, int index);
+bool	builtin_in_parent(t_data *data, int index);
 pid_t	*fork_process(t_data *data, char **env, int index);
-int		execute_builtins(t_data *data, char **env, int index);
-
+void	execute_builtins(t_data *data, char **env, int index);
+void	child_process(t_data *data, char **env, int index);
 // void	execute_builtins(t_data *data, char **env, int index);
-// bool	is_builtins(t_data *data, int index);
+bool	is_builtins(t_data *data, int index);
 // void	execute_cmd( t_data *data, int index,  char **env);
 // int		separator_op(t_data *data);
 
 
 /*Redirection*/
-int		check_acces_file(t_data *data, int index);
+// int		check_acces_file(t_data *data, int index);
+void	assign_fd(t_data *data, int index);
 int		dup_files(int fd_target, int fd_origin);
 bool	open_heredoc(t_data *data);
 
@@ -260,7 +261,7 @@ void	ft_cd(t_data *data, int index);
 void		ft_pwd(t_data *data, int index);
 // int		ft_export(t_data *data, char **env, int index);
 void	ft_export(t_data *data, char **env, int index);
-int		ft_unset(t_data *data, int index);
+void	ft_unset(t_data *data, int index);
 // int		ft_env(t_data *data, char **env, int index);
 void		ft_env(t_data *data, char **env, int index);
 // int		ft_exit(t_data *data, int index);

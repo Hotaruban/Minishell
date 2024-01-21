@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 01:25:10 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:22:21 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static bool	is_wrong_arg(char *arg)
 	return (false);
 }
 
-int	ft_unset(t_data *data, int index)
+void	ft_unset(t_data *data, int index)
 {
 	int	i;
 

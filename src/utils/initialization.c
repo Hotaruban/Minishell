@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 20:03:45 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 15:57:08 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ void	init_data_cmd(t_cmd *cmd)
 	cmd->error_str = NULL;
 	cmd->path = NULL;
 	cmd->status = CMD_OK;
+	cmd->fd_infile = -2;
+	cmd->fd_outfile = -2;
 }

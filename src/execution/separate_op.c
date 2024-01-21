@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 23:29:24 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:25:19 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 void	separator_op(t_data *data)
 {
 	set_signal(data, IGNORE_SIGINT_PARENT);
-	if (builtin_in_parent(data, data->env, 0) == true 
+	if (builtin_in_parent(data, 0) == true 
 		&& data->pipe_len == 1)
 		execute_builtins(data, data->ev_array, 0);
 	else

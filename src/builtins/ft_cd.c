@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 01:02:38 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:21:59 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	ft_cd(t_data *data, int index)
 	char	*path;
 	char	*var;
 
+	path = NULL;
 	var = change_home_oldpwd(data, index);
 	if(ft_strncmp("OLDPWD", var, 7) == 0 || ft_strncmp("HOME", var, 7) == 0)
 	{

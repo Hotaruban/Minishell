@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:21 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 23:35:49 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:24:25 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static bool	is_parent_builtin(t_data *data, int index)
 	return (false);
 }
 
-bool	builtin_in_parent(t_data *data, char **env, int i)
+bool	builtin_in_parent(t_data *data, int i)
 {
 	if (data->cmd[i].status != 0 && is_parent_builtin (data, i) == true)
 	{

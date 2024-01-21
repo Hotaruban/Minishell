@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/20 23:40:47 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/21 16:27:03 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,13 @@ SRC_FILES = main.c \
 			execution/exec_builtins.c \
 			execution/execute_cmd.c \
 			execution/fork_process.c \
+			execution/child_process.c \
 			execution/separate_op.c \
 			message/error_system.c \
 			message/error_cmd.c \
 			redirection/dup_files.c \
 			redirection/check_acces_file.c \
+			redirection/assign_fd.c \
 			redirection/here_doc.c \
 			environment/set_env.c \
 			environment/free_env.c \
