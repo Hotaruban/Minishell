@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 15:57:08 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 01:14:01 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,24 @@ void	init_tokens(t_tokens *tokens)
 
 void	init_data_cmd(t_cmd *cmd)
 {
-	cmd->pipe_out = FALSE;
-	cmd->pipe_in = FALSE;
-	cmd->here_doc_in = FALSE;
-	cmd->file_in = FALSE;
-	cmd->append = FALSE;
-	cmd->file_out = FALSE;
-	cmd->here_doc_fd = -1;
 	cmd->cmd = NULL;
-	cmd->limiters = NULL;
-	cmd->infiles = NULL;
-	cmd->outfiles = NULL;
 	cmd->files = NULL;
 	cmd->type = NULL;
-	cmd->error_str = NULL;
-	cmd->path = NULL;
 	cmd->status = CMD_OK;
+	cmd->error_str = NULL;
+	cmd->msg_error = NULL;
+	cmd->path = NULL;
 	cmd->fd_infile = -2;
 	cmd->fd_outfile = -2;
+	cmd->pipe_in = FALSE;			// Check from here what is useless
+	cmd->pipe_out = FALSE;
+	cmd->here_doc_in = FALSE;
+	cmd->here_doc_fd = -1;
+	cmd->nb_heredocs = 0;
+	cmd->limiters = NULL;
+	cmd->file_in = FALSE;
+	cmd->file_out = FALSE;
+	cmd->infiles = NULL;
+	cmd->outfiles = NULL;
+	cmd->append = FALSE;
 }

@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 16:22:21 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 01:37:50 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*
-The function unset_builtins is used to remove environment variables.
+The function ft_unset is used to remove environment variables.
+The command do not take any option.
 */
 
 static int	check_input_unset(t_data *data, int index)
@@ -22,7 +23,7 @@ static int	check_input_unset(t_data *data, int index)
 		return (CMD_OK);
 	if (data->cmd[index].cmd[1][0] == '-')
 	{
-		error_cmd(data->cmd[index].cmd[0], NO_OPTION);
+		error_cmd_msg("unset", data->cmd[index].cmd[1], NO_OPTION);
 		return (CMD_ERROR);
 	}
 	return (CMD_OK);
@@ -92,7 +93,7 @@ void	ft_unset(t_data *data, int index)
 	{
 		if (is_wrong_arg(data->cmd[index].cmd[i]) == true)
 		{
-			error_cmd_var("unset", data->cmd[index].cmd[i], NO_VALID_ID);
+			error_cmd_var("unset", NO_VALID_ID, data->cmd[index].cmd[i]);
 			g_exit_status = CMD_ERROR;
 		}
 		i++;

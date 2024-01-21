@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 16:52:57 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 00:09:37 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,37 +64,12 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	data->pipe_len = tokens->pipe_count + 1;
 	set_signal(data, IGNORE_SIGINT_PARENT);
 	if (open_heredoc(data) == true && g_exit_status == 1)
-		return (set_signal(data, HANDLE_SIGINT_PARENT), true);
-	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
-	printf("------before assign fd \n");
+		return (true);
+	// set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
 	assign_fd(data, 0);
-	printf("pipelen = %zu \n", data->pipe_len);
-	
-	printf("------before assign path \n");
-	assign_path(data); //for *error_str as well as path, and fd infile outfile and status
-	for (int i = 0; i < (int)tokens->pipe_count + 1; i++)
-	{
-    // int j = 0;
-	
-		printf("cmd[%d]->path = %s \n", i, data->cmd[i].path);
-		// while (data->cmd[i] != NULL)  // Corrected condition
-		// {
-			printf("cmd[%d]->cmd[0] = %s\n", i, data->cmd[i].cmd[0]);
-			printf("cmd[%d]->status = %d \n", i, data->cmd[i].status);
-			printf("cmd[%d]->fd_infile = %d \n", i, data->cmd[i].fd_infile);
-			printf("cmd[%d]->fd_outfile = %d \n", i, data->cmd[i].fd_outfile);
-		// 	j++;
-		// }
-	}
-	printf("------after assign path \n");
-
-	// return (true);
-
-
-	
+	assign_path(data);
 	if (tokens != NULL)
 		free_tokens(tokens);
-	// return (true);
 	separator_op(data);
 	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
 	return (true);
@@ -116,7 +91,10 @@ int	main(int ac, char **av, char **ev)
 	{
 		line = readline(PROMPT);
 		if (!line)
-			exit_ctrl_d(&data);
+		{
+			printf("I AM HERE!\n");
+			exit_ctrl_d(&data); // Signal PROBLEM quit with outfile 
+		}
 		if (line[0])
 		{
 			if (processor(line, &data, &tokens) && data.cmd)

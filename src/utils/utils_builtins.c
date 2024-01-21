@@ -6,50 +6,11 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 13:27:10 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 01:07:10 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:40:03 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-// int	len_2d_array(char **arg)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (**arg && arg[i] != NULL)
-// 		i++;
-// 	return (i + 1);
-// }
-
-int	len_variable(char *var)
-{
-	int	i;
-
-	i = 0;
-	while (var[i] && var[i] != '=')
-		i++;
-	return (i + 1);
-}
-
-bool	check_variable(char *var)
-{
-	int	i;
-
-	i = 0;
-	if (ft_isdigit(var[i]) || var[i] == '_')
-		return (false);
-	if (!ft_isalpha(var[i]))
-		return (false);
-	i++;
-	while (var[i] != '=' && var[i] != '\0')
-	{
-		if (!ft_isalnum(var[i]) && var[i] != '_')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 void	print_env(char **env, int flag)
 {
@@ -64,18 +25,6 @@ void	print_env(char **env, int flag)
 		i++;
 	}
 	g_exit_status = CMD_OK;
-}
-
-void	add_variable(t_env *tmp_env, char *var)
-{
-	t_env	*new;
-
-	new = (t_env *)malloc(sizeof(t_env));
-	if (new == NULL)
-		error_system(MALLOC_ERROR);
-	new->name = ft_strdup(var);
-	new->next = NULL;
-	tmp_env->next = new;
 }
 
 bool	check_long_long(char *str)
@@ -103,4 +52,24 @@ bool	check_long_long(char *str)
 		return (true);
 	}
 	return (false);
+}
+
+char	*get_home_oldpwd_path(char *var, t_data *data)
+{
+	char	*path;
+
+	path = NULL;
+	if (ft_strncmp("OLDPWD", var, 7) == 0
+		|| ft_strncmp("HOME", var, 7) == 0)
+	{
+		path = get_env_value(var, &data->env, ft_strlen(var), 0);
+		if (!path)
+		{
+			error_cmd_msg("cd", var, NO_VAR);
+			g_exit_status = CMD_ERROR;
+		}
+		if (var != NULL)
+			free(var);
+	}
+	return (path);
 }

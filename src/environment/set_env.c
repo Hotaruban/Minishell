@@ -6,11 +6,16 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:29 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/16 11:06:22 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:05:16 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+The function set_env is used to set the environment variable when starting
+the minishell.
+*/
 
 char	*get_env_value(char *var, t_env **env, int var_len, int status)
 {
@@ -109,11 +114,6 @@ static t_env	*creat_new_env(char **env)
 	}
 	return (tmp);
 }
-
-/*
-The function set_env is used to set the environment variable when starting
-the minishell.
-*/
 
 t_env	*set_env(char **env)
 {

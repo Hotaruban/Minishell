@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 20:22:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/21 23:30:32 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,20 @@ void	free_cmd_struct(t_cmd *cmd, int nb_cmd)
 	{
 		if (cmd[i].cmd != NULL)
 			free_2d_array(cmd[i].cmd);
-		if (cmd[i].limiters != NULL)
-			free_2d_array(cmd[i].limiters);
-		if (cmd[i].infiles != NULL)
-			free_2d_array(cmd[i].infiles);
-		if (cmd[i].outfiles != NULL)
-			free_2d_array(cmd[i].outfiles);
 		if (cmd[i].files != NULL)
 			free_2d_array(cmd[i].files);
 		if (cmd[i].type != NULL)
 			free(cmd[i].type);
 		if (cmd[i].error_str != NULL)
 			free(cmd[i].error_str);
+		if (cmd[i].path != NULL)
+			free(cmd[i].path);
+		if (cmd[i].limiters != NULL)
+			free_2d_array(cmd[i].limiters);
+		if (cmd[i].infiles != NULL)
+			free_2d_array(cmd[i].infiles);
+		if (cmd[i].outfiles != NULL)
+			free_2d_array(cmd[i].outfiles);
 		i++;
 	}
 	if (cmd)

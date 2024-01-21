@@ -6,11 +6,16 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:06 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 01:17:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 01:09:28 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/*
+The function ft_pwd show the actual path.
+The command do not take any option.
+*/
 
 void	ft_pwd(t_data *data, int index)
 {
@@ -21,7 +26,7 @@ void	ft_pwd(t_data *data, int index)
 		if (data->cmd[index].cmd[1][0] == '-')
 		{
 			error_cmd_msg("pwd", data->cmd[index].cmd[1], NO_OPTION);
-			g_exit_status =  CMD_ERROR;
+			g_exit_status = CMD_ERROR;
 		}
 	}
 	else
@@ -29,5 +34,5 @@ void	ft_pwd(t_data *data, int index)
 		getcwd(pwd, PATH_MAX);
 		g_exit_status = CMD_OK;
 	}
-
+	printf("%s\n", pwd);
 }

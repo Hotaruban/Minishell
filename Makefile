@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
+#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/21 16:27:03 by whendrik         ###   ########.fr        #
+#    Updated: 2024/01/22 01:24:40 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,17 +26,6 @@ NAME = minishell
 LIBFT = ./libft/libft.a
 SRC_DIR = src
 SRC_FILES = main.c \
-			parser_lexer/check_line.c \
-			parser_lexer/split_tokens.c \
-			parser_lexer/token_identify.c\
-			parser_lexer/token_syntax.c\
-			parser_lexer/variable_parser.c \
-			parser_lexer/quote_trim.c \
-			parser_lexer/identify_cmd.c \
-			parser_lexer/assign_path.c \
-			utils/free_functions.c \
-			utils/initialization.c \
-			utils/utils_token.c \
 			builtins/ft_cd.c \
 			builtins/ft_echo.c \
 			builtins/ft_env.c \
@@ -44,21 +33,30 @@ SRC_FILES = main.c \
 			builtins/ft_export.c \
 			builtins/ft_pwd.c \
 			builtins/ft_unset.c \
-			builtins/utils_builtins.c \
+			environment/set_env.c \
+			environment/free_env.c \
 			execution/exec_builtins.c \
-			execution/execute_cmd.c \
 			execution/fork_process.c \
 			execution/child_process.c \
 			execution/separate_op.c \
 			message/error_system.c \
 			message/error_cmd.c \
-			redirection/dup_files.c \
-			redirection/check_acces_file.c \
+			parser_lexer/assign_path.c \
+			parser_lexer/check_line.c \
+			parser_lexer/identify_cmd.c \
+			parser_lexer/quote_trim.c \
+			parser_lexer/split_tokens.c \
+			parser_lexer/token_identify.c\
+			parser_lexer/token_syntax.c\
+			parser_lexer/variable_parser.c \
 			redirection/assign_fd.c \
 			redirection/here_doc.c \
-			environment/set_env.c \
-			environment/free_env.c \
-			signal/signal.c
+			signal/signal.c \
+			utils/free_functions.c \
+			utils/initialization.c \
+			utils/utils_builtins.c \
+			utils/utils_token.c \
+			utils/utils_var.c
 
 OBJ_DIR = obj
 INC_DIR = includes

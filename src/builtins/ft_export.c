@@ -6,14 +6,14 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 01:11:45 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 00:36:00 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 /*
-The function export_builtins is used to add or change the value of
+The function ft_export is used to add or change the value of
 environment variables.
 If export is called without arguments, it prints the environment.
 If export is called with arguments, it adds or changes the value of
