@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:17:27 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 00:45:07 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 14:41:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,25 @@ static void	open_outfile(char *outfile, t_rdrt_type type, t_cmd *cmd)
 	int	fd;
 	int	w_mode;
 
+	printf("IN OPEN_OUTFILE 1 \n");
 	w_mode = O_TRUNC;
 	if (type == e_append)
 		w_mode = O_APPEND;
+	printf("IN OPEN_OUTFILE 2 \n");
 	fd = access(outfile, W_OK);
+	printf("IN OPEN_OUTFILE 3 \n");
 	if (fd == -1)
-	{
-		fd = open(outfile, O_WRONLY | O_CREAT | w_mode, 0644);
+	{	fd = open(outfile, O_WRONLY | O_CREAT | w_mode, 0644);
 		if (fd == -1)
 		{
 			cmd->status = CMD_ERROR;
 			cmd->error_str = ft_strdup(outfile);
 			cmd->msg_error = F_DENIED;
 		}
+		printf("IN OPEN_OUTFILE 4 \n");
 	}
-	close(fd);
+	if (fd > 2)
+		close(fd);
 }
 
 static void	access_infile_outfile(t_cmd *cmd)
@@ -66,6 +70,7 @@ static void	access_infile_outfile(t_cmd *cmd)
 	{
 		if (cmd->type[i] == e_infile)
 			open_infile(cmd->files[i], cmd);
+			
 		else if(cmd->type[i] == e_outfile | cmd->type[i] == e_append)
 			open_outfile(cmd->files[i], cmd->type[i], cmd);
 		i++;

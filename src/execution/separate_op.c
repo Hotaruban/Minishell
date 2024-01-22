@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 23:41:48 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 15:22:36 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	separator_op(t_data *data)
 		execute_builtins(data, data->ev_array, 0);
 	else
 		capsule_pipe(data, data->ev_array, 0);
+	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
 }

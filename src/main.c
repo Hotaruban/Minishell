@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 00:09:37 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:39:53 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	exit_ctrl_d(t_data *data)
 {
+	// printf("I AM HERE!\n");
 	printf("\x1b[A\x1b[K%sexit\n", PROMPT_R);
 	set_echo_ctl(1);
 	rl_clear_history();
@@ -62,16 +63,16 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
-	set_signal(data, IGNORE_SIGINT_PARENT);
-	if (open_heredoc(data) == true && g_exit_status == 1)
-		return (true);
-	// set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
+	if (!open_heredoc(data) && g_exit_status == 1)
+		return (printf("exiting through heredoc\n"), true);
+	// if (g_exit_status == 1)
+	 //Must re-evalute whether to keep this here with heredoc check
 	assign_fd(data, 0);
+	// return (printf("we returning out of the main \n"), true);
 	assign_path(data);
 	if (tokens != NULL)
 		free_tokens(tokens);
 	separator_op(data);
-	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
 	return (true);
 }
 
@@ -92,7 +93,7 @@ int	main(int ac, char **av, char **ev)
 		line = readline(PROMPT);
 		if (!line)
 		{
-			printf("I AM HERE!\n");
+			// printf("I AM HERE!\n");
 			exit_ctrl_d(&data); // Signal PROBLEM quit with outfile 
 		}
 		if (line[0])

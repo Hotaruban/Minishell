@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 01:15:22 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 15:01:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ bool	open_heredoc(t_data *data)
 
 	i = 0;
 	flag = false;
+	set_signal(data, IGNORE_SIGINT_PARENT);
 	while (data->pipe_len > i)
 	{
 		if (data->cmd[i++].here_doc_in == true)
@@ -98,5 +99,6 @@ bool	open_heredoc(t_data *data)
 	}
 	if (flag == true)
 		fork_heredoc(data);
+	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (flag);
 }
