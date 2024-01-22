@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 01:14:01 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 00:53:31 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	init_data_cmd(t_cmd *cmd)
 	cmd->pipe_in = FALSE;			// Check from here what is useless
 	cmd->pipe_out = FALSE;
 	cmd->here_doc_in = FALSE;
-	cmd->here_doc_fd = -1;
+	cmd->here_doc_fd = -2;
 	cmd->nb_heredocs = 0;
 	cmd->limiters = NULL;
 	cmd->file_in = FALSE;

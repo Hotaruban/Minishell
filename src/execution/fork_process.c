@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 21:35:42 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 02:17:46 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static void	parent_process(t_data *data, int index)
 	close(data->pipefd[0]);
 	if (data->cmd[index].fd_infile > 2)
 		close(data->cmd[index].fd_infile);
+	if (data->cmd[index].here_doc_fd > 2)
+		close(data->cmd[index].here_doc_fd);
 	if (data->cmd[index].fd_outfile > 2)
 		close(data->cmd[index].fd_outfile);
 }
