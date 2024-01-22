@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/21 19:15:14 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 15:21:55 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static char	*check_path(t_data *data, char **env, int index)
 	path_array = get_env(data, env, index);
 	if (path_array == NULL)
 	{
-		data->cmd[index].status = 127;
+		data->cmd[index].status = CMD_NOT_FOUND;
 		data->cmd[index].error_str = ft_strdup(data->cmd[index].cmd[0]);
 		data->cmd[index].msg_error = NO_FILE;
 		return (path);
@@ -92,6 +92,12 @@ static char	*check_path(t_data *data, char **env, int index)
 		path = NULL;
 		i++;
 	}
+	if (path == NULL)
+	{
+		data->cmd[index].status = CMD_NOT_FOUND;
+		data->cmd[index].error_str = ft_strdup(data->cmd[index].cmd[0]);
+		data->cmd[index].msg_error = NO_CMD;
+	}
 	free_2d_array(path_array);
 	return (path);
 }
@@ -106,15 +112,10 @@ static char	*get_path(t_data *data, char **env, int index)
 	else
 		path = check_path(data, env, index);
 	if (path == NULL)
-	{
-		// data->cmd[index].status = 127;
-		// data->cmd[index].error_str = ft_strdup("");
-		// data->cmd[index].msg_error = NO_CMD;
-		return (NULL);
-	}
+		return (path);
 	if (access(path, F_OK) == -1)
 	{
-		data->cmd[index].status = 127;
+		data->cmd[index].status = CMD_NOT_FOUND;
 		data->cmd[index].error_str = ft_strdup(path);
 		data->cmd[index].msg_error = NO_CMD;
 		free(path);

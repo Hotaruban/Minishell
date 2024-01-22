@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 01:10:28 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 14:32:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ pid_t	*fork_process(t_data *data, char **env, int index)
 		{
 			data->sa_i.sa_handler = sigint_child_handler;
 			sigaction(SIGINT, &data->sa_i, NULL);
+			// exit (0);
 			child_process(data, env, index + i);
 		}
 		else if (pid[i] > 0)
