@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 16:39:53 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 17:13:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
-	if (!open_heredoc(data) && g_exit_status == 1)
+	if (open_heredoc(data) && g_exit_status == 1) 
 		return (printf("exiting through heredoc\n"), true);
 	// if (g_exit_status == 1)
 	 //Must re-evalute whether to keep this here with heredoc check

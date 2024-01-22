@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 14:32:22 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:48:20 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 
 static void	parent_process(t_data *data, int index)
 {
+	if (data->cmd[index].fd_infile > 2)
+		close(data->cmd[index].fd_infile);
+	if (data->cmd[index].fd_outfile > 2)
+		close(data->cmd[index].fd_outfile);
 	close(data->pipefd[1]);
 	if (data->pipe_len > 1)
 	{

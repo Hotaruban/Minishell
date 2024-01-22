@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:00 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 00:36:00 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 18:56:10 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	ft_export(t_data *data, char **env, int index)
 {
 	int	i;
 
+	g_exit_status = CMD_OK;
 	if (data->cmd[index].cmd[1] == NULL)
 		print_env(env, 1);
 	else if (data->cmd[index].cmd[1][0] == '-')
@@ -82,6 +83,5 @@ void	ft_export(t_data *data, char **env, int index)
 			i++;
 		}
 		find_variable(data->env, data->cmd[index].cmd + 1);
-		g_exit_status = CMD_OK;
 	}
 }
