@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 20:48:20 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:35:42 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,13 @@
 
 static void	parent_process(t_data *data, int index)
 {
+	close(data->pipefd[1]);
+	dup2(data->pipefd[0], STDIN_FILENO);
+	close(data->pipefd[0]);
 	if (data->cmd[index].fd_infile > 2)
 		close(data->cmd[index].fd_infile);
 	if (data->cmd[index].fd_outfile > 2)
 		close(data->cmd[index].fd_outfile);
-	close(data->pipefd[1]);
-	if (data->pipe_len > 1)
-	{
-		if (data->cmd[index + 1].cmd[0] != NULL)
-		{
-			if (data->cmd[index].fd_infile < 2)
-				dup2(data->pipefd[0], STDIN_FILENO);
-		}
-	}
-	close(data->pipefd[0]);
 }
 
 pid_t	*fork_process(t_data *data, char **env, int index)

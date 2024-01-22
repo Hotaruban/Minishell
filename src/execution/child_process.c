@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 22:45:18 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 20:50:47 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:35:59 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	files_redirection(t_data *data, int index)
 static int	redirection_pipes(t_data *data, int index)
 {
 	close(data->pipefd[0]);
-	if ((int)data->pipe_len > (index + 1) && data->cmd[index].fd_outfile < 2)
+	if (data->cmd[index].pipe_out == true && data->cmd[index].fd_outfile < 2)
 		dup2(data->pipefd[1], STDOUT_FILENO);
 	close(data->pipefd[1]);
 	return (CMD_OK);
