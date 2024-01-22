@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 22:45:18 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 20:50:47 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 02:10:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,17 @@ static void	files_redirection(t_data *data, int index)
 {
 	if (data->cmd[index].fd_infile > 2)
 	{
+		printf("WE ARE HERE %d\n",data->cmd[index].fd_infile);
 		dup2(data->cmd[index].fd_infile, STDIN_FILENO);
 		close(data->cmd[index].fd_infile);
+		if (data->cmd[index].here_doc_fd > 2)
+			close(data->cmd[index].here_doc_fd);
 	}
+	// else if (data->cmd[index].here_doc_fd > 2)
+	// {
+	// 	dup2(data->cmd[index].here_doc_fd, STDIN_FILENO);
+	// 	close(data->cmd[index].here_doc_fd);
+	// }
 	if (data->cmd[index].fd_outfile > 2)
 	{
 		dup2(data->cmd[index].fd_outfile, STDOUT_FILENO);
@@ -84,7 +92,7 @@ static void	files_redirection(t_data *data, int index)
 static int	redirection_pipes(t_data *data, int index)
 {
 	close(data->pipefd[0]);
-	if ((int)data->pipe_len > (index + 1) && data->cmd[index].fd_outfile < 2)
+	if (data->cmd[index].pipe_out == true && data->cmd[index].fd_outfile < 2)
 		dup2(data->pipefd[1], STDOUT_FILENO);
 	close(data->pipefd[1]);
 	return (CMD_OK);
@@ -92,10 +100,11 @@ static int	redirection_pipes(t_data *data, int index)
 
 void	child_process(t_data *data, char **env, int index)
 {
+	// ft_putnbr_fd(data->cmd[index].fd_infile, 2);
 	// printf("we have reached here (child process start) \n");
 	check_error_exit(data, index);
 	// printf("we have reached here (child process start2) \n");
-	if (data->cmd[index].fd_infile > 2 || data->cmd[index].fd_outfile > 2)
+	if (data->cmd[index].fd_infile > -1 || data->cmd[index].fd_outfile > 2)
 		files_redirection(data, index);
 	if (data->cmd[index].status == 0 && data->pipe_len > 1)
 		redirection_pipes(data, index);
