@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:16:06 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 01:09:28 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 18:54:52 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	ft_pwd(t_data *data, int index)
 			g_exit_status = CMD_ERROR;
 		}
 	}
-	else
-	{
-		getcwd(pwd, PATH_MAX);
-		g_exit_status = CMD_OK;
-	}
+	getcwd(pwd, PATH_MAX);
+	g_exit_status = CMD_OK;
 	printf("%s\n", pwd);
 }

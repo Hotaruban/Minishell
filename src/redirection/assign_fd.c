@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:17:27 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 14:41:12 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:43:17 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,10 @@ static void	open_outfile(char *outfile, t_rdrt_type type, t_cmd *cmd)
 	int	fd;
 	int	w_mode;
 
-	printf("IN OPEN_OUTFILE 1 \n");
 	w_mode = O_TRUNC;
 	if (type == e_append)
 		w_mode = O_APPEND;
-	printf("IN OPEN_OUTFILE 2 \n");
 	fd = access(outfile, W_OK);
-	printf("IN OPEN_OUTFILE 3 \n");
 	if (fd == -1)
 	{	fd = open(outfile, O_WRONLY | O_CREAT | w_mode, 0644);
 		if (fd == -1)
@@ -55,7 +52,6 @@ static void	open_outfile(char *outfile, t_rdrt_type type, t_cmd *cmd)
 			cmd->error_str = ft_strdup(outfile);
 			cmd->msg_error = F_DENIED;
 		}
-		printf("IN OPEN_OUTFILE 4 \n");
 	}
 	if (fd > 2)
 		close(fd);

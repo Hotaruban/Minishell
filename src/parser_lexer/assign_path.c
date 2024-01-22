@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 15:21:55 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 19:52:20 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ static bool	check_cmd_accessible(t_data *data, int index)
 		if (access(data->cmd[index].cmd[0], F_OK) == -1)
 		{
 			data->cmd[index].status = 127;
-			data->cmd[index].error_str = data->cmd[index].cmd[0];
+			data->cmd[index].error_str = ft_strdup(data->cmd[index].cmd[0]);
 			data->cmd[index].msg_error = NO_FILE;
 			return (false);
 		}
 		if (access(data->cmd[index].cmd[0], X_OK) == -1)
 		{
 			data->cmd[index].status = 126;
-			data->cmd[index].error_str = data->cmd[index].cmd[0];
+			data->cmd[index].error_str = ft_strdup(data->cmd[index].cmd[0]);
 			data->cmd[index].msg_error = F_DENIED;
 			return (false);
 		}
@@ -108,7 +108,16 @@ static char	*get_path(t_data *data, char **env, int index)
 
 	path = NULL;
 	if (data->cmd[index].cmd[0][0] == '/')
+	{
 		path = ft_strdup(data->cmd[index].cmd[0]);
+		if (access(path, F_OK) == -1)
+		{
+			data->cmd[index].status = CMD_NOT_FOUND;
+			data->cmd[index].error_str = ft_strdup(path);
+			data->cmd[index].msg_error = NO_FILE;
+			return (path);
+		}
+	}
 	else
 		path = check_path(data, env, index);
 	if (path == NULL)
@@ -118,7 +127,7 @@ static char	*get_path(t_data *data, char **env, int index)
 		data->cmd[index].status = CMD_NOT_FOUND;
 		data->cmd[index].error_str = ft_strdup(path);
 		data->cmd[index].msg_error = NO_CMD;
-		free(path);
+		// free(path);
 	}
 	return (path);
 }
@@ -142,4 +151,5 @@ void	assign_path(t_data *data)
 		}
 		i++;
 	}
+	
 }

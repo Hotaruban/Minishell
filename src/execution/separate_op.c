@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 15:22:36 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:20:07 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,17 @@ static void	waiting_pid(size_t len, pid_t *pid)
 	{
 		waitpid(pid[i], &status, WUNTRACED);
 		if (WIFSIGNALED(status))
-			g_exit_status = WTERMSIG(status) + 128;
+		{
+			// ft_putnbr_fd(status, STDERR_FILENO);
+			// ft_putendl_fd("WTERMSIG", 2);
+			g_exit_status = WTERMSIG(status);
+		}
 		else
+		{
 			g_exit_status = WEXITSTATUS(status);
+			// ft_putnbr_fd(g_exit_status, STDERR_FILENO);
+			// ft_putendl_fd("WEXITSTATUS", 2);
+		}
 		i++;
 	}
 	free(pid);
@@ -57,9 +65,18 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	}
 	waitpid(pid, &status, WUNTRACED);
 	if (WIFSIGNALED(status))
-		g_exit_status = WTERMSIG(status) + 128;
+	{
+		g_exit_status = status - 10; 
+		// ft_putnbr_fd(g_exit_status, STDERR_FILENO);
+		// ft_putendl_fd("WTERMSIG", 2);	
+		// WTERMSIG(status) + 128;
+	}
 	else
+	{
 		g_exit_status = WEXITSTATUS(status);
+		// ft_putnbr_fd(g_exit_status, STDERR_FILENO);
+		// ft_putendl_fd("WEXITSTATUS", 2);
+	}
 	status = 0;
 }
 
@@ -71,4 +88,6 @@ void	separator_op(t_data *data)
 	else
 		capsule_pipe(data, data->ev_array, 0);
 	set_signal(data, HANDLE_SIGINT_PARENT); //Must re-evalute whether to keep this here with heredoc check
+	if (data->ev_array)
+		free_2d_array(data->ev_array);
 }

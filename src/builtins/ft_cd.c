@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 01:41:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:34:40 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,14 @@ static void	set_variable_pwd(t_env *env)
 
 static void	change_directory(char *path, t_env *env, bool flag)
 {
-	if (chdir(path) == -1)
+	if (flag == true)
+	{
+		if (ft_strlen(path) > 0)
+			printf("%s\n", path);
+		else
+			printf("%scd: OLDPWD not set\n", PROMPT_R);
+	}
+	else if (chdir(path) == -1)
 	{
 		error_cmd_msg("cd ", path, NO_FILE);
 		g_exit_status = CMD_ERROR;
@@ -74,8 +81,6 @@ static void	change_directory(char *path, t_env *env, bool flag)
 		set_variable_pwd(env);
 		g_exit_status = CMD_OK;
 	}
-	if (flag == true)
-		printf("%s\n", path);
 	if (path != NULL)
 		free(path);
 }
@@ -111,7 +116,7 @@ void	ft_cd(t_data *data, int index)
 	}
 	if (var != NULL)
 		path = get_home_oldpwd_path(var, data);
-	else if (path == NULL)
+	else if (path == NULL && flag == false)
 		path = ft_strdup(data->cmd[index].cmd[1]);
 	change_directory(path, data->env, flag);
 }

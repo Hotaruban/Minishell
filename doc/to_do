@@ -22,6 +22,15 @@ Wolf =
 	-- - ADD in argument in the 2d array the infiles without the "<" only the infiles
 	-- - IMP in the input the the entry of last command if missing
 
+	minishell-hh: /: is a directory
+	minishell-hh$ echo $?
+	126
+	minishell-hh$ /fea
+	minishell-hh: /fea: command not found
+	minishell(69899,0x1109fadc0) malloc: *** error for object 0x7fde29604a00: pointer being freed was not allocated
+	minishell(69899,0x1109fadc0) malloc: *** set a breakpoint in malloc_error_break to debug
+	zsh: abort      ./minishell
+	
 	To do in english:
 		-get line
 

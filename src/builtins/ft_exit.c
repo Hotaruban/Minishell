@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:55 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/21 00:31:17 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/22 19:59:32 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static bool	ft_isnumber(char *arg, bool flag)
 	return (true);
 }
 
-static void	check_input_exit(t_data *data, int index)
+static int	check_input_exit(t_data *data, int index)
 {
 	if (data->cmd[index].cmd[1] != NULL)
 	{
@@ -54,9 +54,10 @@ static void	check_input_exit(t_data *data, int index)
 		{
 			error_exit_msg(NULL, TOO_MANY_ARG, 1);
 			g_exit_status = CMD_ERROR;
+			return (1);
 		}
 	}
-	g_exit_status = CMD_OK;
+	return (0);
 }
 
 static void	get_exit_status(t_data *data, char *arg, int flag)
@@ -83,9 +84,10 @@ void	ft_exit(t_data *data, int index)
 	flag = 0;
 	if (data->pipe_len > 1)
 		flag = 1;
-	check_input_exit(data, index);
+	flag = check_input_exit(data, index);
 	if (g_exit_status == CMD_OK)
 		get_exit_status(data, data->cmd[0].cmd[1], flag);
 	error_exit_msg(NULL, NULL, flag);
-	quit_and_clean(data);
+	if (flag == 0)
+		quit_and_clean(data);
 }
