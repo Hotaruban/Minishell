@@ -6,20 +6,18 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 10:14:30 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:57:55 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	creat_here_doc(t_data *data, int index, int i_file)
+static void	creat_here_doc(t_data *data, int index, int i_file, bool flag)
 {
 	char	*line;
-	int		fd;
+	int		tmp_pipe[2];
 
-	if (pipe(data->pipefd) == -1)
-		return (-1);
-	printf("data->pipefd[0] => %d// data->pipefd[1] = %d\n", data->pipefd[0], data->pipefd[1]);
+	pipe(tmp_pipe);
 	while (1)
 	{
 		write(STDOUT_FILENO, "> ", 2);
@@ -29,89 +27,93 @@ static int	creat_here_doc(t_data *data, int index, int i_file)
 			&& ((ft_strlen(line) - 1)
 				== ft_strlen(data->cmd[index].limiters[i_file])))
 			break ;
-		write(data->pipefd[1], line, ft_strlen(line));
+		if (flag == true)
+			write(data->pipefd[1], line, ft_strlen(line));
+		else
+			write(tmp_pipe[1], line, ft_strlen(line));
 		free(line);
 	}
 	free(line);
-	close (data->pipefd[1]);
-	fd = dup(data->pipefd[0]);
-	close (data->pipefd[0]);
-	printf("fd => %d\n", fd);
-	return (fd);
+	close (tmp_pipe[1]);
+	close (tmp_pipe[0]);
 }
 
-static void	execute_heredoc(t_data *data)
+static void	execute_heredoc(t_data *data, int i)
 {
-	size_t	i;
 	int		j;
-	int		fd;
+	bool	flag;
 
-	i = 0;
-	while (data->pipe_len > i)
+	flag = false;
+	j = 0;
+	while (data->cmd[i].nb_heredocs > j)
 	{
-		j = 0;
-		while (data->cmd[i].nb_heredocs > j)
+		if (data->cmd[i].here_doc_in == true
+			&& data->cmd[i].nb_heredocs == j + 1)
+			flag = true;
+		creat_here_doc(data, i, j, flag);
+		if (flag == true)
+			break ;
+		j++;
+	}
+	exit (g_exit_status);
+}
+
+static void	get_exit_status(void)
+{
+	if (g_exit_status == 33280)
+		g_exit_status = 1;
+	else
+		g_exit_status = WEXITSTATUS(g_exit_status);
+}
+
+static void	fork_heredoc(t_data *data, pid_t *pid, size_t i)
+{
+	pid = (pid_t *)malloc(sizeof(pid_t) * data->pipe_len);
+	while (i < data->pipe_len && g_exit_status == 0)
+	{
+		pipe(data->pipefd);
+		pid[i] = fork();
+		if (pid[i] == -1)
+			error_system(FORK_ERROR);
+		else if (pid[i] == 0)
 		{
-			fd = creat_here_doc(data, i, j);
-			j++;
-			if (data->cmd[i].here_doc_in == true
-				&& data->cmd[i].nb_heredocs == j)
-				{
-					data->cmd[i].here_doc_fd = fd;
-					break ;
-				}
-			close(fd);
+			data->sa_i.sa_handler = sigint_child_handler;
+			sigaction(SIGINT, &data->sa_i, NULL);
+			execute_heredoc(data, i);
+		}
+		else if (pid[i] > 0)
+		{
+			waitpid(pid[i], &g_exit_status, WUNTRACED);
+			close(data->pipefd[1]);
+			data->cmd[i].here_doc_fd = dup(data->pipefd[0]);
+			close(data->pipefd[0]);
 		}
 		i++;
 	}
-	// exit (g_exit_status);
+	get_exit_status();
 }
-
-// static void	get_exit_status(void)
-// {
-// 	if (g_exit_status == 33280)
-// 		g_exit_status = 1;
-// 	else
-// 		g_exit_status = WEXITSTATUS(g_exit_status);
-// }
-
-// static void	fork_heredoc(t_data *data)
-// {
-// 	pid_t	pid;
-	
-// 	pid = fork();
-// 	if (pid == -1)
-// 		error_system(FORK_ERROR);
-// 	else if (pid == 0)
-// 	{
-// 		data->sa_i.sa_handler = sigint_child_handler;
-// 		sigaction(SIGINT, &data->sa_i, NULL);
-// 		execute_heredoc(data);
-// 	}
-// 	waitpid(pid, &g_exit_status, WUNTRACED);
-// 	get_exit_status();
-// }
 
 bool	open_heredoc(t_data *data)
 {
 	size_t	i;
 	bool	flag;
+	pid_t	*pid;
 
 	i = 0;
 	flag = false;
+	pid = NULL;
 	set_signal(data, IGNORE_SIGINT_PARENT);
 	while (data->pipe_len > i)
 	{
 		if (data->cmd[i++].here_doc_in == true)
+		{
 			flag = true;
+			g_exit_status = 0;
+		}
 	}
-	if (flag == true)						///// ADD SIGNAL FOR CTRL + C in parent process in heredoc
-	{
-		data->sa_i.sa_handler = sigint_child_handler;
-		sigaction(SIGINT, &data->sa_i, NULL);
-		execute_heredoc(data);
-	}
-		// fork_heredoc(data);
+	if (flag == true)
+		fork_heredoc(data, pid, 0);
+	free(pid);
 	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (flag);
 }

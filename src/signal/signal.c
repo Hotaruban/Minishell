@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:30:25 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 15:02:44 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 14:59:44 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	sigint_parent_handler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		ft_putstr_fd("\n", STDOUT_FILENO);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
@@ -24,14 +24,6 @@ void	sigint_parent_handler(int signum)
 	}
 }
 
-void	sigint_child_handler(int signum)
-{
-	if (signum == SIGINT)
-	{
-		ft_putstr_fd("\n", STDOUT_FILENO);
-		exit(130);
-	}
-}
 
 void	set_signal(t_data *data, int type)
 {

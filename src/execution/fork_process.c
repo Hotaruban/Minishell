@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:17:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 10:22:30 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 14:48:53 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	parent_process(t_data *data, int index)
 {
+	(void)index;
 	close(data->pipefd[1]);
 	dup2(data->pipefd[0], STDIN_FILENO);
 	close(data->pipefd[0]);
@@ -39,7 +40,6 @@ pid_t	*fork_process(t_data *data, char **env, int index)
 		{
 			data->sa_i.sa_handler = sigint_child_handler;
 			sigaction(SIGINT, &data->sa_i, NULL);
-			// exit (0);
 			child_process(data, env, index + i);
 		}
 		else if (pid[i] > 0)
