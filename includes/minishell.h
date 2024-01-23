@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 15:01:08 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 17:29:27 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,6 +241,7 @@ void	sigint_child_handler(int signum);
 void	set_signal(t_data *data, int type);
 void	init_signal(t_data *data);
 void	set_echo_ctl(int enable);
+void	exit_status(int status);
 
 // Utils
 void	free_2d_array(char **array);
