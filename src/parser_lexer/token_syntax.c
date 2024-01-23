@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   token_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:05:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/15 15:20:05 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 20:11:49 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	order_error_check(t_tk_type type, t_tk_type prev)
+static bool	order_error_check(t_tokens *tokens, int i)
 {
+	t_tk_type	type;
+	t_tk_type	prev;
+	
+	prev = e_void;
+	type = tokens->token_type[i];
+	if (i > 0)
+		prev = tokens->token_type[i - 1];
 	if ((prev == e_pipe && type == e_pipe) || (prev == e_rdrt
 			&& type == e_rdrt) || (prev == e_rdrt && type == e_pipe))
-		return (false);
+		return (error_input(SYNTAX_ERROR, tokens->tokens[i]), false);
 	return (true);
 }
 
@@ -51,17 +58,8 @@ bool	token_syntax(t_tokens *tokens)
 		return (false);
 	while (i <= nb_token)
 	{
-		if (i == 0)
-		{
-			if (!(order_error_check(tokens->token_type[i], e_void)))
-				return (false);
-		}
-		else
-		{
-			if (!(order_error_check(tokens->token_type[i]
-						, tokens->token_type[i - 1])))
-				return (false);
-		}
+		if (!(order_error_check(tokens, i)))
+			return (false);
 		i++;
 	}
 	return (true);

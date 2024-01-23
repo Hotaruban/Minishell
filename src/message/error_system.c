@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_system.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 00:57:02 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/18 09:49:37 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 17:34:30 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	error_input(char *msg, char *msg_type)
 	ft_putstr_fd("`", STDERR_FILENO);
 	ft_putstr_fd(msg_type, STDERR_FILENO);
 	ft_putendl_fd("\'", STDERR_FILENO);
+	g_exit_status = 258;
 }
 
 void	error_file_msg(char *file, char *msg)

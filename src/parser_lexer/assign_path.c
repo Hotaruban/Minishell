@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/22 19:52:20 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:14:44 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	check_cmd_accessible(t_data *data, int index)
 {
-	if (ft_strncmp(data->cmd[index].cmd[0], "../", 3) == 0 
+	if (ft_strncmp(data->cmd[index].cmd[0], "../", 3) == 0
 		|| ft_strncmp(data->cmd[index].cmd[0], "./", 2) == 0)
 	{
 		if (access(data->cmd[index].cmd[0], F_OK) == -1)

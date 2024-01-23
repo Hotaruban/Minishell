@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
+#    By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/23 17:29:51 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/23 20:11:06 by whendrik         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,6 @@ re: fclean all
 
 # Check code style
 norm:
-	@norminette -R CheckForbiddenSourceHeader $(SRC_DIR) ;
-	@norminette -R CheckDefine $(INC_DIR)/*.h ;
-	@norminette -R CheckForbiddenSourceHeader $(LIBFT_DIR)/src/*.c ;
-	@norminette -R CheckDefine $(LIBFT_DIR)/includes/*.h
+	@norminette $(SRC_DIR)
+	@norminette $(INC_DIR)
+	@norminette $(LIBFT_DIR)

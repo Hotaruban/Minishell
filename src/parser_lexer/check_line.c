@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:34:29 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/16 21:21:37 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 20:14:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ static int	len_command(char *line)
 		i++;
 	return (i);
 }
-
-/*
-The function check_line parse the input from the user to valid
-if the input is correct.
-Check for unclosed quotes & Variables e.g. $$ -$ 
-*/
 
 bool	check_line(char *line)
 {
