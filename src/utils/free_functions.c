@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 00:13:05 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 10:21:52 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	free_cmd_struct(t_cmd *cmd, int nb_cmd)
 			free_2d_array(cmd[i].infiles);
 		if (cmd[i].outfiles != NULL)
 			free_2d_array(cmd[i].outfiles);
+		if (cmd[i].fd_infile > 2)
+			close(cmd[i].fd_infile);
+		if (cmd[i].fd_outfile > 2)
+			close(cmd[i].fd_outfile);
 		i++;
 	}
 	if (cmd)
