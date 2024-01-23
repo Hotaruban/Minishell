@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 14:57:55 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 18:00:56 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	get_exit_status(void)
 	if (g_exit_status == 33280)
 		g_exit_status = 1;
 	else
-		g_exit_status = WEXITSTATUS(g_exit_status);
+		g_exit_status = 0;
 }
 
 static void	fork_heredoc(t_data *data, pid_t *pid, size_t i)
@@ -83,14 +83,13 @@ static void	fork_heredoc(t_data *data, pid_t *pid, size_t i)
 		}
 		else if (pid[i] > 0)
 		{
-			waitpid(pid[i], &g_exit_status, WUNTRACED);
+			waitpid(pid[i], &g_exit_status, 0);
 			close(data->pipefd[1]);
 			data->cmd[i].here_doc_fd = dup(data->pipefd[0]);
 			close(data->pipefd[0]);
 		}
 		i++;
 	}
-	get_exit_status();
 }
 
 bool	open_heredoc(t_data *data)
@@ -114,6 +113,7 @@ bool	open_heredoc(t_data *data)
 	if (flag == true)
 		fork_heredoc(data, pid, 0);
 	free(pid);
+	get_exit_status();
 	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (flag);
 }
