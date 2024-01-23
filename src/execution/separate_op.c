@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   separate_op.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 15:04:18 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:54:50 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	pid_t		*pid_array;
 	pid_t		pid;
 	int			status;
+	int			i;
 
 	status = 0;
 	pid = fork();
@@ -59,11 +60,14 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	if (WIFSIGNALED(status))
 	{
 		g_exit_status = status - 10;
-		WTERMSIG(status) + 128;
+		i = WTERMSIG(status) + 128;
+		// printf("status = %d \n", i);
 	}
 	else
 		g_exit_status = WEXITSTATUS(status);
-	status = 0;
+	// printf("status = %d \n", g_exit_status);
+	// printf("i = %d \n", status);
+	// status = 0;
 }
 
 void	separator_op(t_data *data)
