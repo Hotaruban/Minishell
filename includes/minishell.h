@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 00:53:36 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:01:08 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ void	assign_fd(t_data *data, int index);
 bool	open_heredoc(t_data *data);
 
 // Signal
+void	open_quit_signal_on_valid_cmd(t_data *data, int index);
 void	sigint_parent_handler(int signum);
 void	sigint_child_handler(int signum);
 void	set_signal(t_data *data, int type);

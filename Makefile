@@ -6,7 +6,7 @@
 #    By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/30 16:08:21 by whendrik          #+#    #+#              #
-#    Updated: 2024/01/23 01:28:41 by jhurpy           ###   ########.fr        #
+#    Updated: 2024/01/23 15:00:02 by jhurpy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC_FILES = main.c \
 			redirection/assign_fd.c \
 			redirection/here_doc.c \
 			signal/signal.c \
+			signal/signal_child.c \
 			utils/free_functions.c \
 			utils/initialization.c \
 			utils/utils_builtins.c \
