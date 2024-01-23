@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 17:34:40 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/24 01:38:08 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,13 @@ static void	change_directory(char *path, t_env *env, bool flag)
 		else
 			printf("%scd: OLDPWD not set\n", PROMPT_R);
 	}
-	else if (chdir(path) == -1)
+	if (chdir(path) == -1)
 	{
 		error_cmd_msg("cd ", path, NO_FILE);
 		g_exit_status = CMD_ERROR;
 	}
-	else
-	{
-		set_variable_pwd(env);
-		g_exit_status = CMD_OK;
-	}
+	set_variable_pwd(env);
+	g_exit_status = CMD_OK;
 	if (path != NULL)
 		free(path);
 }

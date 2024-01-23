@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:25:44 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 23:56:58 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 02:13:01 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,7 @@ void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 			x++;
 		}
 	}
-	find_last_rdrt(cmd, tokens, *i - 1);
+	printf("IDENTIFY_CMD LET SEE IF WE QUIT 1 \n");
+	find_last_rdrt(cmd, tokens, *i - 1); // SEGFAULT IN HERE
+	printf("IDENTIFY_CMD LET SEE IF WE QUIT 2 \n");
 }
