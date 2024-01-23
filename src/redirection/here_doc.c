@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 02:25:21 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 10:14:30 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	creat_here_doc(t_data *data, int index, int i_file)
 
 	if (pipe(data->pipefd) == -1)
 		return (-1);
+	printf("data->pipefd[0] => %d// data->pipefd[1] = %d\n", data->pipefd[0], data->pipefd[1]);
 	while (1)
 	{
 		write(STDOUT_FILENO, "> ", 2);
@@ -35,6 +36,7 @@ static int	creat_here_doc(t_data *data, int index, int i_file)
 	close (data->pipefd[1]);
 	fd = dup(data->pipefd[0]);
 	close (data->pipefd[0]);
+	printf("fd => %d\n", fd);
 	return (fd);
 }
 
@@ -101,10 +103,7 @@ bool	open_heredoc(t_data *data)
 	while (data->pipe_len > i)
 	{
 		if (data->cmd[i++].here_doc_in == true)
-		{
-			printf("WE SHOULD NOT BE HERE\n");
 			flag = true;
-		}
 	}
 	if (flag == true)						///// ADD SIGNAL FOR CTRL + C in parent process in heredoc
 	{
