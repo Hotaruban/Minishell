@@ -19,6 +19,7 @@ static bool	expand_var(t_data *data, char **token, char *pos, char **next_pos)
 	char		*var;
 	int			var_len;
 	int			new_len;
+
 	var_len = len_var(pos) - 1;
 	var = ft_substr(pos, 1, var_len);
 	if (var == NULL)

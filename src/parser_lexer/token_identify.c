@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_identify.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 15:46:44 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/17 15:06:28 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 18:30:30 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,9 @@ bool	token_identify(t_tokens *tokens, int i)
 		if (type[i] == e_pipe)
 			tokens->pipe_count += 1;
 		if (type[i] == e_void && !(ft_strncmp(tokens->tokens[i], "|", 1)))
-			return (error_input(SYNTAX_ERROR, "|"), false);
+			return (free(type), error_input(SYNTAX_ERROR, "|"), false);
 		else if (type[i] == e_void)
-			return (error_input(SYNTAX_ERROR, "newline"), false);
+			return (free(type), error_input(SYNTAX_ERROR, "newline"), false);
 		i++;
 	}
 	tokens->token_type = type;

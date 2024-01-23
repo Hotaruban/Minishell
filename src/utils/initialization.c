@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 00:53:31 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 20:15:41 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_data_cmd(t_cmd *cmd)
 	cmd->path = NULL;
 	cmd->fd_infile = -2;
 	cmd->fd_outfile = -2;
-	cmd->pipe_in = FALSE;			// Check from here what is useless
+	cmd->pipe_in = FALSE;
 	cmd->pipe_out = FALSE;
 	cmd->here_doc_in = FALSE;
 	cmd->here_doc_fd = -2;
