@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   here_doc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 21:04:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 19:55:57 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:52:47 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ static void	creat_here_doc(t_data *data, int index, int i_file, bool flag)
 	pipe(tmp_pipe);
 	while (1)
 	{
-		// printf("limiter = %s || len of limiter = %zu \n", data->cmd[index].limiters[i_file], ft_strlen(data->cmd[index].limiters[i_file]));
 		write(STDOUT_FILENO, "> ", 2);
 		line = get_next_line(STDIN_FILENO);
-		// printf("line = %s || lenline = %zu\n", line, strlen(line));
 		if (!line)
 			break ;
 		if (ft_strncmp(line, data->cmd[index].limiters[i_file],
@@ -118,7 +116,6 @@ bool	open_heredoc(t_data *data)
 	}
 	if (flag == true)
 		fork_heredoc(data, pid, 0);
-	// free(pid);
 	get_exit_status();
 	set_signal(data, HANDLE_SIGINT_PARENT);
 	return (flag);

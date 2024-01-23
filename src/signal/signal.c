@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:30:25 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 17:26:01 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:54:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	sigint_parent_handler(int signum)
 		g_exit_status = 1;
 	}
 }
-
 
 void	set_signal(t_data *data, int type)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_syntax.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 20:05:12 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 20:11:49 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:55:32 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	order_error_check(t_tokens *tokens, int i)
 {
 	t_tk_type	type;
 	t_tk_type	prev;
-	
+
 	prev = e_void;
 	type = tokens->token_type[i];
 	if (i > 0)

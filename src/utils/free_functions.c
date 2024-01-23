@@ -6,11 +6,23 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 00:21:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 10:21:52 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 00:01:40 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+static void	close_free_fd(t_cmd *cmd, int index)
+{
+	if (cmd[index].infiles != NULL)
+		free_2d_array(cmd[index].infiles);
+	if (cmd[index].outfiles != NULL)
+		free_2d_array(cmd[index].outfiles);
+	if (cmd[index].fd_infile > 2)
+		close(cmd[index].fd_infile);
+	if (cmd[index].fd_outfile > 2)
+		close(cmd[index].fd_outfile);
+}
 
 void	free_2d_array(char **array)
 {
@@ -41,14 +53,7 @@ void	free_cmd_struct(t_cmd *cmd, int nb_cmd)
 			free(cmd[i].path);
 		if (cmd[i].limiters != NULL)
 			free_2d_array(cmd[i].limiters);
-		if (cmd[i].infiles != NULL)
-			free_2d_array(cmd[i].infiles);
-		if (cmd[i].outfiles != NULL)
-			free_2d_array(cmd[i].outfiles);
-		if (cmd[i].fd_infile > 2)
-			close(cmd[i].fd_infile);
-		if (cmd[i].fd_outfile > 2)
-			close(cmd[i].fd_outfile);
+		close_free_fd(cmd, i);
 		i++;
 	}
 	if (cmd)
