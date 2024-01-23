@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   identify_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:25:44 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/20 19:46:17 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:56:58 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ static void	malloc_cmd(t_cmd *cmd, t_tokens *tokens, int j)
 			(tokens->outfile_count[j] + tokens->append_count[j] + 1));
 	cmd->files = (char **)ft_calloc(sizeof(char *),
 			(tokens->outfile_count[j] + tokens->append_count[j]
-			+ tokens->infile_count[j] + tokens->heredoc_count[j] + 1));
+				+ tokens->infile_count[j] + tokens->heredoc_count[j] + 1));
 	cmd->type = (t_rdrt_type *)ft_calloc(sizeof(t_rdrt_type),
 			(tokens->outfile_count[j] + tokens->append_count[j]
-			+ tokens->infile_count[j] + tokens->heredoc_count[j] + 1));
+				+ tokens->infile_count[j] + tokens->heredoc_count[j] + 1));
 }
+
 static void	sort_rdrt_type(t_cmd *cmd, char *token, char *next_token)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while ((cmd->files[i]))
-			i++;
+		i++;
 	cmd->files[i] = ft_strdup(next_token);
 	if (ft_strncmp("<<", token, 2) == 0)
 		cmd->type[i] = e_heredoc;
@@ -118,7 +119,6 @@ void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 	x = 0;
 	init_cmd(cmd, j, tokens);
 	malloc_cmd(cmd, tokens, j);
-	
 	while (*i < tokens->token_count && tokens->token_type[*i] != e_pipe)
 	{
 		if (tokens->token_type[*i] == e_rdrt)

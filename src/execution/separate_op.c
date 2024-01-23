@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:11 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 17:56:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/23 23:50:14 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	capsule_pipe(t_data *data, char **env, int index)
 	pid_t		*pid_array;
 	pid_t		pid;
 	int			status;
-	// int			i;
 
 	status = 0;
 	pid = fork();

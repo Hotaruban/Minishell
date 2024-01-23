@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 20:10:15 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:49:54 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
-	if (open_heredoc(data) && g_exit_status == 1) 
+	if (open_heredoc(data) && g_exit_status == 1)
 		return (true);
 	assign_fd(data, 0);
 	assign_path(data);

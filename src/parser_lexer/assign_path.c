@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 20:14:44 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/23 23:57:51 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ static char	*get_path(t_data *data, char **env, int index)
 		data->cmd[index].status = CMD_NOT_FOUND;
 		data->cmd[index].error_str = ft_strdup(path);
 		data->cmd[index].msg_error = NO_CMD;
-		// free(path);
 	}
 	return (path);
 }
@@ -142,14 +141,15 @@ void	assign_path(t_data *data)
 	env = data->ev_array;
 	while (i < (int)data->pipe_len)
 	{
-		if (data->cmd[i].cmd[0] != NULL && is_builtins(data, i) == false && data->cmd[i].status == CMD_OK)
+		if (data->cmd[i].cmd[0] != NULL && is_builtins(data, i) == false
+			&& data->cmd[i].status == CMD_OK)
 		{
-			if (check_cmd_accessible(data, i) == true && data->cmd[i].status == 0)
+			if (check_cmd_accessible(data, i) == true
+				&& data->cmd[i].status == 0)
 				data->cmd[i].path = ft_strdup(data->cmd[i].cmd[0]);
 			else if (data->cmd[i].status == 0)
 				data->cmd[i].path = get_path(data, env, i);
 		}
 		i++;
 	}
-	
 }
