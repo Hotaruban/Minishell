@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 23:49:54 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:06:11 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
 	if (open_heredoc(data) && g_exit_status == 1)
+	{
+		if (tokens != NULL)
+			free_tokens(tokens);
 		return (true);
+	}
 	assign_fd(data, 0);
 	assign_path(data);
 	if (tokens != NULL)
