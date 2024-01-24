@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_fd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 15:17:27 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 23:54:54 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 13:51:34 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,8 @@ static void	access_infile_outfile(t_cmd *cmd)
 	}
 }
 
-static void	find_last_infile_outfile(t_cmd *cmd)
+static void	find_last_infile_outfile(t_cmd *cmd, int i, int ptr_out, int ptr_in)
 {
-	int	i;
-	int	ptr_out;
-	int	ptr_in;
-
-	i = 0;
-	ptr_out = -1;
-	ptr_in = -1;
 	while (cmd->files[i])
 	{
 		if (cmd->type[i] == e_infile || cmd->type[i] == e_heredoc)
@@ -114,7 +107,7 @@ void	assign_fd(t_data *data, int index)
 	{
 		access_infile_outfile(&data->cmd[index]);
 		if (data->cmd[index].status == CMD_OK)
-			find_last_infile_outfile(&data->cmd[index]);
+			find_last_infile_outfile(&data->cmd[index], 0, -1, -1);
 		index++;
 	}
 }

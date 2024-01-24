@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   identify_cmd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:25:44 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/24 12:06:55 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 13:45:15 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static void	init_cmd(t_cmd *cmd, int j, t_tokens *tokens)
-{
-	if (j < (tokens->pipe_count) && tokens->pipe_count > 0)
-		cmd->pipe_out = TRUE;
-	if (j > 0)
-		cmd->pipe_in = TRUE;
-	if (tokens->heredoc_count[j] != 0 && tokens->heredoc_count[j] > 0
-		&& tokens->infile_count[j] == 0)
-		cmd->here_doc_in = TRUE;
-	if ((tokens->infile_count[j] != 0 && tokens->infile_count[j] > 0)
-		|| cmd->here_doc_in == TRUE)
-		cmd->file_in = TRUE;
-	if (tokens->append_count[j] != 0 && tokens->append_count[j] > 0)
-		cmd->append = TRUE;
-	if ((tokens->outfile_count[j] != 0 && tokens->outfile_count[j] > 0)
-		|| cmd->append == TRUE)
-		cmd->file_out = TRUE;
-}
 
 static void	malloc_cmd(t_cmd *cmd, t_tokens *tokens, int j)
 {
@@ -117,7 +98,7 @@ void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i)
 	int	x;
 
 	x = 0;
-	init_cmd(cmd, j, tokens);
+	assign_cmd(cmd, j, tokens);
 	malloc_cmd(cmd, tokens, j);
 	while (*i < tokens->token_count && tokens->token_type[*i] != e_pipe)
 	{

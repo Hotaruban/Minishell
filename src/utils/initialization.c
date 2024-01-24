@@ -6,7 +6,7 @@
 /*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 16:42:14 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/23 20:15:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:46:12 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,23 @@ void	init_data_cmd(t_cmd *cmd)
 	cmd->infiles = NULL;
 	cmd->outfiles = NULL;
 	cmd->append = FALSE;
+}
+
+void	assign_cmd(t_cmd *cmd, int j, t_tokens *tokens)
+{
+	if (j < (tokens->pipe_count) && tokens->pipe_count > 0)
+		cmd->pipe_out = TRUE;
+	if (j > 0)
+		cmd->pipe_in = TRUE;
+	if (tokens->heredoc_count[j] != 0 && tokens->heredoc_count[j] > 0
+		&& tokens->infile_count[j] == 0)
+		cmd->here_doc_in = TRUE;
+	if ((tokens->infile_count[j] != 0 && tokens->infile_count[j] > 0)
+		|| cmd->here_doc_in == TRUE)
+		cmd->file_in = TRUE;
+	if (tokens->append_count[j] != 0 && tokens->append_count[j] > 0)
+		cmd->append = TRUE;
+	if ((tokens->outfile_count[j] != 0 && tokens->outfile_count[j] > 0)
+		|| cmd->append == TRUE)
+		cmd->file_out = TRUE;
 }
