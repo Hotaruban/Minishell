@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:37:45 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 17:29:27 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:33:22 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,9 +138,6 @@ typedef struct s_cmd
 	char			*path;
 	int				fd_infile;
 	int				fd_outfile;
-
-
-	
 	bool			pipe_in;
 	bool			pipe_out;
 	bool			here_doc_in;
@@ -201,6 +198,7 @@ void	ft_exit(t_data *data, int index);
 void	assign_path(t_data *data);
 bool	check_line(char *line);
 void	identify_cmd(t_cmd *cmd, t_tokens *tokens, int j, int *i);
+void	assign_cmd(t_cmd *cmd, int j, t_tokens *tokens);
 bool	quote_trim(t_tokens *tokens);
 int		split_tokens(char *line, t_tokens *stuff);
 bool	token_identify(t_tokens *tokens, int i);
@@ -242,6 +240,7 @@ void	set_signal(t_data *data, int type);
 void	init_signal(t_data *data);
 void	set_echo_ctl(int enable);
 void	exit_status(int status);
+void	exit_ctrl_d(t_data *data);
 
 // Utils
 void	free_2d_array(char **array);
@@ -253,6 +252,7 @@ void	init_data(t_data *data, char **ev);
 void	init_tokens(t_tokens *tokens);
 void	init_data_cmd(t_cmd *cmd);
 
+char	*join_path_cmd(char **path_array, char *command);
 int		len_variable(char *var);
 bool	check_variable(char *var);
 void	print_env(char **env, int flag);

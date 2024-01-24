@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/24 12:06:11 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:18:41 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-static void	exit_ctrl_d(t_data *data)
-{
-	printf("\x1b[A\x1b[K%sexit\n", PROMPT_R);
-	set_echo_ctl(1);
-	rl_clear_history();
-	free_env(data->env);
-	exit(g_exit_status);
-}
 
 static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 {
@@ -43,24 +34,8 @@ static bool	assign_data_cmd(t_tokens *tokens, t_data *data)
 	return (true);
 }
 
-static bool	processor(char *line, t_data *data, t_tokens *tokens)
+static bool	processor_2(t_data *data, t_tokens *tokens)
 {
-	if (*line)
-		add_history(line);
-	if (!(check_line(line)))
-		return (false);
-	if (!(split_tokens(line, tokens)))
-		return (false);
-	if (!(token_identify(tokens, 0)))
-		return (false);
-	if (!(token_syntax(tokens)))
-		return (free_tokens(tokens), false);
-	if (!(variable_parser(tokens, data)))
-		return (false);
-	if (!(quote_trim(tokens)))
-		return (false);
-	if (!(assign_data_cmd(tokens, data)))
-		return (false);
 	data->pipe_len = tokens->pipe_count + 1;
 	if (open_heredoc(data) && g_exit_status == 1)
 	{
@@ -74,6 +49,29 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		free_tokens(tokens);
 	separator_op(data);
 	return (true);
+}
+
+static bool	processor(char *line, t_data *data, t_tokens *tokens)
+{
+	if (*line)
+		add_history(line);
+	if (!(check_line(line)))
+		return (false);
+	if (!(split_tokens(line, tokens)))
+		return (false);
+	if (!(token_identify(tokens, 0)))
+		return (free_2d_array(tokens->tokens), false);
+	if (!(token_syntax(tokens)))
+		return (free_tokens(tokens), false);
+	if (!(variable_parser(tokens, data)))
+		return (false);
+	if (!(quote_trim(tokens)))
+		return (false);
+	if (!(assign_data_cmd(tokens, data)))
+		return (false);
+	if (proccesor_2(data, tokens))
+		return (true);
+	return (false);
 }
 
 int	main(int ac, char **av, char **ev)

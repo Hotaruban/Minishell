@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/22 13:15:40 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/24 01:38:08 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 13:10:30 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	set_variable_pwd(t_env *env)
 
 static void	change_directory(char *path, t_env *env, bool flag)
 {
+	g_exit_status = CMD_OK;
 	if (flag == true)
 	{
 		if (ft_strlen(path) > 0)
@@ -77,7 +78,6 @@ static void	change_directory(char *path, t_env *env, bool flag)
 		g_exit_status = CMD_ERROR;
 	}
 	set_variable_pwd(env);
-	g_exit_status = CMD_OK;
 	if (path != NULL)
 		free(path);
 }

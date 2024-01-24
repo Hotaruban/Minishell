@@ -3,14 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   utils_var.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 01:23:30 by jhurpy            #+#    #+#             */
-/*   Updated: 2024/01/22 01:24:16 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:05:56 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char	*join_path_cmd(char **path_array, char *command)
+{
+	char	*tmp_path;
+	char	*path;
+	int		i;
+
+	i = 0;
+	while (path_array[i] != NULL)
+	{
+		tmp_path = ft_strjoin(path_array[i], "/");
+		path = ft_strjoin(tmp_path, command);
+		if (tmp_path != NULL)
+			free(tmp_path);
+		if (access(path, F_OK) == 0)
+			break ;
+		if (path != NULL)
+			free(path);
+		path = NULL;
+		i++;
+	}
+	return (path);
+}
 
 int	len_variable(char *var)
 {

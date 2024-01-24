@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assign_path.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 19:43:10 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 23:57:51 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:05:21 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ static char	**get_env(t_data *data, char **env, int index)
 static char	*check_path(t_data *data, char **env, int index)
 {
 	char	**path_array;
-	char	*tmp_path;
 	char	*path;
-	int		i;
 
 	path = NULL;
 	path_array = get_env(data, env, index);
@@ -78,20 +76,7 @@ static char	*check_path(t_data *data, char **env, int index)
 		data->cmd[index].msg_error = NO_FILE;
 		return (path);
 	}
-	i = 0;
-	while (path_array[i] != NULL)
-	{
-		tmp_path = ft_strjoin(path_array[i], "/");
-		path = ft_strjoin(tmp_path, data->cmd[index].cmd[0]);
-		if (tmp_path != NULL)
-			free(tmp_path);
-		if (access(path, F_OK) == 0)
-			break ;
-		if (path != NULL)
-			free(path);
-		path = NULL;
-		i++;
-	}
+	path = join_path_cmd(path_array, data->cmd[index].cmd[0]);
 	if (path == NULL)
 	{
 		data->cmd[index].status = CMD_NOT_FOUND;

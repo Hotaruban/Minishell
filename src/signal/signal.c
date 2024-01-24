@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 15:30:25 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/23 23:54:14 by jhurpy           ###   ########.fr       */
+/*   Updated: 2024/01/24 14:07:20 by whendrik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	exit_ctrl_d(t_data *data)
+{
+	printf("\x1b[A\x1b[K%sexit\n", PROMPT_R);
+	set_echo_ctl(1);
+	rl_clear_history();
+	free_env(data->env);
+	exit(g_exit_status);
+}
 
 void	sigint_parent_handler(int signum)
 {
