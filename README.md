@@ -1,7 +1,7 @@
 # <p align = "center">Minishell</p>
 
 <p align = "center">
-<a href = https://github.com/Hotaruban><img minishell = "minishell" src = "./doc/minishelln.png"></a></p>
+<a href = https://github.com/Hotaruban><img minishell = "minishell" src = "./doc/minishelle.png"></a></p>
 
 Team members:
 - <a href = https://github.com/Adamsandlerisgod>Wolf</a> (intra: <a href = https://profile.intra.42.fr/users/whendrik>whendrik</a>)
