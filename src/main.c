@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: whendrik <whendrik@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/25 13:39:09 by whendrik          #+#    #+#             */
-/*   Updated: 2024/01/24 14:18:41 by whendrik         ###   ########.fr       */
+/*   Updated: 2024/01/27 00:44:28 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static bool	processor(char *line, t_data *data, t_tokens *tokens)
 		return (false);
 	if (!(assign_data_cmd(tokens, data)))
 		return (false);
-	if (proccesor_2(data, tokens))
+	if (processor_2(data, tokens))
 		return (true);
 	return (false);
 }
